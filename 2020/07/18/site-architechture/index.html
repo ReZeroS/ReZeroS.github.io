@@ -1,0 +1,4305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="ReZero">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="ReZero">
+    
+    <meta name="keywords" content="java,ReZero,programming">
+    
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="description" content="SummaryThe whole process of evolutionThe initial tiny site Application server needs much stronger CPU to control the complex business.  Database server need much faster disk and larger memory to get d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Site Architecture">
+<meta property="og:url" content="https://rezeros.github.io/2020/07/18/site-architechture/index.html">
+<meta property="og:site_name" content="ReZero">
+<meta property="og:description" content="SummaryThe whole process of evolutionThe initial tiny site Application server needs much stronger CPU to control the complex business.  Database server need much faster disk and larger memory to get d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/1adf.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/3cdn&reverse.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/file&database.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/nosql.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/final.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/sina.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/test.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/test2.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/example.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/Bcache.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/memcached.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/jvmgarbage.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/raid.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/fault.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/cap.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/HTTPbal.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/dns.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/reversep.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/p.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/datalink.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/memcachedmodel.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/dishash.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/disqueue.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/dubbo.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/open.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/keynote.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/taoinit.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/2004tao.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/2006tao.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/taoopen.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/wikifront.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/wikiback.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/instantfail.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/temporaryfault.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/spikebtn.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/spikefinal.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/latchfault.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/cgi.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/07/18/site-architechture/mvc.png">
+<meta property="article:published_time" content="2020-07-18T22:15:30.000Z">
+<meta property="article:modified_time" content="2021-07-17T09:37:19.098Z">
+<meta property="article:author" content="ReZero">
+<meta property="article:tag" content="Architecture">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rezeros.github.io/2020/07/18/site-architechture/1adf.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Site Architecture · ReZero</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="ReZero" type="application/atom+xml">
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >ReZero&#39;s Utopia.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Site Architecture</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>ReZero's Utopia.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Site Architecture
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Architecture">Architecture</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.9k</span>Reading time: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/07/18</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="The-whole-process-of-evolution"><a href="#The-whole-process-of-evolution" class="headerlink" title="The whole process of evolution"></a>The whole process of evolution</h3><h4 id="The-initial-tiny-site"><a href="#The-initial-tiny-site" class="headerlink" title="The initial tiny site"></a>The initial tiny site</h4><ol>
+<li><p>Application server needs much stronger CPU to control the complex business.</p>
+</li>
+<li><p>Database server need much faster disk and larger memory to get disk retrieval &amp; data cache faster</p>
+</li>
+<li><p>So as file server need the disk.</p>
+</li>
+</ol>
+<img src="/2020/07/18/site-architechture/1adf.png" class="" title="1adf">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Note: There are 80% business on the 20% data</span><br><span class="line"></span><br><span class="line">example: U may only Baidu the several front pages  </span><br></pre></td></tr></table></figure>
+
+<h4 id="The-site-is-growing"><a href="#The-site-is-growing" class="headerlink" title="The site is growing"></a>The site is growing</h4><ol>
+<li><p>Read and write database will be separated exactly.</p>
+</li>
+<li><p>CDN &amp; Reverse Proxy</p>
+</li>
+</ol>
+<img src="/2020/07/18/site-architechture/3cdn&reverse.png" class="" title="3cdn&amp;reverse">
+
+<p>Both CDN and Reverse Proxy use the cache model.<br>But the CDN decided u access the web on the close net provider while the Reverse Proxy on the center.</p>
+<ol start="3">
+<li>distributed file and database.</li>
+</ol>
+<img src="/2020/07/18/site-architechture/file&database.png" class="" title="distributed">
+
+<ol start="4">
+<li>With the task get much complex, the demand ability of data check getting higher, so you need to take some advice like <code>NoSQL</code> or <code>Nondatabase query technology</code> like a search engine.</li>
+</ol>
+<img src="/2020/07/18/site-architechture/nosql.png" class="" title="nosql">
+
+<ol start="5">
+<li><p>Business split</p>
+</li>
+<li><p>distributed service</p>
+</li>
+</ol>
+<img src="/2020/07/18/site-architechture/final.png" class="" title="final">
+
+<h4 id="Value"><a href="#Value" class="headerlink" title="Value"></a>Value</h4><ol>
+<li><p>We are growing, not rebuild or create.</p>
+</li>
+<li><p>The real power is the business development</p>
+</li>
+</ol>
+<p>Business make technology, career makes a man.</p>
+<h4 id="Misunderstand-area"><a href="#Misunderstand-area" class="headerlink" title="Misunderstand area"></a>Misunderstand area</h4><ol>
+<li><p>Blind pursue large site solutions.</p>
+</li>
+<li><p>For technology to technology.(but for business)</p>
+</li>
+<li><p>Technology not the real point sometimes(12306)</p>
+</li>
+</ol>
+<h3 id="Architecture-Pattern"><a href="#Architecture-Pattern" class="headerlink" title="Architecture Pattern"></a>Architecture Pattern</h3><h4 id="Pattern"><a href="#Pattern" class="headerlink" title="Pattern"></a>Pattern</h4><ol>
+<li><p>stratification(horizontal): application, service, data.</p>
+<ul>
+<li><p>advantage: keep the interface, everyone justifies their own works.</p>
+</li>
+<li><p>disadvantage: the interface and splice layer border need be careful.</p>
+</li>
+</ul>
+</li>
+<li><p>segmentation(vertical): divide the function and business </p>
+</li>
+<li><p>distributed: both front points to this aim</p>
+</li>
+</ol>
+<ul>
+<li><p>distributed application and business </p>
+</li>
+<li><p>distributed static sources</p>
+</li>
+<li><p>distributed data and storage</p>
+</li>
+<li><p>distributed computing</p>
+</li>
+</ul>
+<ol start="4">
+<li>Server clustering </li>
+</ol>
+<p>Some servers deploy the same application and provide service by loading balance.</p>
+<ol start="5">
+<li><p>Cache</p>
+<ul>
+<li><p>CDN</p>
+</li>
+<li><p>Reverse Proxy</p>
+</li>
+<li><p>Local cache</p>
+</li>
+<li><p>distributed cache</p>
+</li>
+<li><p>precondition </p>
+</li>
+<li><p>the cache only be short-term effective</p>
+</li>
+<li><p>the data which caused by hot point without balance should be put in the cache</p>
+</li>
+</ul>
+</li>
+<li><p>Asynchronous</p>
+<ul>
+<li><p>improve system </p>
+</li>
+<li><p>improve web site responsive speed</p>
+</li>
+<li><p>avoid distributed access peak</p>
+</li>
+</ul>
+</li>
+<li><p>Redundance</p>
+<ul>
+<li><p>cold backup</p>
+</li>
+<li><p>hot backup</p>
+</li>
+</ul>
+</li>
+<li><p>Automatic</p>
+<ul>
+<li><p>code manager</p>
+</li>
+<li><p>test </p>
+</li>
+<li><p>security</p>
+</li>
+<li><p>deploy</p>
+</li>
+<li><p>monitor</p>
+</li>
+<li><p>alert</p>
+</li>
+<li><p>lose effect move</p>
+</li>
+<li><p>lose effect recover</p>
+</li>
+<li><p>level down</p>
+</li>
+<li><p>allocate resources</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Sina-apply-example"><a href="#Sina-apply-example" class="headerlink" title="Sina apply example"></a>Sina apply example</h4><ol>
+<li><p>initial: lamp</p>
+</li>
+<li><ul>
+<li><p>base server layer: support database, storage, cache, search and other technology.</p>
+</li>
+<li><p>the middle layer is platform service and application service.</p>
+</li>
+<li><p>the upon layer is API, the third party service and sina business layer.</p>
+</li>
+</ul>
+</li>
+</ol>
+<img src="/2020/07/18/site-architechture/sina.png" class="" title="sina">
+
+<ol start="3">
+<li><p>MPSS: Now the solutions shows like virtual the physical machine. As this way, they even can use the same port while the MPSS can not.</p>
+</li>
+<li><p>Multi-Level Cache </p>
+</li>
+</ol>
+<h3 id="Architecture-kernel-point"><a href="#Architecture-kernel-point" class="headerlink" title="Architecture kernel point"></a>Architecture kernel point</h3><blockquote>
+<p>What is architecture?</p>
+</blockquote>
+<p><strong>The highest level of planning, difficult decisions to change</strong></p>
+<blockquote>
+<p>Keep their balance</p>
+</blockquote>
+<ul>
+<li><p>Performance</p>
+<p>Browser: cache, compress the page, decrease the transfer cookie, layer regularly.</p>
+<p>Server: CDN, local and distributed cache, asynchronous message queue</p>
+<p>Code: multi threads, manage the memory</p>
+<p>Databae: index, cache, sql optimise, NoSQL</p>
+</li>
+<li><p>Serviceability</p>
+<p>For application server, it can not storage session info.</p>
+<p>For storage server, it should be real-time backup</p>
+<blockquote>
+<p>Function: Check whether the whole can work when some servers died.</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>Flexibility</p>
+<p>Application Cluster: Add new blood by using loading balance machine.</p>
+<p>Cache Cluster: Cache router algorithm</p>
+<p>Database Cluster Way: Routing partition   </p>
+</li>
+</ul>
+<ul>
+<li><p>Augment ability</p>
+<p> Event-driven Architecture: Message queue</p>
+<p> Distributed Service: Divide the business and reuse service and call by distributed service framework</p>
+</li>
+<li><p>Safety</p>
+</li>
+</ul>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><h3 id="Instant-response"><a href="#Instant-response" class="headerlink" title="Instant response"></a>Instant response</h3><h4 id="Web-Site-Performance-Test"><a href="#Web-Site-Performance-Test" class="headerlink" title="Web Site Performance Test"></a>Web Site Performance Test</h4><ol>
+<li><p>Different view of the sites’ performance </p>
+<ul>
+<li><p>User view: the speed</p>
+</li>
+<li><p>Most about front end, optimise html css, cdn, reverse proxy, cache strategy</p>
+</li>
+<li><p>Developer view:</p>
+</li>
+<li><p>Cache speed up data, distributed handle</p>
+</li>
+<li><p>Improve the read and write ability by using cluster</p>
+</li>
+<li><p>Asynchronous message speed up the response.</p>
+</li>
+<li><p>Operations view:</p>
+</li>
+<li><p>MNO bandwidth</p>
+</li>
+<li><p>Server hardware configuration</p>
+</li>
+<li><p>Data center network architecture</p>
+</li>
+</ul>
+</li>
+<li><p>Performance test index</p>
+<ul>
+<li><p>Time: test to calculate the time segment</p>
+</li>
+<li><p>Distribution counts: test by using multi threads</p>
+</li>
+<li><p>Throughput capacity: TPS, QPS, HPS</p>
+</li>
+<li><p>Performance counter: System load(top command)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">top - 18:38:43 up 5 days,  8:33,  1 user,  load average: 0.00, 0.01, 0.05</span><br><span class="line">Tasks:  74 total,   1 running,  73 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem :  1883860 total,   106724 free,   456832 used,  1320304 buff/cache</span><br><span class="line">KiB Swap:        0 total,        0 free,        0 used.  1115392 avail Mem </span><br><span class="line"></span><br><span class="line">PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND                                                                                                                    </span><br><span class="line">  1 root      20   0   43076   3528   2408 S  0.0  0.2   0:06.31 systemd    </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Performance test function</p>
+<ul>
+<li><p>Performance test</p>
+</li>
+<li><p>Loading test</p>
+</li>
+<li><p>Pressure test</p>
+</li>
+<li><p>Stability test</p>
+</li>
+</ul>
+<img src="/2020/07/18/site-architechture/test.png" class="" title="test">
+
+<img src="/2020/07/18/site-architechture/test2.png" class="" title="test2">
+
+<ul>
+<li>Performance test report example</li>
+</ul>
+<img src="/2020/07/18/site-architechture/example.png" class="" title="example"> 
+
+</li>
+</ol>
+<h4 id="Front-end-optimise"><a href="#Front-end-optimise" class="headerlink" title="Front end optimise"></a>Front end optimise</h4><ol>
+<li><p>Browser</p>
+<ul>
+<li><p>reduce the http request(merge the img, css and js)</p>
+</li>
+<li><p>Use the browser cache(header: Cache-control, expire; one by one update the icon; update the call name instead of the file(html call, js file))</p>
+</li>
+<li><p>turn on the gzip</p>
+</li>
+<li><p>CSS on the header, js on the body tail.</p>
+</li>
+<li><p>Reduce the cookie transfer(While static resources)</p>
+</li>
+</ul>
+</li>
+<li><p>CDN &amp; Reverse Proxy</p>
+<ul>
+<li>loading speed, reduce request, security; loading balance, cache </li>
+</ul>
+</li>
+</ol>
+<h4 id="Application-server-optimise"><a href="#Application-server-optimise" class="headerlink" title="Application server optimise"></a>Application server optimise</h4><ol>
+<li>Distributed cache</li>
+</ol>
+<img src="/2020/07/18/site-architechture/Bcache.png" class="" title="Bcache">
+
+<ol start="2">
+<li><p>Rational use cache</p>
+<ul>
+<li><p>update the data usually</p>
+</li>
+<li><p>No access point</p>
+</li>
+<li><p>Not the same data &amp; read wrong info</p>
+</li>
+<li><p>Cache use ability</p>
+</li>
+<li><p>Cache warming(metadata)</p>
+</li>
+<li><p>The cache to penetrate(not exist also need be saved as null value)</p>
+</li>
+</ul>
+</li>
+<li><p>Distributed cache architecture</p>
+<ul>
+<li><p>JBoss cache and <strong>Memcached</strong></p>
+<img src="/2020/07/18/site-architechture/memcached.png" class="" title="memcached">
+
+<ul>
+<li><p>Libevent</p>
+</li>
+<li><p>Memory manage: slab, chunk, LRU,  </p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Code optimise</p>
+<ul>
+<li><p>Multi threads code</p>
+<ul>
+<li><p>Start threads = [Task execute time/(Task execute time - IO wait time)] * CPU kernel counts</p>
+</li>
+<li><p>Stateless object</p>
+</li>
+<li><p>Local object </p>
+</li>
+<li><p>distributed access with lock</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Resources reuse</p>
+<ul>
+<li><p>Singleton</p>
+</li>
+<li><p>Object pool </p>
+</li>
+</ul>
+</li>
+<li><p>Data Structure &amp; Algorithm</p>
+<ul>
+<li><p>Hash time33</p>
+</li>
+<li><p>Garbage collection</p>
+<ul>
+<li><p>Stack: function args, local variables</p>
+</li>
+<li><p>Heap: create &amp; delete object &amp; garbage collection </p>
+</li>
+</ul>
+<img src="/2020/07/18/site-architechture/jvmgarbage.png" class="" title="jvmgarbage">
+
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Storage-performance-optimise"><a href="#Storage-performance-optimise" class="headerlink" title="Storage performance optimise"></a>Storage performance optimise</h4><ul>
+<li><p>SSD (B+ potential)</p>
+</li>
+<li><p>B+ tree VS LSM tree</p>
+</li>
+<li><p>RAID VS HDFS</p>
+<ul>
+<li>RAID </li>
+</ul>
+<img src="/2020/07/18/site-architechture/raid.png" class="" title="RAID">
+
+<ul>
+<li>HDFS: name node &amp; data node(Map reduce)</li>
+</ul>
+</li>
+</ul>
+<h3 id="No-danger-of-anything-going-wrong"><a href="#No-danger-of-anything-going-wrong" class="headerlink" title="No danger of anything going wrong"></a>No danger of anything going wrong</h3><h4 id="Measurement-and-assessment"><a href="#Measurement-and-assessment" class="headerlink" title="Measurement and assessment"></a>Measurement and assessment</h4><img src="/2020/07/18/site-architechture/fault.png" class="" title="fault level">
+
+<h4 id="Cluster-session"><a href="#Cluster-session" class="headerlink" title="Cluster session"></a>Cluster session</h4><ul>
+<li><p>session copy(small cluster)</p>
+</li>
+<li><p>session binding(…)</p>
+</li>
+<li><p>note session by cookie</p>
+</li>
+<li><p>Session server(The best method)</p>
+</li>
+</ul>
+<h4 id="High-availability-data"><a href="#High-availability-data" class="headerlink" title="High availability data"></a>High availability data</h4><ul>
+<li><p>CAP (always use ap without c)</p>
+<img src="/2020/07/18/site-architechture/cap.png" class="" title="cap">
+</li>
+<li><p>Backup<br>cold(abandon), hot(Master-Slave)</p>
+</li>
+<li><p>Fail over </p>
+<ul>
+<li><p>check: keep-alive, report of access failed</p>
+</li>
+<li><p>move: route computing find true server</p>
+</li>
+<li><p>data recover: recover the backup count again</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Monitor"><a href="#Monitor" class="headerlink" title="Monitor"></a>Monitor</h4><ol>
+<li><p>Data collection</p>
+<ul>
+<li><p>User behaviors collection</p>
+<ul>
+<li><p>Server logs collection</p>
+</li>
+<li><p>Client Browser logs collection by js(Tool: storm log analyze)</p>
+</li>
+</ul>
+</li>
+<li><p>Server Performance Monitor</p>
+<ul>
+<li>Load, memory, disk IO, NetWork IO(Tool: Ganglia) </li>
+</ul>
+</li>
+<li><p>Data report</p>
+</li>
+</ul>
+</li>
+<li><p>Monitor manage</p>
+<ul>
+<li><p>System alert </p>
+</li>
+<li><p>Fail over</p>
+</li>
+<li><p>Automatic degrade</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Telescopic-architecture"><a href="#Telescopic-architecture" class="headerlink" title="Telescopic architecture"></a>Telescopic architecture</h3><h4 id="Architecture-edesign"><a href="#Architecture-edesign" class="headerlink" title="Architecture edesign"></a>Architecture edesign</h4><ol>
+<li><p>Different function divided by physical </p>
+</li>
+<li><p>Single function divided by cluster</p>
+</li>
+</ol>
+<h4 id="Application-server-cluster-design-Loading-balance"><a href="#Application-server-cluster-design-Loading-balance" class="headerlink" title="Application server cluster design (Loading balance)"></a>Application server cluster design (Loading balance)</h4><ol>
+<li>Http(302 but for SEO works not well)</li>
+</ol>
+<img src="/2020/07/18/site-architechture/HTTPbal.png" class="" title="httpbal">
+
+<ol start="2">
+<li>DNS</li>
+</ol>
+<img src="/2020/07/18/site-architechture/dns.png" class="" title="dns">
+
+<ol start="3">
+<li>Reverse Proxy</li>
+</ol>
+<img src="/2020/07/18/site-architechture/reversep.png" class="" title="reverseProxy">
+
+<ol start="4">
+<li>IP </li>
+</ol>
+<img src="/2020/07/18/site-architechture/p.png" class="" title="ip">
+
+<ol start="5">
+<li>Data Link(Direct route)   <strong>[linux tool: LVS]</strong></li>
+</ol>
+<img src="/2020/07/18/site-architechture/datalink.png" class="" title="datalink">
+
+<ol start="6">
+<li><p>Algorithm</p>
+<ul>
+<li><p>Round robin</p>
+</li>
+<li><p>Weighted round robin</p>
+</li>
+<li><p>Random</p>
+</li>
+<li><p>Least Connections</p>
+</li>
+<li><p>Sources Hashing</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Distributed-Cache-Cluster-Design"><a href="#Distributed-Cache-Cluster-Design" class="headerlink" title="Distributed Cache Cluster  Design"></a>Distributed Cache Cluster  Design</h4><ol>
+<li>Memcached model</li>
+</ol>
+<img src="/2020/07/18/site-architechture/memcachedmodel.png" class="" title="memmodel">
+
+<ol start="2">
+<li><p>Memcached challenge</p>
+<ul>
+<li><p>When: Distributed Cache Cluster need be extension</p>
+</li>
+<li><p>Loading balance design advantage demand: Cache </p>
+</li>
+</ul>
+</li>
+<li><p>Distributed Cache Hash Algorithm</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://blog.csdn.net/cywosp/article/details/23397179/">Note link</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/39311007/answer/80724939">Discussion</a></p>
+</li>
+</ul>
+<img src="/2020/07/18/site-architechture/dishash.png" class="" title="hash theroy">
+
+</li>
+</ol>
+<h4 id="Data-Storage-Server-Cluster-Design"><a href="#Data-Storage-Server-Cluster-Design" class="headerlink" title="Data Storage Server Cluster Design"></a>Data Storage Server Cluster Design</h4><ol>
+<li><p>Schema Database Telescopic (Cobar, GreenPlum)</p>
+</li>
+<li><p>NoSQL Database(Apache HBase)</p>
+</li>
+</ol>
+<h2 id="Site-Extensibility"><a href="#Site-Extensibility" class="headerlink" title="Site Extensibility"></a>Site Extensibility</h2><h4 id="Structure-Extensibility-Architecture"><a href="#Structure-Extensibility-Architecture" class="headerlink" title="Structure Extensibility Architecture"></a>Structure Extensibility Architecture</h4><blockquote>
+<p>Module Coupling Decoupling</p>
+</blockquote>
+<h4 id="Distributed-Message-Queue"><a href="#Distributed-Message-Queue" class="headerlink" title="Distributed Message Queue"></a>Distributed Message Queue</h4><ol>
+<li><p>Event Driven Architecture</p>
+</li>
+<li><p>Distributed Message Queue</p>
+ <img src="/2020/07/18/site-architechture/disqueue.png" class="" title="disqueue">
+
+<ul>
+<li>ESB SOA</li>
+</ul>
+</li>
+</ol>
+<h4 id="Reuse-Platform"><a href="#Reuse-Platform" class="headerlink" title="Reuse Platform"></a>Reuse Platform</h4><ul>
+<li><p>Questions</p>
+<ul>
+<li><p>Compiling &amp; Deploy</p>
+</li>
+<li><p>Code Patch Manage Difficult</p>
+</li>
+<li><p>Database Connections Exhaustion </p>
+</li>
+<li><p>New Business Add Difficult</p>
+</li>
+</ul>
+</li>
+<li><p>Separate</p>
+<ul>
+<li><p>Vertical: various applications</p>
+</li>
+<li><p>Horizontal: distributed business</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>Web Service &amp; Enterprise Service</p>
+<ol>
+<li><p>Server[WSDL] -&gt; Service Broker[UDDI] &lt;- SOAP [Client]</p>
+</li>
+<li><p>Disadvantages</p>
+<ul>
+<li><p>Bloat register and find management</p>
+</li>
+<li><p>Inefficient xml serializable method</p>
+</li>
+<li><p>Large spending Http connections</p>
+</li>
+<li><p>Complex deploy and maintenance method</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Distributed Service demand and features</p>
+<ul>
+<li><p>Loading balance, fail over, efficient long-distance communication</p>
+</li>
+<li><p>Heterogeneous systems, Minimum invasion to applications</p>
+</li>
+<li><p>Versions control, Real time monitor</p>
+</li>
+</ul>
+</li>
+<li><p>Distributed Service Framework Design</p>
+<ul>
+<li><p>Dubbo(NIO communication)</p>
+<img src="/2020/07/18/site-architechture/dubbo.png" class="" title="dubbo">
+
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Extensible-data-structure"><a href="#Extensible-data-structure" class="headerlink" title="Extensible data structure"></a>Extensible data structure</h4><ul>
+<li>ColumnFamily</li>
+</ul>
+<h4 id="Open-platform-theory"><a href="#Open-platform-theory" class="headerlink" title="Open platform theory"></a>Open platform theory</h4><img src="/2020/07/18/site-architechture/open.png" class="" title="open">
+
+<h3 id="Safety-Architecture"><a href="#Safety-Architecture" class="headerlink" title="Safety Architecture"></a>Safety Architecture</h3><ol>
+<li><p>XSS</p>
+<ul>
+<li><p>Filter escape character</p>
+</li>
+<li><p>HttpOnly</p>
+</li>
+</ul>
+</li>
+<li><p>Inject</p>
+<ul>
+<li>OPEN Sources, Error echo, Blinds, Filter escape, Args bind(OS injection)</li>
+</ul>
+</li>
+<li><p>CSRF </p>
+<ul>
+<li>Form token, verify code, Refer check</li>
+</ul>
+</li>
+<li><p>Others</p>
+<ul>
+<li>Error code, HTML annotation, file upload, traversal paths</li>
+</ul>
+</li>
+<li><p>Web application firewall</p>
+<ul>
+<li>ModSecurity</li>
+</ul>
+</li>
+<li><p>Web security scanner</p>
+</li>
+</ol>
+<h4 id="Info-encryption-and-secret-key-management"><a href="#Info-encryption-and-secret-key-management" class="headerlink" title="Info encryption and secret key management"></a>Info encryption and secret key management</h4><ol>
+<li><p>One-way hash encryption</p>
+<ul>
+<li>MD5, SHA</li>
+</ul>
+</li>
+<li><p>Symmetric encryption</p>
+<ul>
+<li>DES, RC</li>
+</ul>
+</li>
+<li><p>Asymmetric encryption</p>
+<ul>
+<li>Https, RSA</li>
+</ul>
+</li>
+<li><p>Secret key management</p>
+<img src="/2020/07/18/site-architechture/keynote.png" class="" title="semanaget">
+
+</li>
+</ol>
+<h4 id="Info-filter-amp-anti-spam"><a href="#Info-filter-amp-anti-spam" class="headerlink" title="Info filter &amp; anti-spam"></a>Info filter &amp; anti-spam</h4><ol>
+<li><p>Text Match</p>
+<ul>
+<li><p>Trie (base array: storage, check array: status)</p>
+</li>
+<li><p>Multilevel hash match</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>Classify</p>
+<ul>
+<li>Basyes(Advance) -&gt; TAN -&gt; ARCS</li>
+</ul>
+</li>
+<li><p>Blacklist</p>
+<ul>
+<li>Bloom Filter</li>
+</ul>
+</li>
+</ol>
+<h4 id="Electronic-Commerce-Control"><a href="#Electronic-Commerce-Control" class="headerlink" title="Electronic Commerce Control"></a>Electronic Commerce Control</h4><ol>
+<li><p>Risk</p>
+<ul>
+<li>Account, Sellers, Buyers, Trade</li>
+</ul>
+</li>
+<li><p>Risk control</p>
+<ul>
+<li><p>rule engine</p>
+</li>
+<li><p>statistics model</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="TaoBao"><a href="#TaoBao" class="headerlink" title="TaoBao"></a>TaoBao</h3><h4 id="Evolution"><a href="#Evolution" class="headerlink" title="Evolution"></a>Evolution</h4><ol>
+<li><p>Lamp</p>
+<img src="/2020/07/18/site-architechture/taoinit.png" class="" title="lamp">
+</li>
+<li><p>2004, eBay: Php-&gt;Java, Mysql-&gt;Oracle, MVC Webx, ORM: iBatis, Manage: antx, Server: Weblogic</p>
+</li>
+</ol>
+   <img src="/2020/07/18/site-architechture/2004tao.png" class="" title="2004tao">
+
+
+<p><strong>Note: Taobao choose the free plan when the begin and choose the no free plan when speed up growing web. Both of them are the right decisions.</strong></p>
+<ol start="3">
+<li><p>abandon EJB, import spring; JBoss(Jetty further more) not Weblogic,  </p>
+<img src="/2020/07/18/site-architechture/2006tao.png" class="" title="2006tao"> 
+
+</li>
+</ol>
+<p>At this moment, taobao begin to make progress, many technology which be their base was from that moment.</p>
+   <img src="/2020/07/18/site-architechture/taoopen.png" class="" title="taopen">
+
+<h3 id="Wiki"><a href="#Wiki" class="headerlink" title="Wiki"></a>Wiki</h3><h4 id="The-whole-wiki"><a href="#The-whole-wiki" class="headerlink" title="The whole wiki"></a>The whole wiki</h4><ul>
+<li>GeoDNS, LVS, Squid, Lighttpd, PHP, Memcached, Lucene, MySQL</li>
+</ul>
+<h4 id="Wiki-performance-optimise-strategy"><a href="#Wiki-performance-optimise-strategy" class="headerlink" title="Wiki performance optimise strategy"></a>Wiki performance optimise strategy</h4><ol>
+<li><p>Front end</p>
+<img src="/2020/07/18/site-architechture/wikifront.png" class="" title="wikifront">
+</li>
+<li><p>Server </p>
+<ul>
+<li><p>APC</p>
+</li>
+<li><p>Imagemagick</p>
+</li>
+<li><p>Tex</p>
+</li>
+<li><p>replace strtr function</p>
+</li>
+</ul>
+</li>
+<li><p>Backstage</p>
+<img src="/2020/07/18/site-architechture/wikiback.png" class="" title="backwiki">
+
+</li>
+</ol>
+<h3 id="Doris"><a href="#Doris" class="headerlink" title="Doris"></a>Doris</h3><h4 id="Solutions"><a href="#Solutions" class="headerlink" title="Solutions"></a>Solutions</h4><ol>
+<li><p>Classify Faults</p>
+<ul>
+<li>Instant, Temp, Forever</li>
+</ul>
+</li>
+<li><p>Normal status access</p>
+</li>
+<li><p>Instant fault high availability solutions</p>
+</li>
+</ol>
+<img src="/2020/07/18/site-architechture/instantfail.png" class="" title="instant">
+
+<ol start="4">
+<li>Temporary Error high availability solutions</li>
+</ol>
+<img src="/2020/07/18/site-architechture/temporaryfault.png" class="" title="temp">
+
+<ol start="5">
+<li>forever fault high availability solutions</li>
+</ol>
+<p>Machine can not distinguish between temp and forever.</p>
+<p>So you need to find it artificial.</p>
+<h3 id="Online-shopping-spike"><a href="#Online-shopping-spike" class="headerlink" title="Online shopping spike"></a>Online shopping spike</h3><h4 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h4><ol>
+<li><p>Impact existing business</p>
+</li>
+<li><p>Application, Database loading</p>
+</li>
+<li><p>Tape width</p>
+</li>
+<li><p>Direct url</p>
+</li>
+</ol>
+<h4 id="Strategy"><a href="#Strategy" class="headerlink" title="Strategy"></a>Strategy</h4><ol>
+<li><p>Independent deploy</p>
+</li>
+<li><p>Page static(reduce request)</p>
+</li>
+<li><p>Rent tape width(CDN)</p>
+</li>
+<li><p>Dynamic generate random order page url</p>
+</li>
+</ol>
+<h4 id="Architecture-Design"><a href="#Architecture-Design" class="headerlink" title="Architecture Design"></a>Architecture Design</h4><ol>
+<li>Spike button control</li>
+</ol>
+<img src="/2020/07/18/site-architechture/spikebtn.png" class="" title="spikebtn">
+
+<ol start="2">
+<li>Spike process &amp; Architecture Design</li>
+</ol>
+<img src="/2020/07/18/site-architechture/spikefinal.png" class="" title="spikeprocess">
+
+<h3 id="Fault-example-analyze"><a href="#Fault-example-analyze" class="headerlink" title="Fault example analyze"></a>Fault example analyze</h3><h4 id="Log-cause-fault"><a href="#Log-cause-fault" class="headerlink" title="Log cause fault"></a>Log cause fault</h4><ul>
+<li><p>Log output level: global debug</p>
+</li>
+<li><p>Experiences:</p>
+<ul>
+<li><p>Self log &amp; third party should be config individually</p>
+</li>
+<li><p>Config log level at least: warn, and check the output code call whether accord with real log level.</p>
+</li>
+<li><p>Shut down third party no use log(Most are error log)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Highly-concurrent-access-database-cause-fault"><a href="#Highly-concurrent-access-database-cause-fault" class="headerlink" title="Highly concurrent access database cause fault"></a>Highly concurrent access database cause fault</h4><ul>
+<li><p>Experiences:</p>
+<ul>
+<li><p>Home page should not access database</p>
+</li>
+<li><p>Home page had better as static</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Highly-concurrent-latch-cause-fault"><a href="#Highly-concurrent-latch-cause-fault" class="headerlink" title="Highly concurrent latch cause fault"></a>Highly concurrent latch cause fault</h4><img src="/2020/07/18/site-architechture/latchfault.png" class="" title="latchfault">
+
+<h4 id="Cache-cause-fault"><a href="#Cache-cause-fault" class="headerlink" title="Cache cause fault"></a>Cache cause fault</h4><h4 id="Application-start-not-at-the-same-time"><a href="#Application-start-not-at-the-same-time" class="headerlink" title="Application start not at the same time"></a>Application start not at the same time</h4><ul>
+<li><p>Apache, JBoss</p>
+</li>
+<li><p>JBoss start, then request it by curl. success: start Apache</p>
+</li>
+</ul>
+<h4 id="I-O-Big-file-cause-disk"><a href="#I-O-Big-file-cause-disk" class="headerlink" title="I/O Big file cause disk"></a>I/O Big file cause disk</h4><ul>
+<li>Tiny file should be storage themselves instead of sharing with distributed big file storage system.</li>
+</ul>
+<h4 id="Abuse-of-production-environment"><a href="#Abuse-of-production-environment" class="headerlink" title="Abuse of production environment"></a>Abuse of production environment</h4><ul>
+<li>Access production environment should be regularly(DBA)</li>
+</ul>
+<h4 id="Non-standard-process"><a href="#Non-standard-process" class="headerlink" title="Non-standard process"></a>Non-standard process</h4><ul>
+<li><p>Diff before you push the code</p>
+</li>
+<li><p>Stronger the code review</p>
+</li>
+</ul>
+<h4 id="Code-habits"><a href="#Code-habits" class="headerlink" title="Code habits"></a>Code habits</h4><ul>
+<li><p>Check the null pointer when you are not sure the input object status</p>
+</li>
+<li><p>Null object pattern</p>
+</li>
+</ul>
+<h2 id="Architects"><a href="#Architects" class="headerlink" title="Architects"></a>Architects</h2><h3 id="Leader-Art"><a href="#Leader-Art" class="headerlink" title="Leader Art"></a>Leader Art</h3><h4 id="Man-not-Production"><a href="#Man-not-Production" class="headerlink" title="Man not Production"></a>Man not Production</h4><h4 id="Discover-the-excellence-of-man"><a href="#Discover-the-excellence-of-man" class="headerlink" title="Discover the excellence of man"></a>Discover the excellence of man</h4><h4 id="Share-the-blueprint"><a href="#Share-the-blueprint" class="headerlink" title="Share the blueprint"></a>Share the blueprint</h4><h4 id="Learn-to-compromise"><a href="#Learn-to-compromise" class="headerlink" title="Learn to compromise"></a>Learn to compromise</h4><h4 id="Engage-and-Develop-Others"><a href="#Engage-and-Develop-Others" class="headerlink" title="Engage and Develop Others"></a>Engage and Develop Others</h4><h3 id="Career-Raiders"><a href="#Career-Raiders" class="headerlink" title="Career Raiders"></a>Career Raiders</h3><h4 id="Find-questions"><a href="#Find-questions" class="headerlink" title="Find questions"></a>Find questions</h4><h4 id="Ask-questions-and-support"><a href="#Ask-questions-and-support" class="headerlink" title="Ask questions and support"></a>Ask questions and support</h4><h3 id="Site-architecture"><a href="#Site-architecture" class="headerlink" title="Site architecture"></a>Site architecture</h3><h4 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h4><ul>
+<li>Design, Fire Fighting, Sermon, Geek</li>
+</ul>
+<h4 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h4><ul>
+<li>Sherpa, Spartan, VIP</li>
+</ul>
+<h4 id="Duty"><a href="#Duty" class="headerlink" title="Duty"></a>Duty</h4><ul>
+<li>Productions, Basic service, Basic equipment</li>
+</ul>
+<h4 id="Attention-Level"><a href="#Attention-Level" class="headerlink" title="Attention Level"></a>Attention Level</h4><ul>
+<li>Function, Not function(Performance &amp; others), Team organization, Production Future, Production operative</li>
+</ul>
+<h4 id="Public-praise"><a href="#Public-praise" class="headerlink" title="Public praise"></a>Public praise</h4><ul>
+<li>Best, good, normal, bad. worst</li>
+</ul>
+<h4 id="Non-mainstream"><a href="#Non-mainstream" class="headerlink" title="Non-mainstream"></a>Non-mainstream</h4><ul>
+<li>Normal, Literature, 1+1</li>
+</ul>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><h3 id="Front-End"><a href="#Front-End" class="headerlink" title="Front End"></a>Front End</h3><ul>
+<li><p>Browser optimise</p>
+<ul>
+<li>Cache, reduce Http, page compress</li>
+</ul>
+</li>
+<li><p>CDN</p>
+</li>
+<li><p>Static resources should be storage in their own server cluster</p>
+</li>
+<li><p>Image(not logo… but the user upload like avatar)</p>
+<ul>
+<li>Own server &amp; child domain</li>
+</ul>
+</li>
+<li><p>Reverse Proxy</p>
+</li>
+<li><p>DNS</p>
+</li>
+</ul>
+<h3 id="Application-layer-architecture"><a href="#Application-layer-architecture" class="headerlink" title="Application layer architecture"></a>Application layer architecture</h3><ul>
+<li><p>Development framework</p>
+</li>
+<li><p>Page Rendering</p>
+</li>
+<li><p>Loading balance </p>
+</li>
+<li><p>Session management</p>
+</li>
+<li><p>Dynamic page staticize</p>
+</li>
+<li><p>Business split</p>
+</li>
+<li><p>Virtual server</p>
+</li>
+</ul>
+<h3 id="Service-layer-architecture"><a href="#Service-layer-architecture" class="headerlink" title="Service layer architecture"></a>Service layer architecture</h3><ul>
+<li><p>Distributed message</p>
+</li>
+<li><p>Distributed service</p>
+</li>
+<li><p>Distributed cache</p>
+</li>
+<li><p>Distributed configuration</p>
+</li>
+</ul>
+<h3 id="Storage-architecture"><a href="#Storage-architecture" class="headerlink" title="Storage architecture"></a>Storage architecture</h3><ul>
+<li><p>Distributed files </p>
+</li>
+<li><p>Schema database</p>
+</li>
+<li><p>NoSQL database</p>
+</li>
+<li><p>Data synchronization </p>
+</li>
+</ul>
+<h3 id="Backstage-architecture"><a href="#Backstage-architecture" class="headerlink" title="Backstage architecture"></a>Backstage architecture</h3><ul>
+<li><p>Search engine</p>
+</li>
+<li><p>Data repositories</p>
+</li>
+<li><p>Recommend system </p>
+</li>
+</ul>
+<h3 id="Data-collection-and-monitor"><a href="#Data-collection-and-monitor" class="headerlink" title="Data collection and monitor"></a>Data collection and monitor</h3><ul>
+<li><p>Browser data collection</p>
+</li>
+<li><p>Server business data collection</p>
+</li>
+<li><p>Server performance collection</p>
+</li>
+<li><p>System monitor</p>
+</li>
+<li><p>System alert</p>
+</li>
+</ul>
+<h3 id="Security-Architecture"><a href="#Security-Architecture" class="headerlink" title="Security Architecture"></a>Security Architecture</h3><ul>
+<li><p>Web Attack</p>
+</li>
+<li><p>Data protection</p>
+</li>
+</ul>
+<h3 id="Data-Center-architecture"><a href="#Data-Center-architecture" class="headerlink" title="Data Center architecture"></a>Data Center architecture</h3><ul>
+<li><p>Computer room</p>
+</li>
+<li><p>Cabinet</p>
+</li>
+<li><p>Server architecture</p>
+</li>
+</ul>
+<h2 id="Appendix-B"><a href="#Appendix-B" class="headerlink" title="Appendix B"></a>Appendix B</h2><ol>
+<li><p>Web: only static html </p>
+</li>
+<li><p>CGI cause dynamic page content</p>
+<ul>
+<li><p>process like: server push the reuqest to cgi programmer, CGI computing and generate the html.</p>
+</li>
+<li><p>CGI use Perl, Java servlet call servlet in the web container.</p>
+  <img src="/2020/07/18/site-architechture/cgi.png" class="" title="cgi">
+</li>
+<li><p>Php(Asp, Jsp) improve the situation which caused business code and page programmer coupling by CGI</p>
+</li>
+<li><p>MVC (combine cgi and web server)</p>
+  <img src="/2020/07/18/site-architechture/mvc.png" class="" title="mvc">
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h2><ul>
+<li></li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://rezeros.github.io">ReZero</a>
+            <p>原文链接：<a href="https://rezeros.github.io/2020/07/18/site-architechture/">https://rezeros.github.io/2020/07/18/site-architechture/</a>
+            <p>发表日期：<a href="https://rezeros.github.io/2020/07/18/site-architechture/">July 18th 2020, 10:15:30 pm</a>
+            <p>更新日期：<a href="https://rezeros.github.io/2020/07/18/site-architechture/">July 17th 2021, 9:37:19 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/07/19/redis/" title= "(转) Redis 基础知识笔记记录">
+                    <div class="nextTitle">(转) Redis 基础知识笔记记录</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/07/05/cache-oblivious-algo/" title= "（译）缓存参数无关算法">
+                    <div class="prevTitle">（译）缓存参数无关算法</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <div id="comment-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '1a431f8724008b2fe548',
+            clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+            id: '1595110530000',
+            repo: 'ReZeroS.github.io',
+            owner: 'ReZeroS',
+            admin: ["ReZeroS"],
+            createIssueManually: true,
+            distractionFreeMode: false
+        })
+        gitalk.render('comment-container')
+    </script>
+    
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:ljrezero@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/rezeros" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="//t.me/ReZeros" class="iconfont-archer telegram" target="_blank" title=telegram></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//twitter.com/T21ck" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+            
+                <a href="//instagram.com/xer0sesss" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+            
+                <a href="//stackoverflow.com/users/7103214/rezero" class="iconfont-archer stack-overflow" target="_blank" title=stack-overflow></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//space.bilibili.com/22340853/#/" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//steamcommunity.com/id/rezeros/" class="iconfont-archer steam" target="_blank" title=steam></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.</span> <span class="toc-text">Summary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-whole-process-of-evolution"><span class="toc-number">1.1.</span> <span class="toc-text">The whole process of evolution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-initial-tiny-site"><span class="toc-number">1.1.1.</span> <span class="toc-text">The initial tiny site</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#The-site-is-growing"><span class="toc-number">1.1.2.</span> <span class="toc-text">The site is growing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Value"><span class="toc-number">1.1.3.</span> <span class="toc-text">Value</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Misunderstand-area"><span class="toc-number">1.1.4.</span> <span class="toc-text">Misunderstand area</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architecture-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">Architecture Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pattern"><span class="toc-number">1.2.1.</span> <span class="toc-text">Pattern</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Sina-apply-example"><span class="toc-number">1.2.2.</span> <span class="toc-text">Sina apply example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architecture-kernel-point"><span class="toc-number">1.3.</span> <span class="toc-text">Architecture kernel point</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architecture"><span class="toc-number">2.</span> <span class="toc-text">Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Instant-response"><span class="toc-number">2.1.</span> <span class="toc-text">Instant response</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Web-Site-Performance-Test"><span class="toc-number">2.1.1.</span> <span class="toc-text">Web Site Performance Test</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Front-end-optimise"><span class="toc-number">2.1.2.</span> <span class="toc-text">Front end optimise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-server-optimise"><span class="toc-number">2.1.3.</span> <span class="toc-text">Application server optimise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Storage-performance-optimise"><span class="toc-number">2.1.4.</span> <span class="toc-text">Storage performance optimise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#No-danger-of-anything-going-wrong"><span class="toc-number">2.2.</span> <span class="toc-text">No danger of anything going wrong</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Measurement-and-assessment"><span class="toc-number">2.2.1.</span> <span class="toc-text">Measurement and assessment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cluster-session"><span class="toc-number">2.2.2.</span> <span class="toc-text">Cluster session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#High-availability-data"><span class="toc-number">2.2.3.</span> <span class="toc-text">High availability data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Monitor"><span class="toc-number">2.2.4.</span> <span class="toc-text">Monitor</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Telescopic-architecture"><span class="toc-number">2.3.</span> <span class="toc-text">Telescopic architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Architecture-edesign"><span class="toc-number">2.3.1.</span> <span class="toc-text">Architecture edesign</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-server-cluster-design-Loading-balance"><span class="toc-number">2.3.2.</span> <span class="toc-text">Application server cluster design (Loading balance)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Distributed-Cache-Cluster-Design"><span class="toc-number">2.3.3.</span> <span class="toc-text">Distributed Cache Cluster  Design</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data-Storage-Server-Cluster-Design"><span class="toc-number">2.3.4.</span> <span class="toc-text">Data Storage Server Cluster Design</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Site-Extensibility"><span class="toc-number">3.</span> <span class="toc-text">Site Extensibility</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Structure-Extensibility-Architecture"><span class="toc-number">3.0.1.</span> <span class="toc-text">Structure Extensibility Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Distributed-Message-Queue"><span class="toc-number">3.0.2.</span> <span class="toc-text">Distributed Message Queue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reuse-Platform"><span class="toc-number">3.0.3.</span> <span class="toc-text">Reuse Platform</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Extensible-data-structure"><span class="toc-number">3.0.4.</span> <span class="toc-text">Extensible data structure</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Open-platform-theory"><span class="toc-number">3.0.5.</span> <span class="toc-text">Open platform theory</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Safety-Architecture"><span class="toc-number">3.1.</span> <span class="toc-text">Safety Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Info-encryption-and-secret-key-management"><span class="toc-number">3.1.1.</span> <span class="toc-text">Info encryption and secret key management</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Info-filter-amp-anti-spam"><span class="toc-number">3.1.2.</span> <span class="toc-text">Info filter &amp; anti-spam</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Electronic-Commerce-Control"><span class="toc-number">3.1.3.</span> <span class="toc-text">Electronic Commerce Control</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example"><span class="toc-number">4.</span> <span class="toc-text">Example</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TaoBao"><span class="toc-number">4.1.</span> <span class="toc-text">TaoBao</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Evolution"><span class="toc-number">4.1.1.</span> <span class="toc-text">Evolution</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wiki"><span class="toc-number">4.2.</span> <span class="toc-text">Wiki</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-whole-wiki"><span class="toc-number">4.2.1.</span> <span class="toc-text">The whole wiki</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Wiki-performance-optimise-strategy"><span class="toc-number">4.2.2.</span> <span class="toc-text">Wiki performance optimise strategy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Doris"><span class="toc-number">4.3.</span> <span class="toc-text">Doris</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Solutions"><span class="toc-number">4.3.1.</span> <span class="toc-text">Solutions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Online-shopping-spike"><span class="toc-number">4.4.</span> <span class="toc-text">Online shopping spike</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Challenges"><span class="toc-number">4.4.1.</span> <span class="toc-text">Challenges</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Strategy"><span class="toc-number">4.4.2.</span> <span class="toc-text">Strategy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Architecture-Design"><span class="toc-number">4.4.3.</span> <span class="toc-text">Architecture Design</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fault-example-analyze"><span class="toc-number">4.5.</span> <span class="toc-text">Fault example analyze</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Log-cause-fault"><span class="toc-number">4.5.1.</span> <span class="toc-text">Log cause fault</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Highly-concurrent-access-database-cause-fault"><span class="toc-number">4.5.2.</span> <span class="toc-text">Highly concurrent access database cause fault</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Highly-concurrent-latch-cause-fault"><span class="toc-number">4.5.3.</span> <span class="toc-text">Highly concurrent latch cause fault</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache-cause-fault"><span class="toc-number">4.5.4.</span> <span class="toc-text">Cache cause fault</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Application-start-not-at-the-same-time"><span class="toc-number">4.5.5.</span> <span class="toc-text">Application start not at the same time</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-O-Big-file-cause-disk"><span class="toc-number">4.5.6.</span> <span class="toc-text">I&#x2F;O Big file cause disk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Abuse-of-production-environment"><span class="toc-number">4.5.7.</span> <span class="toc-text">Abuse of production environment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Non-standard-process"><span class="toc-number">4.5.8.</span> <span class="toc-text">Non-standard process</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code-habits"><span class="toc-number">4.5.9.</span> <span class="toc-text">Code habits</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architects"><span class="toc-number">5.</span> <span class="toc-text">Architects</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Leader-Art"><span class="toc-number">5.1.</span> <span class="toc-text">Leader Art</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Man-not-Production"><span class="toc-number">5.1.1.</span> <span class="toc-text">Man not Production</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Discover-the-excellence-of-man"><span class="toc-number">5.1.2.</span> <span class="toc-text">Discover the excellence of man</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Share-the-blueprint"><span class="toc-number">5.1.3.</span> <span class="toc-text">Share the blueprint</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Learn-to-compromise"><span class="toc-number">5.1.4.</span> <span class="toc-text">Learn to compromise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Engage-and-Develop-Others"><span class="toc-number">5.1.5.</span> <span class="toc-text">Engage and Develop Others</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Career-Raiders"><span class="toc-number">5.2.</span> <span class="toc-text">Career Raiders</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Find-questions"><span class="toc-number">5.2.1.</span> <span class="toc-text">Find questions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ask-questions-and-support"><span class="toc-number">5.2.2.</span> <span class="toc-text">Ask questions and support</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Site-architecture"><span class="toc-number">5.3.</span> <span class="toc-text">Site architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Effect"><span class="toc-number">5.3.1.</span> <span class="toc-text">Effect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Result"><span class="toc-number">5.3.2.</span> <span class="toc-text">Result</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Duty"><span class="toc-number">5.3.3.</span> <span class="toc-text">Duty</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Attention-Level"><span class="toc-number">5.3.4.</span> <span class="toc-text">Attention Level</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Public-praise"><span class="toc-number">5.3.5.</span> <span class="toc-text">Public praise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Non-mainstream"><span class="toc-number">5.3.6.</span> <span class="toc-text">Non-mainstream</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix"><span class="toc-number">6.</span> <span class="toc-text">Appendix</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Front-End"><span class="toc-number">6.1.</span> <span class="toc-text">Front End</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-layer-architecture"><span class="toc-number">6.2.</span> <span class="toc-text">Application layer architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-layer-architecture"><span class="toc-number">6.3.</span> <span class="toc-text">Service layer architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Storage-architecture"><span class="toc-number">6.4.</span> <span class="toc-text">Storage architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Backstage-architecture"><span class="toc-number">6.5.</span> <span class="toc-text">Backstage architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-collection-and-monitor"><span class="toc-number">6.6.</span> <span class="toc-text">Data collection and monitor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Architecture"><span class="toc-number">6.7.</span> <span class="toc-text">Security Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Center-architecture"><span class="toc-number">6.8.</span> <span class="toc-text">Data Center architecture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix-B"><span class="toc-number">7.</span> <span class="toc-text">Appendix B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Done"><span class="toc-number">8.</span> <span class="toc-text">Done</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 99
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/gdb-debug-remote/" >Clion remote debug docker redis</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span><a class="archive-post-title" href= "/2021/06/16/go-share/" >Go Share</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2021/05/01/java-tools/" >Java tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span><a class="archive-post-title" href= "/2021/04/06/go-tutorial/" >Go Tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/04</span><a class="archive-post-title" href= "/2021/03/04/java-tricks/" >Java tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/10</span><a class="archive-post-title" href= "/2021/02/10/zit/" >ZIT development log</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2021/01/23/sql-log-cheat/" >sql打印的一种暴力解决方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/docker/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/mysql45/" >Mysql 45 讲</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2020/12/13/elastic-search/" >elastic-search 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2020/10/04/linux-disk/" >Linux-disk</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2020/10/01/csapp/" >CSAPP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span><a class="archive-post-title" href= "/2020/09/26/oql/" >OQL</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2020/09/23/think-more/" >Think More</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href= "/2020/09/20/threadpool/" >Thread pool</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/k8s/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/thread/" >Thread</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2020/09/18/go-exception-handle/" >Go exception handle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2020/09/12/AQS/" >AQS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2020/08/14/leetcode/" >Leet-Code</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/12</span><a class="archive-post-title" href= "/2020/08/12/java-lock/" >Java Lock</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span><a class="archive-post-title" href= "/2020/08/10/algo-tips/" >Algo tips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/tcp/" >TCP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/HashMap/" >Java HashMap & Concurrent Hash Map</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/mysql-innodb%5B0%5D/" >Mysql InnoDB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/jvm/" >(转) JVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/mysql-index/" >(转) Mysql 索引</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2020/07/29/mysql-transaction/" >(转)Mysql Transaction</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/2020/07/19/redis/" >(转) Redis 基础知识笔记记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/18</span><a class="archive-post-title" href= "/2020/07/18/site-architechture/" >Site Architecture</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/cache-oblivious-algo/" >（译）缓存参数无关算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/netty/" >Netty note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/Java-Debug/" >（转）Java Debug</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/sql-optimize/" >Sql Optimization</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/rabbitmq/" >（转） RabbitMq 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/git-myers-diff/" >（译） Git Myers diff 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/remote-debug-on-rancher/" >Spring Boot Remote debug on K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2020/03/08/init-spider/" >如何写一个简易的爬虫</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2020/03/07/init-chrome-plugin/" >如何写一个简易的chrome插件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2020/02/06/request-record/" >Request record</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/KMP/" >KMP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2019/08/21/liquibase/" >liquibase</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/power-of-two/" >Power of Two</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/impl-stack-by-queues/" >Implement Stack using Queues</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span><a class="archive-post-title" href= "/2019/07/08/sqrt(x)/" >Newton</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/javassist/" >Jdk8 feature or trouble ?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2019/01/01/hexo-blog%5B0%5D/" >Hexo & (GithubActions | Travis CI)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/jvmLearn/" >jvmLearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/redis-source-code/" >redis-note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/2018/05/08/llone/" >LL(1) Parser</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/win-userful-tools/" >Win Userful Tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-gdm-background/" >ArchLinux change gdm background</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-enable-bbr/" >Arch enable BBR</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/custom-classloader/" >（转）Custom ClassLoader</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2018/01/23/messy-code/" >Messy code issue</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/linux-note0x02/" >Linux note0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1b-computing-process/" >SICP lec1b: # Computing process</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1a-lisp-overview/" >SICP lec1a: # Lisp overview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/initial-build-pl-js/" >[Initial] Build: PL By: JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/parser-build-pl-byjs/" >[Parser] Build: PL By:JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2017/10/14/web-security%5B1%5D/" >如何实现一个安全的Web登录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2017/10/13/exploding-git-repositories/" >Exploding Git Repositories</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2017/10/01/master-horse-training-standard/" >Master horse training standard</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2017/09/23/regex/" >(转)Regex</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2017/09/10/andrid-compress/" >(转)Android-Compress</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/java-interview/" >Java & Android Interview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2017/09/06/struts2-052/" >(转) struts2-052漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2017/08/25/css-diner/" >CSS Diner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2017/08/21/ftp-service-setup/" >FTP Service Setup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2017/08/01/nsa-tools/" >NSA tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/09</span><a class="archive-post-title" href= "/2017/07/09/animation-light-card/" >Awesome card lighting</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href= "/2017/05/14/strategypattern/" >Strategy Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2017/04/28/cdntorealip/" >CDN to Real IP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2017/04/20/phpstorm/" >PhpStorm 配置php7.0环境</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2017/04/02/selenium-qzone/" >Selenium Qzone登陆</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2017/03/18/scrapy%5B0%5D/" >Scrapy 初窥笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href= "/2017/02/16/ptentest%5B0%5D/" >渗透菜鸟概览</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2017/02/08/sympy/" >Sympy 解方程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/27</span><a class="archive-post-title" href= "/2017/01/27/fluxion/" >fluxion使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2017/01/26/english/" >EnNote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/24</span><a class="archive-post-title" href= "/2017/01/24/kalicommandnote/" >kali command note</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2016/12/26/chapter-one/" >（译）Chapter_one</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2016/11/27/python-pickle/" >Python闯关pickle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2016/11/19/rsa-basic%5B1%5D/" >数论（指数取余）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/caesar-encode/" >凯撒密码（Python）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/wechat-publosher/" >2016.11.12</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2016/11/10/toplistfile/" >ToPlistFile</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/09</span><a class="archive-post-title" href= "/2016/11/09/cocos2dx%5B0%5D/" >Cocos2dx 炮台坐标准备</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/python-47/" >python解47元方程组</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/http-note/" >http学习记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2016/11/03/udisk-antivirus/" >U盘快捷方式病毒修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/redo-or-undo/" >Redo or Undo</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/suffix-expression/" >求后缀表达式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2016/10/30/huffman/" >哈夫曼编码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2016/10/25/floyd/" >（转）坐在马桶上看算法：只有五行的Floyd最短路算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2016/10/23/DAG%5B1%5D/" >拓扑排序问题(队列实现)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Disjoint-set/" >(转)并查集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Kruskal-falied/" >通畅工程问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2016/10/21/eight-queens/" >八皇后问题</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="AQS"><span class="iconfont-archer">&#xe606;</span>AQS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrency"><span class="iconfont-archer">&#xe606;</span>Concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="拓扑排序"><span class="iconfont-archer">&#xe606;</span>拓扑排序</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构与算法"><span class="iconfont-archer">&#xe606;</span>数据结构与算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="课程安排"><span class="iconfont-archer">&#xe606;</span>课程安排</span>
+    
+        <span class="sidebar-tag-name" data-tags="join"><span class="iconfont-archer">&#xe606;</span>join</span>
+    
+        <span class="sidebar-tag-name" data-tags="优化"><span class="iconfont-archer">&#xe606;</span>优化</span>
+    
+        <span class="sidebar-tag-name" data-tags="电话"><span class="iconfont-archer">&#xe606;</span>电话</span>
+    
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="编程"><span class="iconfont-archer">&#xe606;</span>编程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="HashMap"><span class="iconfont-archer">&#xe606;</span>HashMap</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrent Hash Map"><span class="iconfont-archer">&#xe606;</span>Concurrent Hash Map</span>
+    
+        <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="JDWP"><span class="iconfont-archer">&#xe606;</span>JDWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KMP"><span class="iconfont-archer">&#xe606;</span>KMP</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据"><span class="iconfont-archer">&#xe606;</span>数据</span>
+    
+        <span class="sidebar-tag-name" data-tags="Math"><span class="iconfont-archer">&#xe606;</span>Math</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="3d"><span class="iconfont-archer">&#xe606;</span>3d</span>
+    
+        <span class="sidebar-tag-name" data-tags="animation"><span class="iconfont-archer">&#xe606;</span>animation</span>
+    
+        <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="arch"><span class="iconfont-archer">&#xe606;</span>arch</span>
+    
+        <span class="sidebar-tag-name" data-tags="bbr"><span class="iconfont-archer">&#xe606;</span>bbr</span>
+    
+        <span class="sidebar-tag-name" data-tags="google"><span class="iconfont-archer">&#xe606;</span>google</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="network"><span class="iconfont-archer">&#xe606;</span>network</span>
+    
+        <span class="sidebar-tag-name" data-tags="speed"><span class="iconfont-archer">&#xe606;</span>speed</span>
+    
+        <span class="sidebar-tag-name" data-tags="tcp"><span class="iconfont-archer">&#xe606;</span>tcp</span>
+    
+        <span class="sidebar-tag-name" data-tags="archlinux"><span class="iconfont-archer">&#xe606;</span>archlinux</span>
+    
+        <span class="sidebar-tag-name" data-tags="gdm"><span class="iconfont-archer">&#xe606;</span>gdm</span>
+    
+        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
+    
+        <span class="sidebar-tag-name" data-tags="themes"><span class="iconfont-archer">&#xe606;</span>themes</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="凯撒密码"><span class="iconfont-archer">&#xe606;</span>凯撒密码</span>
+    
+        <span class="sidebar-tag-name" data-tags="cdn"><span class="iconfont-archer">&#xe606;</span>cdn</span>
+    
+        <span class="sidebar-tag-name" data-tags="ip"><span class="iconfont-archer">&#xe606;</span>ip</span>
+    
+        <span class="sidebar-tag-name" data-tags="网络安全"><span class="iconfont-archer">&#xe606;</span>网络安全</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos"><span class="iconfont-archer">&#xe606;</span>cocos</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos2dx"><span class="iconfont-archer">&#xe606;</span>cocos2dx</span>
+    
+        <span class="sidebar-tag-name" data-tags="game"><span class="iconfont-archer">&#xe606;</span>game</span>
+    
+        <span class="sidebar-tag-name" data-tags="selector"><span class="iconfont-archer">&#xe606;</span>selector</span>
+    
+        <span class="sidebar-tag-name" data-tags="classLoader"><span class="iconfont-archer">&#xe606;</span>classLoader</span>
+    
+        <span class="sidebar-tag-name" data-tags="findClass"><span class="iconfont-archer">&#xe606;</span>findClass</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="K8s"><span class="iconfont-archer">&#xe606;</span>K8s</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deployment"><span class="iconfont-archer">&#xe606;</span>Deployment</span>
+    
+        <span class="sidebar-tag-name" data-tags="八皇后"><span class="iconfont-archer">&#xe606;</span>八皇后</span>
+    
+        <span class="sidebar-tag-name" data-tags="Search engine"><span class="iconfont-archer">&#xe606;</span>Search engine</span>
+    
+        <span class="sidebar-tag-name" data-tags="english"><span class="iconfont-archer">&#xe606;</span>english</span>
+    
+        <span class="sidebar-tag-name" data-tags="funnny"><span class="iconfont-archer">&#xe606;</span>funnny</span>
+    
+        <span class="sidebar-tag-name" data-tags="blob"><span class="iconfont-archer">&#xe606;</span>blob</span>
+    
+        <span class="sidebar-tag-name" data-tags="bomb"><span class="iconfont-archer">&#xe606;</span>bomb</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploding"><span class="iconfont-archer">&#xe606;</span>exploding</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="memory"><span class="iconfont-archer">&#xe606;</span>memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="tree"><span class="iconfont-archer">&#xe606;</span>tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="algorithm"><span class="iconfont-archer">&#xe606;</span>algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="php5"><span class="iconfont-archer">&#xe606;</span>php5</span>
+    
+        <span class="sidebar-tag-name" data-tags="wifi"><span class="iconfont-archer">&#xe606;</span>wifi</span>
+    
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+    
+        <span class="sidebar-tag-name" data-tags="service"><span class="iconfont-archer">&#xe606;</span>service</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Clion"><span class="iconfont-archer">&#xe606;</span>Clion</span>
+    
+        <span class="sidebar-tag-name" data-tags="debug"><span class="iconfont-archer">&#xe606;</span>debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="exception"><span class="iconfont-archer">&#xe606;</span>exception</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI/CD"><span class="iconfont-archer">&#xe606;</span>CI/CD</span>
+    
+        <span class="sidebar-tag-name" data-tags="github actions"><span class="iconfont-archer">&#xe606;</span>github actions</span>
+    
+        <span class="sidebar-tag-name" data-tags="编码"><span class="iconfont-archer">&#xe606;</span>编码</span>
+    
+        <span class="sidebar-tag-name" data-tags="Queue"><span class="iconfont-archer">&#xe606;</span>Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Stack"><span class="iconfont-archer">&#xe606;</span>Stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="FrontDesign"><span class="iconfont-archer">&#xe606;</span>FrontDesign</span>
+    
+        <span class="sidebar-tag-name" data-tags="Chrome"><span class="iconfont-archer">&#xe606;</span>Chrome</span>
+    
+        <span class="sidebar-tag-name" data-tags="Plugins"><span class="iconfont-archer">&#xe606;</span>Plugins</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sprider"><span class="iconfont-archer">&#xe606;</span>Sprider</span>
+    
+        <span class="sidebar-tag-name" data-tags="Basic knowledge"><span class="iconfont-archer">&#xe606;</span>Basic knowledge</span>
+    
+        <span class="sidebar-tag-name" data-tags="js"><span class="iconfont-archer">&#xe606;</span>js</span>
+    
+        <span class="sidebar-tag-name" data-tags="language"><span class="iconfont-archer">&#xe606;</span>language</span>
+    
+        <span class="sidebar-tag-name" data-tags="parser"><span class="iconfont-archer">&#xe606;</span>parser</span>
+    
+        <span class="sidebar-tag-name" data-tags="Lock"><span class="iconfont-archer">&#xe606;</span>Lock</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tricks"><span class="iconfont-archer">&#xe606;</span>Tricks</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cheat Sheet"><span class="iconfont-archer">&#xe606;</span>Cheat Sheet</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javassist"><span class="iconfont-archer">&#xe606;</span>Javassist</span>
+    
+        <span class="sidebar-tag-name" data-tags="JVM"><span class="iconfont-archer">&#xe606;</span>JVM</span>
+    
+        <span class="sidebar-tag-name" data-tags="Class file"><span class="iconfont-archer">&#xe606;</span>Class file</span>
+    
+        <span class="sidebar-tag-name" data-tags="Memory"><span class="iconfont-archer">&#xe606;</span>Memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="jvm"><span class="iconfont-archer">&#xe606;</span>jvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali"><span class="iconfont-archer">&#xe606;</span>kali</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewall"><span class="iconfont-archer">&#xe606;</span>firewall</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewalld"><span class="iconfont-archer">&#xe606;</span>firewalld</span>
+    
+        <span class="sidebar-tag-name" data-tags="iptables"><span class="iconfont-archer">&#xe606;</span>iptables</span>
+    
+        <span class="sidebar-tag-name" data-tags="protocol"><span class="iconfont-archer">&#xe606;</span>protocol</span>
+    
+        <span class="sidebar-tag-name" data-tags="strategy"><span class="iconfont-archer">&#xe606;</span>strategy</span>
+    
+        <span class="sidebar-tag-name" data-tags="firstSet"><span class="iconfont-archer">&#xe606;</span>firstSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="FollowSet"><span class="iconfont-archer">&#xe606;</span>FollowSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="ll1"><span class="iconfont-archer">&#xe606;</span>ll1</span>
+    
+        <span class="sidebar-tag-name" data-tags="table"><span class="iconfont-archer">&#xe606;</span>table</span>
+    
+        <span class="sidebar-tag-name" data-tags="acm"><span class="iconfont-archer">&#xe606;</span>acm</span>
+    
+        <span class="sidebar-tag-name" data-tags="ANSI"><span class="iconfont-archer">&#xe606;</span>ANSI</span>
+    
+        <span class="sidebar-tag-name" data-tags="ASCII"><span class="iconfont-archer">&#xe606;</span>ASCII</span>
+    
+        <span class="sidebar-tag-name" data-tags="decode"><span class="iconfont-archer">&#xe606;</span>decode</span>
+    
+        <span class="sidebar-tag-name" data-tags="encode"><span class="iconfont-archer">&#xe606;</span>encode</span>
+    
+        <span class="sidebar-tag-name" data-tags="ISO-8859-1"><span class="iconfont-archer">&#xe606;</span>ISO-8859-1</span>
+    
+        <span class="sidebar-tag-name" data-tags="messy code"><span class="iconfont-archer">&#xe606;</span>messy code</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql optimization"><span class="iconfont-archer">&#xe606;</span>Sql optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="index"><span class="iconfont-archer">&#xe606;</span>index</span>
+    
+        <span class="sidebar-tag-name" data-tags="B + tree"><span class="iconfont-archer">&#xe606;</span>B + tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="InnoDB"><span class="iconfont-archer">&#xe606;</span>InnoDB</span>
+    
+        <span class="sidebar-tag-name" data-tags="IO"><span class="iconfont-archer">&#xe606;</span>IO</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploit"><span class="iconfont-archer">&#xe606;</span>exploit</span>
+    
+        <span class="sidebar-tag-name" data-tags="NSA"><span class="iconfont-archer">&#xe606;</span>NSA</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="phpstorm"><span class="iconfont-archer">&#xe606;</span>phpstorm</span>
+    
+        <span class="sidebar-tag-name" data-tags="xampp"><span class="iconfont-archer">&#xe606;</span>xampp</span>
+    
+        <span class="sidebar-tag-name" data-tags="xdebug"><span class="iconfont-archer">&#xe606;</span>xdebug</span>
+    
+        <span class="sidebar-tag-name" data-tags="环境配置"><span class="iconfont-archer">&#xe606;</span>环境配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="apache"><span class="iconfont-archer">&#xe606;</span>apache</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="web server"><span class="iconfont-archer">&#xe606;</span>web server</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="序列化"><span class="iconfont-archer">&#xe606;</span>序列化</span>
+    
+        <span class="sidebar-tag-name" data-tags="Message Queue"><span class="iconfont-archer">&#xe606;</span>Message Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Notes"><span class="iconfont-archer">&#xe606;</span>Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="string"><span class="iconfont-archer">&#xe606;</span>string</span>
+    
+        <span class="sidebar-tag-name" data-tags="note"><span class="iconfont-archer">&#xe606;</span>note</span>
+    
+        <span class="sidebar-tag-name" data-tags="撤销"><span class="iconfont-archer">&#xe606;</span>撤销</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Extension"><span class="iconfont-archer">&#xe606;</span>Extension</span>
+    
+        <span class="sidebar-tag-name" data-tags="gcd"><span class="iconfont-archer">&#xe606;</span>gcd</span>
+    
+        <span class="sidebar-tag-name" data-tags="rsa"><span class="iconfont-archer">&#xe606;</span>rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="call-back"><span class="iconfont-archer">&#xe606;</span>call-back</span>
+    
+        <span class="sidebar-tag-name" data-tags="Request"><span class="iconfont-archer">&#xe606;</span>Request</span>
+    
+        <span class="sidebar-tag-name" data-tags="scrapy"><span class="iconfont-archer">&#xe606;</span>scrapy</span>
+    
+        <span class="sidebar-tag-name" data-tags="spider"><span class="iconfont-archer">&#xe606;</span>spider</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="qzone"><span class="iconfont-archer">&#xe606;</span>qzone</span>
+    
+        <span class="sidebar-tag-name" data-tags="selenium"><span class="iconfont-archer">&#xe606;</span>selenium</span>
+    
+        <span class="sidebar-tag-name" data-tags="webdriver"><span class="iconfont-archer">&#xe606;</span>webdriver</span>
+    
+        <span class="sidebar-tag-name" data-tags="black box"><span class="iconfont-archer">&#xe606;</span>black box</span>
+    
+        <span class="sidebar-tag-name" data-tags="lisp"><span class="iconfont-archer">&#xe606;</span>lisp</span>
+    
+        <span class="sidebar-tag-name" data-tags="module"><span class="iconfont-archer">&#xe606;</span>module</span>
+    
+        <span class="sidebar-tag-name" data-tags="scheme"><span class="iconfont-archer">&#xe606;</span>scheme</span>
+    
+        <span class="sidebar-tag-name" data-tags="sicp"><span class="iconfont-archer">&#xe606;</span>sicp</span>
+    
+        <span class="sidebar-tag-name" data-tags="case"><span class="iconfont-archer">&#xe606;</span>case</span>
+    
+        <span class="sidebar-tag-name" data-tags="condition"><span class="iconfont-archer">&#xe606;</span>condition</span>
+    
+        <span class="sidebar-tag-name" data-tags="hanoi"><span class="iconfont-archer">&#xe606;</span>hanoi</span>
+    
+        <span class="sidebar-tag-name" data-tags="recursion"><span class="iconfont-archer">&#xe606;</span>recursion</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql"><span class="iconfont-archer">&#xe606;</span>Sql</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mybatis"><span class="iconfont-archer">&#xe606;</span>Mybatis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Log"><span class="iconfont-archer">&#xe606;</span>Log</span>
+    
+        <span class="sidebar-tag-name" data-tags="Optimize"><span class="iconfont-archer">&#xe606;</span>Optimize</span>
+    
+        <span class="sidebar-tag-name" data-tags="Explain"><span class="iconfont-archer">&#xe606;</span>Explain</span>
+    
+        <span class="sidebar-tag-name" data-tags="策略模式"><span class="iconfont-archer">&#xe606;</span>策略模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="设计模式"><span class="iconfont-archer">&#xe606;</span>设计模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="后缀表达式"><span class="iconfont-archer">&#xe606;</span>后缀表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="symbol"><span class="iconfont-archer">&#xe606;</span>symbol</span>
+    
+        <span class="sidebar-tag-name" data-tags="Network"><span class="iconfont-archer">&#xe606;</span>Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="TCP"><span class="iconfont-archer">&#xe606;</span>TCP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="Thread"><span class="iconfont-archer">&#xe606;</span>Thread</span>
+    
+        <span class="sidebar-tag-name" data-tags="concurrency"><span class="iconfont-archer">&#xe606;</span>concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="u盘"><span class="iconfont-archer">&#xe606;</span>u盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="病毒"><span class="iconfont-archer">&#xe606;</span>病毒</span>
+    
+        <span class="sidebar-tag-name" data-tags="csrf"><span class="iconfont-archer">&#xe606;</span>csrf</span>
+    
+        <span class="sidebar-tag-name" data-tags="login"><span class="iconfont-archer">&#xe606;</span>login</span>
+    
+        <span class="sidebar-tag-name" data-tags="session"><span class="iconfont-archer">&#xe606;</span>session</span>
+    
+        <span class="sidebar-tag-name" data-tags="token"><span class="iconfont-archer">&#xe606;</span>token</span>
+    
+        <span class="sidebar-tag-name" data-tags="uid"><span class="iconfont-archer">&#xe606;</span>uid</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="Story"><span class="iconfont-archer">&#xe606;</span>Story</span>
+    
+        <span class="sidebar-tag-name" data-tags="effective"><span class="iconfont-archer">&#xe606;</span>effective</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="win10"><span class="iconfont-archer">&#xe606;</span>win10</span>
+    
+        <span class="sidebar-tag-name" data-tags="windows"><span class="iconfont-archer">&#xe606;</span>windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="castby"><span class="iconfont-archer">&#xe606;</span>castby</span>
+    
+        <span class="sidebar-tag-name" data-tags="story"><span class="iconfont-archer">&#xe606;</span>story</span>
+    
+        <span class="sidebar-tag-name" data-tags="Program"><span class="iconfont-archer">&#xe606;</span>Program</span>
+    
+        <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="http"><span class="iconfont-archer">&#xe606;</span>http</span>
+    
+        <span class="sidebar-tag-name" data-tags="Disk"><span class="iconfont-archer">&#xe606;</span>Disk</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deploy"><span class="iconfont-archer">&#xe606;</span>Deploy</span>
+    
+        <span class="sidebar-tag-name" data-tags="Redis"><span class="iconfont-archer">&#xe606;</span>Redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Middleware"><span class="iconfont-archer">&#xe606;</span>Middleware</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cache"><span class="iconfont-archer">&#xe606;</span>Cache</span>
+    
+        <span class="sidebar-tag-name" data-tags="Architecture"><span class="iconfont-archer">&#xe606;</span>Architecture</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="atom"><span class="iconfont-archer">&#xe606;</span>atom</span>
+    
+        <span class="sidebar-tag-name" data-tags="expression"><span class="iconfont-archer">&#xe606;</span>expression</span>
+    
+        <span class="sidebar-tag-name" data-tags="lanauage"><span class="iconfont-archer">&#xe606;</span>lanauage</span>
+    
+        <span class="sidebar-tag-name" data-tags="operator"><span class="iconfont-archer">&#xe606;</span>operator</span>
+    
+        <span class="sidebar-tag-name" data-tags="parse"><span class="iconfont-archer">&#xe606;</span>parse</span>
+    
+        <span class="sidebar-tag-name" data-tags="precedence"><span class="iconfont-archer">&#xe606;</span>precedence</span>
+    
+        <span class="sidebar-tag-name" data-tags="match"><span class="iconfont-archer">&#xe606;</span>match</span>
+    
+        <span class="sidebar-tag-name" data-tags="regex"><span class="iconfont-archer">&#xe606;</span>regex</span>
+    
+        <span class="sidebar-tag-name" data-tags="test"><span class="iconfont-archer">&#xe606;</span>test</span>
+    
+        <span class="sidebar-tag-name" data-tags="tutorial"><span class="iconfont-archer">&#xe606;</span>tutorial</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Security"><span class="iconfont-archer">&#xe60a;</span>Security</span>
+    
+        <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontPage"><span class="iconfont-archer">&#xe60a;</span>FrontPage</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="Cocos"><span class="iconfont-archer">&#xe60a;</span>Cocos</span>
+    
+        <span class="sidebar-category-name" data-categories="BackStage"><span class="iconfont-archer">&#xe60a;</span>BackStage</span>
+    
+        <span class="sidebar-category-name" data-categories="K8s"><span class="iconfont-archer">&#xe60a;</span>K8s</span>
+    
+        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="Story"><span class="iconfont-archer">&#xe60a;</span>Story</span>
+    
+        <span class="sidebar-category-name" data-categories="GDB"><span class="iconfont-archer">&#xe60a;</span>GDB</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontDesign"><span class="iconfont-archer">&#xe60a;</span>FrontDesign</span>
+    
+        <span class="sidebar-category-name" data-categories="Spider"><span class="iconfont-archer">&#xe60a;</span>Spider</span>
+    
+        <span class="sidebar-category-name" data-categories="Parser-amp-language"><span class="iconfont-archer">&#xe60a;</span>Parser-amp-language</span>
+    
+        <span class="sidebar-category-name" data-categories="Design"><span class="iconfont-archer">&#xe60a;</span>Design</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM"><span class="iconfont-archer">&#xe60a;</span>JVM</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM/Java"><span class="iconfont-archer">&#xe60a;</span>JVM/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql"><span class="iconfont-archer">&#xe60a;</span>Mysql</span>
+    
+        <span class="sidebar-category-name" data-categories="Database"><span class="iconfont-archer">&#xe60a;</span>Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network"><span class="iconfont-archer">&#xe60a;</span>Java/Network</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Database"><span class="iconfont-archer">&#xe60a;</span>Mysql/Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm/Bit-operation"><span class="iconfont-archer">&#xe60a;</span>Algorithm/Bit-operation</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network/IO"><span class="iconfont-archer">&#xe60a;</span>Java/Network/IO</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Middleware"><span class="iconfont-archer">&#xe60a;</span>Java/Middleware</span>
+    
+        <span class="sidebar-category-name" data-categories="Front"><span class="iconfont-archer">&#xe60a;</span>Front</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Sql"><span class="iconfont-archer">&#xe60a;</span>Mysql/Sql</span>
+    
+        <span class="sidebar-category-name" data-categories="Network"><span class="iconfont-archer">&#xe60a;</span>Network</span>
+    
+        <span class="sidebar-category-name" data-categories="System"><span class="iconfont-archer">&#xe60a;</span>System</span>
+    
+        <span class="sidebar-category-name" data-categories="OS"><span class="iconfont-archer">&#xe60a;</span>OS</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis"><span class="iconfont-archer">&#xe60a;</span>Redis</span>
+    
+        <span class="sidebar-category-name" data-categories="Architecture"><span class="iconfont-archer">&#xe60a;</span>Architecture</span>
+    
+        <span class="sidebar-category-name" data-categories="Idea"><span class="iconfont-archer">&#xe60a;</span>Idea</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis/Cache"><span class="iconfont-archer">&#xe60a;</span>Redis/Cache</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "ReZero"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

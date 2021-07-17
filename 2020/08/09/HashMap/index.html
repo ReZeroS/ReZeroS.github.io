@@ -1,0 +1,3372 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="ReZero">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="ReZero">
+    
+    <meta name="keywords" content="java,ReZero,programming">
+    
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="description" content="为啥拉链用尾插不用头插？  jdk 1.7 用的头插，但头插的问题就是resize：因为hash取值后放置是从后往前(头插，逆序链表方向)的，但是在resize时会重计算hash，此时是顺序遍历方向，那么就可能出现一开始A头插在B前，rehash时B后进行rehash导致B头插在A前。这样AB的顺序resize后就不同了。这样就会使得多线程时对引用的指向调整有问题，有可能造成循环链表了。尾插法的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java HashMap &amp; Concurrent Hash Map">
+<meta property="og:url" content="https://rezeros.github.io/2020/08/09/HashMap/index.html">
+<meta property="og:site_name" content="ReZero">
+<meta property="og:description" content="为啥拉链用尾插不用头插？  jdk 1.7 用的头插，但头插的问题就是resize：因为hash取值后放置是从后往前(头插，逆序链表方向)的，但是在resize时会重计算hash，此时是顺序遍历方向，那么就可能出现一开始A头插在B前，rehash时B后进行rehash导致B头插在A前。这样AB的顺序resize后就不同了。这样就会使得多线程时对引用的指向调整有问题，有可能造成循环链表了。尾插法的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rezeros.github.io/2020/08/09/HashMap/left-rotation.png">
+<meta property="article:published_time" content="2020-08-09T10:00:00.000Z">
+<meta property="article:modified_time" content="2021-07-17T09:37:19.030Z">
+<meta property="article:author" content="ReZero">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="HashMap">
+<meta property="article:tag" content="Concurrent Hash Map">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rezeros.github.io/2020/08/09/HashMap/left-rotation.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>Java HashMap &amp; Concurrent Hash Map · ReZero</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="ReZero" type="application/atom+xml">
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >ReZero&#39;s Utopia.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Java HashMap & Concurrent Hash Map</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>ReZero's Utopia.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Java HashMap & Concurrent Hash Map
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Algorithm">Algorithm</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "HashMap">HashMap</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Concurrent Hash Map">Concurrent Hash Map</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">1.8k</span>Reading time: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/08/09</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <ol>
+<li><p>为啥拉链用尾插不用头插？</p>
+<ul>
+<li>jdk 1.7 用的头插，但头插的问题就是resize：因为hash取值后放置是从后往前(头插，逆序链表方向)的，但是在resize时会重计算hash，此时是顺序遍历方向，那么就可能出现一开始A头插在B前，rehash时B<br>后进行rehash导致B<br>头插在A前。这样AB的顺序resize后就不同了。这样就会使得多线程时对引用的指向调整有问题，有可能造成循环链表了。尾插法的顺序和rehash时遍历的顺序一致自然就不会有这个问题。</li>
+</ul>
+</li>
+<li><p>Collections.synchronizedMap</p>
+<p> 内部维护了一个 map 用来引用需要改造的map，通过加 mutex 排他锁的形式来对map进行各种操作。其实就是全部用 synchronized 包裹起来。</p>
+</li>
+<li><p>fail-safe &amp; fail-fast</p>
+<p> hashtable 使用的是 fail-safe 机制，该机制会在进入遍历前，记录当前集合的内容，然后遍历记录的集合内容，不关心集合在此期间的意外修改情况。类似得还有 copyOnWriteList</p>
+<p> fail-fast: 每次集合变动会使得 modCount 跟着变动，而使用 next 遍历前会检查这个 modCount 是否是期望值。</p>
+</li>
+</ol>
+<h3 id="Concurrent-Hash-Map"><a href="#Concurrent-Hash-Map" class="headerlink" title="Concurrent Hash Map"></a>Concurrent Hash Map</h3><ol>
+<li>1.7 版本的分段方式 segment </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先定位 segment，对 segment后进行put操作</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    Segment&lt;K,V&gt; s;</span><br><span class="line">    <span class="keyword">if</span> (value == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();<span class="comment">//这就是为啥他不可以put null值的原因</span></span><br><span class="line">    <span class="keyword">int</span> hash = hash(key);</span><br><span class="line">    <span class="keyword">int</span> j = (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;</span><br><span class="line">    <span class="keyword">if</span> ((s = (Segment&lt;K,V&gt;)UNSAFE.getObject          </span><br><span class="line">         (segments, (j &lt;&lt; SSHIFT) + SBASE)) == <span class="keyword">null</span>) </span><br><span class="line">        s = ensureSegment(j);</span><br><span class="line">    <span class="keyword">return</span> s.put(key, hash, value, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">put</span><span class="params">(K key, <span class="keyword">int</span> hash, V value, <span class="keyword">boolean</span> onlyIfAbsent)</span> </span>&#123;</span><br><span class="line">          <span class="comment">// 将当前 Segment 中的 table 通过 key 的 hashcode 定位到 HashEntry</span></span><br><span class="line">            HashEntry&lt;K,V&gt; node = tryLock() ? <span class="keyword">null</span> :</span><br><span class="line">                scanAndLockForPut(key, hash, value);</span><br><span class="line">            V oldValue;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                HashEntry&lt;K,V&gt;[] tab = table;</span><br><span class="line">                <span class="keyword">int</span> index = (tab.length - <span class="number">1</span>) &amp; hash;</span><br><span class="line">                HashEntry&lt;K,V&gt; first = entryAt(tab, index);</span><br><span class="line">                <span class="keyword">for</span> (HashEntry&lt;K,V&gt; e = first;;) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        K k;</span><br><span class="line"> <span class="comment">// 遍历该 HashEntry，如果不为空则判断传入的 key 和当前遍历的 key 是否相等，相等则覆盖旧的 value。</span></span><br><span class="line">                        <span class="keyword">if</span> ((k = e.key) == key ||</span><br><span class="line">                            (e.hash == hash &amp;&amp; key.equals(k))) &#123;</span><br><span class="line">                            oldValue = e.value;</span><br><span class="line">                            <span class="keyword">if</span> (!onlyIfAbsent) &#123;</span><br><span class="line">                                e.value = value;</span><br><span class="line">                                ++modCount;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        e = e.next;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="comment">// 不为空则需要新建一个 HashEntry 并加入到 Segment 中，同时会先判断是否需要扩容。</span></span><br><span class="line">                        <span class="keyword">if</span> (node != <span class="keyword">null</span>)</span><br><span class="line">                            node.setNext(first);</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                            node = <span class="keyword">new</span> HashEntry&lt;K,V&gt;(hash, key, value, first);</span><br><span class="line">                        <span class="keyword">int</span> c = count + <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">if</span> (c &gt; threshold &amp;&amp; tab.length &lt; MAXIMUM_CAPACITY)</span><br><span class="line">                            rehash(node);</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                            setEntryAt(tab, index, node);</span><br><span class="line">                        ++modCount;</span><br><span class="line">                        count = c;</span><br><span class="line">                        oldValue = <span class="keyword">null</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">               <span class="comment">//释放锁</span></span><br><span class="line">                unlock();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>1.8 版本的 CAS + synchronized</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(K key, V value, <span class="keyword">boolean</span> onlyIfAbsent)</span> </span>&#123;</span><br><span class="line"> <span class="comment">//可以看到，在并发情况下，key 和 value 都是不支持为空的。</span></span><br><span class="line"> <span class="keyword">if</span> (key == <span class="keyword">null</span> || value == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line"> <span class="comment">//这里和1.8 HashMap 的hash 方法大同小异，只是多了一个操作，如下</span></span><br><span class="line"> <span class="comment">//( h ^ (h &gt;&gt;&gt; 16)) &amp; HASH_BITS;  HASH_BITS = 0x7fffffff;</span></span><br><span class="line"> <span class="comment">// 0x7fffffff ，二进制为 0111 1111 1111 1111 1111 1111 1111 1111 。</span></span><br><span class="line"> <span class="comment">//所以，hash值除了做了高低位异或运算，还多了一步，保证最高位的 1 个 bit 位总是0。</span></span><br><span class="line"> <span class="comment">//这里，我并没有明白它的意图，仅仅是保证计算出来的hash值不超过 Integer 最大值，且不为负数吗。</span></span><br><span class="line"> <span class="comment">//同 HashMap 的hash 方法对比一下，会发现连源码注释都是相同的，并没有多说明其它的。</span></span><br><span class="line"> <span class="comment">//我个人认为意义不大，因为最后 hash 是为了和 capacity -1 做与运算，而 capacity 最大值为 1&lt;&lt;30，</span></span><br><span class="line"> <span class="comment">//即 0100 0000 0000 0000 0000 0000 0000 0000 ，减1为 0011 1111 1111 1111 1111 1111 1111 1111。</span></span><br><span class="line"> <span class="comment">//即使 hash 最高位为 1(无所谓0)，也不影响最后的结果，最高位也总会是0.</span></span><br><span class="line"> <span class="keyword">int</span> hash = spread(key.hashCode());</span><br><span class="line"> <span class="comment">//用来计算当前链表上的元素个数</span></span><br><span class="line"> <span class="keyword">int</span> binCount = <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">for</span> (Node&lt;K,V&gt;[] tab = table;;) &#123;</span><br><span class="line">  Node&lt;K,V&gt; f; <span class="keyword">int</span> n, i, fh;</span><br><span class="line">  <span class="comment">//如果表为空，则说明还未初始化。</span></span><br><span class="line">  <span class="keyword">if</span> (tab == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">   <span class="comment">//初始化表，只有一个线程可以初始化成功。</span></span><br><span class="line">   tab = initTable();</span><br><span class="line">  <span class="comment">//若表已经初始化，则找到当前 key 所在的桶，并且判断是否为空</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ((f = tabAt(tab, i = (n - <span class="number">1</span>) &amp; hash)) == <span class="keyword">null</span>) &#123;</span><br><span class="line">   <span class="comment">//若当前桶为空，则通过 CAS 原子操作，把新节点插入到此位置，</span></span><br><span class="line">   <span class="comment">//这保证了只有一个线程可以 CAS 成功，其它线程都会失败。</span></span><br><span class="line">   <span class="keyword">if</span> (casTabAt(tab, i, <span class="keyword">null</span>,</span><br><span class="line">       <span class="keyword">new</span> Node&lt;K,V&gt;(hash, key, value, <span class="keyword">null</span>)))</span><br><span class="line">    <span class="keyword">break</span>;                   <span class="comment">// no lock when adding to empty bin</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//若所在桶不为空，则判断节点的 hash 值是否为 MOVED（值是-1）</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ((fh = f.hash) == MOVED)</span><br><span class="line">   <span class="comment">//若为-1，说明当前数组正在进行扩容，则需要当前线程帮忙迁移数据</span></span><br><span class="line">   tab = helpTransfer(tab, f);</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">   V oldVal = <span class="keyword">null</span>;</span><br><span class="line">   <span class="comment">//这里用加同步锁的方式，来保证线程安全，给桶中第一个节点对象加锁</span></span><br><span class="line">   <span class="keyword">synchronized</span> (f) &#123;</span><br><span class="line">    <span class="comment">//recheck 一下，保证当前桶的第一个节点无变化，后边很多这样类似的操作，不再赘述</span></span><br><span class="line">    <span class="keyword">if</span> (tabAt(tab, i) == f) &#123;</span><br><span class="line">     <span class="comment">//如果hash值大于等于0，说明是正常的链表结构</span></span><br><span class="line">     <span class="keyword">if</span> (fh &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      binCount = <span class="number">1</span>;</span><br><span class="line">      <span class="comment">//从头结点开始遍历，每遍历一次，binCount计数加1</span></span><br><span class="line">      <span class="keyword">for</span> (Node&lt;K,V&gt; e = f;; ++binCount) &#123;</span><br><span class="line">       K ek;</span><br><span class="line">       <span class="comment">//如果找到了和当前 key 相同的节点，则用新值替换旧值</span></span><br><span class="line">       <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">        ((ek = e.key) == key ||</span><br><span class="line">         (ek != <span class="keyword">null</span> &amp;&amp; key.equals(ek)))) &#123;</span><br><span class="line">        oldVal = e.val;</span><br><span class="line">        <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">         e.val = value;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       Node&lt;K,V&gt; pred = e;</span><br><span class="line">       <span class="comment">//若遍历到了尾结点，则把新节点尾插进去</span></span><br><span class="line">       <span class="keyword">if</span> ((e = e.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        pred.next = <span class="keyword">new</span> Node&lt;K,V&gt;(hash, key,</span><br><span class="line">                value, <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">       &#125;</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//否则判断是否是树节点。这里提一下，TreeBin只是头结点对TreeNode的再封装</span></span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">if</span> (f <span class="keyword">instanceof</span> TreeBin) &#123;</span><br><span class="line">      Node&lt;K,V&gt; p;</span><br><span class="line">      binCount = <span class="number">2</span>;</span><br><span class="line">      <span class="keyword">if</span> ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash, key,</span><br><span class="line">                value)) != <span class="keyword">null</span>) &#123;</span><br><span class="line">       oldVal = p.val;</span><br><span class="line">       <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">        p.val = value;</span><br><span class="line">      &#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//注意下，这个判断是在同步锁外部，因为 treeifyBin内部也有同步锁，并不影响</span></span><br><span class="line">   <span class="keyword">if</span> (binCount != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">//如果节点个数大于等于 8，则转化为红黑树</span></span><br><span class="line">    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD)</span><br><span class="line">     treeifyBin(tab, i);</span><br><span class="line">    <span class="comment">//把旧节点值返回</span></span><br><span class="line">    <span class="keyword">if</span> (oldVal != <span class="keyword">null</span>)</span><br><span class="line">     <span class="keyword">return</span> oldVal;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//给元素个数加 1，并有可能会触发扩容，比较复杂，稍后细讲</span></span><br><span class="line"> addCount(<span class="number">1L</span>, binCount);</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><ol>
+<li><p>根节点叶子节点都是黑色 且 叶子都是 NIL 节点</p>
+</li>
+<li><p>路径上不能有两个连续的红色节点</p>
+</li>
+<li><p>从任一节点到其每个叶子的所有路径都包含相同数目的黑色节点</p>
+</li>
+</ol>
+<blockquote>
+<p>带来的效益：最长路径不会超过最短路径的两倍</p>
+</blockquote>
+<h5 id="变色-amp-旋转"><a href="#变色-amp-旋转" class="headerlink" title="变色 &amp; 旋转"></a>变色 &amp; 旋转</h5><blockquote>
+<p>基础：红黑树的插入节点都是红色的</p>
+</blockquote>
+<ol>
+<li><p>变色</p>
+<ul>
+<li>红变黑或者黑变红，变化过程可能会发生连锁反应</li>
+</ul>
+</li>
+<li><p>旋转</p>
+<ul>
+<li><p>逆时针旋转，即父节点抢了右子节点的左儿子作为自己的右儿子，然后自己去认右子节点为爹。如图</p>
+<img src="/2020/08/09/HashMap/left-rotation.png" class="" title="left-rotation">
+</li>
+<li><p>顺时针旋转，上面的左右互换即可。即父节点抢了左子节点的右儿子作为自己的左儿子，然后自己去认右子节点为爹。</p>
+</li>
+</ul>
+</li>
+<li><p>应用</p>
+</li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://rezeros.github.io">ReZero</a>
+            <p>原文链接：<a href="https://rezeros.github.io/2020/08/09/HashMap/">https://rezeros.github.io/2020/08/09/HashMap/</a>
+            <p>发表日期：<a href="https://rezeros.github.io/2020/08/09/HashMap/">August 9th 2020, 10:00:00 am</a>
+            <p>更新日期：<a href="https://rezeros.github.io/2020/08/09/HashMap/">July 17th 2021, 9:37:19 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/08/09/tcp/" title= "TCP">
+                    <div class="nextTitle">TCP</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/08/06/mysql-innodb%5B0%5D/" title= "Mysql InnoDB">
+                    <div class="prevTitle">Mysql InnoDB</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <div id="comment-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '1a431f8724008b2fe548',
+            clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+            id: '1596967200000',
+            repo: 'ReZeroS.github.io',
+            owner: 'ReZeroS',
+            admin: ["ReZeroS"],
+            createIssueManually: true,
+            distractionFreeMode: false
+        })
+        gitalk.render('comment-container')
+    </script>
+    
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:ljrezero@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/rezeros" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="//t.me/ReZeros" class="iconfont-archer telegram" target="_blank" title=telegram></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//twitter.com/T21ck" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+            
+                <a href="//instagram.com/xer0sesss" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+            
+                <a href="//stackoverflow.com/users/7103214/rezero" class="iconfont-archer stack-overflow" target="_blank" title=stack-overflow></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//space.bilibili.com/22340853/#/" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//steamcommunity.com/id/rezeros/" class="iconfont-archer steam" target="_blank" title=steam></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Concurrent-Hash-Map"><span class="toc-number">1.</span> <span class="toc-text">Concurrent Hash Map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="toc-number">1.1.</span> <span class="toc-text">红黑树</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%98%E8%89%B2-amp-%E6%97%8B%E8%BD%AC"><span class="toc-number">1.1.2.</span> <span class="toc-text">变色 &amp; 旋转</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 99
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/gdb-debug-remote/" >Clion remote debug docker redis</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span><a class="archive-post-title" href= "/2021/06/16/go-share/" >Go Share</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2021/05/01/java-tools/" >Java tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span><a class="archive-post-title" href= "/2021/04/06/go-tutorial/" >Go Tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/04</span><a class="archive-post-title" href= "/2021/03/04/java-tricks/" >Java tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/10</span><a class="archive-post-title" href= "/2021/02/10/zit/" >ZIT development log</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2021/01/23/sql-log-cheat/" >sql打印的一种暴力解决方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/docker/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/mysql45/" >Mysql 45 讲</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2020/12/13/elastic-search/" >elastic-search 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2020/10/04/linux-disk/" >Linux-disk</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2020/10/01/csapp/" >CSAPP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span><a class="archive-post-title" href= "/2020/09/26/oql/" >OQL</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2020/09/23/think-more/" >Think More</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href= "/2020/09/20/threadpool/" >Thread pool</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/k8s/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/thread/" >Thread</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2020/09/18/go-exception-handle/" >Go exception handle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2020/09/12/AQS/" >AQS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2020/08/14/leetcode/" >Leet-Code</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/12</span><a class="archive-post-title" href= "/2020/08/12/java-lock/" >Java Lock</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span><a class="archive-post-title" href= "/2020/08/10/algo-tips/" >Algo tips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/tcp/" >TCP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/HashMap/" >Java HashMap & Concurrent Hash Map</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/mysql-innodb%5B0%5D/" >Mysql InnoDB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/jvm/" >(转) JVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/mysql-index/" >(转) Mysql 索引</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2020/07/29/mysql-transaction/" >(转)Mysql Transaction</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/2020/07/19/redis/" >(转) Redis 基础知识笔记记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/18</span><a class="archive-post-title" href= "/2020/07/18/site-architechture/" >Site Architecture</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/cache-oblivious-algo/" >（译）缓存参数无关算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/netty/" >Netty note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/Java-Debug/" >（转）Java Debug</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/sql-optimize/" >Sql Optimization</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/rabbitmq/" >（转） RabbitMq 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/git-myers-diff/" >（译） Git Myers diff 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/remote-debug-on-rancher/" >Spring Boot Remote debug on K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2020/03/08/init-spider/" >如何写一个简易的爬虫</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2020/03/07/init-chrome-plugin/" >如何写一个简易的chrome插件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2020/02/06/request-record/" >Request record</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/KMP/" >KMP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2019/08/21/liquibase/" >liquibase</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/power-of-two/" >Power of Two</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/impl-stack-by-queues/" >Implement Stack using Queues</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span><a class="archive-post-title" href= "/2019/07/08/sqrt(x)/" >Newton</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/javassist/" >Jdk8 feature or trouble ?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2019/01/01/hexo-blog%5B0%5D/" >Hexo & (GithubActions | Travis CI)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/jvmLearn/" >jvmLearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/redis-source-code/" >redis-note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/2018/05/08/llone/" >LL(1) Parser</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/win-userful-tools/" >Win Userful Tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-gdm-background/" >ArchLinux change gdm background</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-enable-bbr/" >Arch enable BBR</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/custom-classloader/" >（转）Custom ClassLoader</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2018/01/23/messy-code/" >Messy code issue</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/linux-note0x02/" >Linux note0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1b-computing-process/" >SICP lec1b: # Computing process</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1a-lisp-overview/" >SICP lec1a: # Lisp overview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/initial-build-pl-js/" >[Initial] Build: PL By: JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/parser-build-pl-byjs/" >[Parser] Build: PL By:JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2017/10/14/web-security%5B1%5D/" >如何实现一个安全的Web登录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2017/10/13/exploding-git-repositories/" >Exploding Git Repositories</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2017/10/01/master-horse-training-standard/" >Master horse training standard</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2017/09/23/regex/" >(转)Regex</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2017/09/10/andrid-compress/" >(转)Android-Compress</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/java-interview/" >Java & Android Interview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2017/09/06/struts2-052/" >(转) struts2-052漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2017/08/25/css-diner/" >CSS Diner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2017/08/21/ftp-service-setup/" >FTP Service Setup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2017/08/01/nsa-tools/" >NSA tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/09</span><a class="archive-post-title" href= "/2017/07/09/animation-light-card/" >Awesome card lighting</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href= "/2017/05/14/strategypattern/" >Strategy Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2017/04/28/cdntorealip/" >CDN to Real IP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2017/04/20/phpstorm/" >PhpStorm 配置php7.0环境</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2017/04/02/selenium-qzone/" >Selenium Qzone登陆</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2017/03/18/scrapy%5B0%5D/" >Scrapy 初窥笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href= "/2017/02/16/ptentest%5B0%5D/" >渗透菜鸟概览</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2017/02/08/sympy/" >Sympy 解方程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/27</span><a class="archive-post-title" href= "/2017/01/27/fluxion/" >fluxion使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2017/01/26/english/" >EnNote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/24</span><a class="archive-post-title" href= "/2017/01/24/kalicommandnote/" >kali command note</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2016/12/26/chapter-one/" >（译）Chapter_one</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2016/11/27/python-pickle/" >Python闯关pickle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2016/11/19/rsa-basic%5B1%5D/" >数论（指数取余）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/caesar-encode/" >凯撒密码（Python）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/wechat-publosher/" >2016.11.12</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2016/11/10/toplistfile/" >ToPlistFile</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/09</span><a class="archive-post-title" href= "/2016/11/09/cocos2dx%5B0%5D/" >Cocos2dx 炮台坐标准备</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/python-47/" >python解47元方程组</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/http-note/" >http学习记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2016/11/03/udisk-antivirus/" >U盘快捷方式病毒修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/redo-or-undo/" >Redo or Undo</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/suffix-expression/" >求后缀表达式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2016/10/30/huffman/" >哈夫曼编码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2016/10/25/floyd/" >（转）坐在马桶上看算法：只有五行的Floyd最短路算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2016/10/23/DAG%5B1%5D/" >拓扑排序问题(队列实现)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Disjoint-set/" >(转)并查集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Kruskal-falied/" >通畅工程问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2016/10/21/eight-queens/" >八皇后问题</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="AQS"><span class="iconfont-archer">&#xe606;</span>AQS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrency"><span class="iconfont-archer">&#xe606;</span>Concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="拓扑排序"><span class="iconfont-archer">&#xe606;</span>拓扑排序</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构与算法"><span class="iconfont-archer">&#xe606;</span>数据结构与算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="课程安排"><span class="iconfont-archer">&#xe606;</span>课程安排</span>
+    
+        <span class="sidebar-tag-name" data-tags="join"><span class="iconfont-archer">&#xe606;</span>join</span>
+    
+        <span class="sidebar-tag-name" data-tags="优化"><span class="iconfont-archer">&#xe606;</span>优化</span>
+    
+        <span class="sidebar-tag-name" data-tags="电话"><span class="iconfont-archer">&#xe606;</span>电话</span>
+    
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="编程"><span class="iconfont-archer">&#xe606;</span>编程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="HashMap"><span class="iconfont-archer">&#xe606;</span>HashMap</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrent Hash Map"><span class="iconfont-archer">&#xe606;</span>Concurrent Hash Map</span>
+    
+        <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="JDWP"><span class="iconfont-archer">&#xe606;</span>JDWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KMP"><span class="iconfont-archer">&#xe606;</span>KMP</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据"><span class="iconfont-archer">&#xe606;</span>数据</span>
+    
+        <span class="sidebar-tag-name" data-tags="Math"><span class="iconfont-archer">&#xe606;</span>Math</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="3d"><span class="iconfont-archer">&#xe606;</span>3d</span>
+    
+        <span class="sidebar-tag-name" data-tags="animation"><span class="iconfont-archer">&#xe606;</span>animation</span>
+    
+        <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="arch"><span class="iconfont-archer">&#xe606;</span>arch</span>
+    
+        <span class="sidebar-tag-name" data-tags="bbr"><span class="iconfont-archer">&#xe606;</span>bbr</span>
+    
+        <span class="sidebar-tag-name" data-tags="google"><span class="iconfont-archer">&#xe606;</span>google</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="network"><span class="iconfont-archer">&#xe606;</span>network</span>
+    
+        <span class="sidebar-tag-name" data-tags="speed"><span class="iconfont-archer">&#xe606;</span>speed</span>
+    
+        <span class="sidebar-tag-name" data-tags="tcp"><span class="iconfont-archer">&#xe606;</span>tcp</span>
+    
+        <span class="sidebar-tag-name" data-tags="archlinux"><span class="iconfont-archer">&#xe606;</span>archlinux</span>
+    
+        <span class="sidebar-tag-name" data-tags="gdm"><span class="iconfont-archer">&#xe606;</span>gdm</span>
+    
+        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
+    
+        <span class="sidebar-tag-name" data-tags="themes"><span class="iconfont-archer">&#xe606;</span>themes</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="凯撒密码"><span class="iconfont-archer">&#xe606;</span>凯撒密码</span>
+    
+        <span class="sidebar-tag-name" data-tags="cdn"><span class="iconfont-archer">&#xe606;</span>cdn</span>
+    
+        <span class="sidebar-tag-name" data-tags="ip"><span class="iconfont-archer">&#xe606;</span>ip</span>
+    
+        <span class="sidebar-tag-name" data-tags="网络安全"><span class="iconfont-archer">&#xe606;</span>网络安全</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos"><span class="iconfont-archer">&#xe606;</span>cocos</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos2dx"><span class="iconfont-archer">&#xe606;</span>cocos2dx</span>
+    
+        <span class="sidebar-tag-name" data-tags="game"><span class="iconfont-archer">&#xe606;</span>game</span>
+    
+        <span class="sidebar-tag-name" data-tags="selector"><span class="iconfont-archer">&#xe606;</span>selector</span>
+    
+        <span class="sidebar-tag-name" data-tags="classLoader"><span class="iconfont-archer">&#xe606;</span>classLoader</span>
+    
+        <span class="sidebar-tag-name" data-tags="findClass"><span class="iconfont-archer">&#xe606;</span>findClass</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="K8s"><span class="iconfont-archer">&#xe606;</span>K8s</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deployment"><span class="iconfont-archer">&#xe606;</span>Deployment</span>
+    
+        <span class="sidebar-tag-name" data-tags="八皇后"><span class="iconfont-archer">&#xe606;</span>八皇后</span>
+    
+        <span class="sidebar-tag-name" data-tags="Search engine"><span class="iconfont-archer">&#xe606;</span>Search engine</span>
+    
+        <span class="sidebar-tag-name" data-tags="english"><span class="iconfont-archer">&#xe606;</span>english</span>
+    
+        <span class="sidebar-tag-name" data-tags="funnny"><span class="iconfont-archer">&#xe606;</span>funnny</span>
+    
+        <span class="sidebar-tag-name" data-tags="blob"><span class="iconfont-archer">&#xe606;</span>blob</span>
+    
+        <span class="sidebar-tag-name" data-tags="bomb"><span class="iconfont-archer">&#xe606;</span>bomb</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploding"><span class="iconfont-archer">&#xe606;</span>exploding</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="memory"><span class="iconfont-archer">&#xe606;</span>memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="tree"><span class="iconfont-archer">&#xe606;</span>tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="algorithm"><span class="iconfont-archer">&#xe606;</span>algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="php5"><span class="iconfont-archer">&#xe606;</span>php5</span>
+    
+        <span class="sidebar-tag-name" data-tags="wifi"><span class="iconfont-archer">&#xe606;</span>wifi</span>
+    
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+    
+        <span class="sidebar-tag-name" data-tags="service"><span class="iconfont-archer">&#xe606;</span>service</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Clion"><span class="iconfont-archer">&#xe606;</span>Clion</span>
+    
+        <span class="sidebar-tag-name" data-tags="debug"><span class="iconfont-archer">&#xe606;</span>debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="exception"><span class="iconfont-archer">&#xe606;</span>exception</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI/CD"><span class="iconfont-archer">&#xe606;</span>CI/CD</span>
+    
+        <span class="sidebar-tag-name" data-tags="github actions"><span class="iconfont-archer">&#xe606;</span>github actions</span>
+    
+        <span class="sidebar-tag-name" data-tags="编码"><span class="iconfont-archer">&#xe606;</span>编码</span>
+    
+        <span class="sidebar-tag-name" data-tags="Queue"><span class="iconfont-archer">&#xe606;</span>Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Stack"><span class="iconfont-archer">&#xe606;</span>Stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="FrontDesign"><span class="iconfont-archer">&#xe606;</span>FrontDesign</span>
+    
+        <span class="sidebar-tag-name" data-tags="Chrome"><span class="iconfont-archer">&#xe606;</span>Chrome</span>
+    
+        <span class="sidebar-tag-name" data-tags="Plugins"><span class="iconfont-archer">&#xe606;</span>Plugins</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sprider"><span class="iconfont-archer">&#xe606;</span>Sprider</span>
+    
+        <span class="sidebar-tag-name" data-tags="Basic knowledge"><span class="iconfont-archer">&#xe606;</span>Basic knowledge</span>
+    
+        <span class="sidebar-tag-name" data-tags="js"><span class="iconfont-archer">&#xe606;</span>js</span>
+    
+        <span class="sidebar-tag-name" data-tags="language"><span class="iconfont-archer">&#xe606;</span>language</span>
+    
+        <span class="sidebar-tag-name" data-tags="parser"><span class="iconfont-archer">&#xe606;</span>parser</span>
+    
+        <span class="sidebar-tag-name" data-tags="Lock"><span class="iconfont-archer">&#xe606;</span>Lock</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tricks"><span class="iconfont-archer">&#xe606;</span>Tricks</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cheat Sheet"><span class="iconfont-archer">&#xe606;</span>Cheat Sheet</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javassist"><span class="iconfont-archer">&#xe606;</span>Javassist</span>
+    
+        <span class="sidebar-tag-name" data-tags="JVM"><span class="iconfont-archer">&#xe606;</span>JVM</span>
+    
+        <span class="sidebar-tag-name" data-tags="Class file"><span class="iconfont-archer">&#xe606;</span>Class file</span>
+    
+        <span class="sidebar-tag-name" data-tags="Memory"><span class="iconfont-archer">&#xe606;</span>Memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="jvm"><span class="iconfont-archer">&#xe606;</span>jvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali"><span class="iconfont-archer">&#xe606;</span>kali</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewall"><span class="iconfont-archer">&#xe606;</span>firewall</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewalld"><span class="iconfont-archer">&#xe606;</span>firewalld</span>
+    
+        <span class="sidebar-tag-name" data-tags="iptables"><span class="iconfont-archer">&#xe606;</span>iptables</span>
+    
+        <span class="sidebar-tag-name" data-tags="protocol"><span class="iconfont-archer">&#xe606;</span>protocol</span>
+    
+        <span class="sidebar-tag-name" data-tags="strategy"><span class="iconfont-archer">&#xe606;</span>strategy</span>
+    
+        <span class="sidebar-tag-name" data-tags="firstSet"><span class="iconfont-archer">&#xe606;</span>firstSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="FollowSet"><span class="iconfont-archer">&#xe606;</span>FollowSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="ll1"><span class="iconfont-archer">&#xe606;</span>ll1</span>
+    
+        <span class="sidebar-tag-name" data-tags="table"><span class="iconfont-archer">&#xe606;</span>table</span>
+    
+        <span class="sidebar-tag-name" data-tags="acm"><span class="iconfont-archer">&#xe606;</span>acm</span>
+    
+        <span class="sidebar-tag-name" data-tags="ANSI"><span class="iconfont-archer">&#xe606;</span>ANSI</span>
+    
+        <span class="sidebar-tag-name" data-tags="ASCII"><span class="iconfont-archer">&#xe606;</span>ASCII</span>
+    
+        <span class="sidebar-tag-name" data-tags="decode"><span class="iconfont-archer">&#xe606;</span>decode</span>
+    
+        <span class="sidebar-tag-name" data-tags="encode"><span class="iconfont-archer">&#xe606;</span>encode</span>
+    
+        <span class="sidebar-tag-name" data-tags="ISO-8859-1"><span class="iconfont-archer">&#xe606;</span>ISO-8859-1</span>
+    
+        <span class="sidebar-tag-name" data-tags="messy code"><span class="iconfont-archer">&#xe606;</span>messy code</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql optimization"><span class="iconfont-archer">&#xe606;</span>Sql optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="index"><span class="iconfont-archer">&#xe606;</span>index</span>
+    
+        <span class="sidebar-tag-name" data-tags="B + tree"><span class="iconfont-archer">&#xe606;</span>B + tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="InnoDB"><span class="iconfont-archer">&#xe606;</span>InnoDB</span>
+    
+        <span class="sidebar-tag-name" data-tags="IO"><span class="iconfont-archer">&#xe606;</span>IO</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploit"><span class="iconfont-archer">&#xe606;</span>exploit</span>
+    
+        <span class="sidebar-tag-name" data-tags="NSA"><span class="iconfont-archer">&#xe606;</span>NSA</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="phpstorm"><span class="iconfont-archer">&#xe606;</span>phpstorm</span>
+    
+        <span class="sidebar-tag-name" data-tags="xampp"><span class="iconfont-archer">&#xe606;</span>xampp</span>
+    
+        <span class="sidebar-tag-name" data-tags="xdebug"><span class="iconfont-archer">&#xe606;</span>xdebug</span>
+    
+        <span class="sidebar-tag-name" data-tags="环境配置"><span class="iconfont-archer">&#xe606;</span>环境配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="apache"><span class="iconfont-archer">&#xe606;</span>apache</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="web server"><span class="iconfont-archer">&#xe606;</span>web server</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="序列化"><span class="iconfont-archer">&#xe606;</span>序列化</span>
+    
+        <span class="sidebar-tag-name" data-tags="Message Queue"><span class="iconfont-archer">&#xe606;</span>Message Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Notes"><span class="iconfont-archer">&#xe606;</span>Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="string"><span class="iconfont-archer">&#xe606;</span>string</span>
+    
+        <span class="sidebar-tag-name" data-tags="note"><span class="iconfont-archer">&#xe606;</span>note</span>
+    
+        <span class="sidebar-tag-name" data-tags="撤销"><span class="iconfont-archer">&#xe606;</span>撤销</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Extension"><span class="iconfont-archer">&#xe606;</span>Extension</span>
+    
+        <span class="sidebar-tag-name" data-tags="gcd"><span class="iconfont-archer">&#xe606;</span>gcd</span>
+    
+        <span class="sidebar-tag-name" data-tags="rsa"><span class="iconfont-archer">&#xe606;</span>rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="call-back"><span class="iconfont-archer">&#xe606;</span>call-back</span>
+    
+        <span class="sidebar-tag-name" data-tags="Request"><span class="iconfont-archer">&#xe606;</span>Request</span>
+    
+        <span class="sidebar-tag-name" data-tags="scrapy"><span class="iconfont-archer">&#xe606;</span>scrapy</span>
+    
+        <span class="sidebar-tag-name" data-tags="spider"><span class="iconfont-archer">&#xe606;</span>spider</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="qzone"><span class="iconfont-archer">&#xe606;</span>qzone</span>
+    
+        <span class="sidebar-tag-name" data-tags="selenium"><span class="iconfont-archer">&#xe606;</span>selenium</span>
+    
+        <span class="sidebar-tag-name" data-tags="webdriver"><span class="iconfont-archer">&#xe606;</span>webdriver</span>
+    
+        <span class="sidebar-tag-name" data-tags="black box"><span class="iconfont-archer">&#xe606;</span>black box</span>
+    
+        <span class="sidebar-tag-name" data-tags="lisp"><span class="iconfont-archer">&#xe606;</span>lisp</span>
+    
+        <span class="sidebar-tag-name" data-tags="module"><span class="iconfont-archer">&#xe606;</span>module</span>
+    
+        <span class="sidebar-tag-name" data-tags="scheme"><span class="iconfont-archer">&#xe606;</span>scheme</span>
+    
+        <span class="sidebar-tag-name" data-tags="sicp"><span class="iconfont-archer">&#xe606;</span>sicp</span>
+    
+        <span class="sidebar-tag-name" data-tags="case"><span class="iconfont-archer">&#xe606;</span>case</span>
+    
+        <span class="sidebar-tag-name" data-tags="condition"><span class="iconfont-archer">&#xe606;</span>condition</span>
+    
+        <span class="sidebar-tag-name" data-tags="hanoi"><span class="iconfont-archer">&#xe606;</span>hanoi</span>
+    
+        <span class="sidebar-tag-name" data-tags="recursion"><span class="iconfont-archer">&#xe606;</span>recursion</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql"><span class="iconfont-archer">&#xe606;</span>Sql</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mybatis"><span class="iconfont-archer">&#xe606;</span>Mybatis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Log"><span class="iconfont-archer">&#xe606;</span>Log</span>
+    
+        <span class="sidebar-tag-name" data-tags="Optimize"><span class="iconfont-archer">&#xe606;</span>Optimize</span>
+    
+        <span class="sidebar-tag-name" data-tags="Explain"><span class="iconfont-archer">&#xe606;</span>Explain</span>
+    
+        <span class="sidebar-tag-name" data-tags="策略模式"><span class="iconfont-archer">&#xe606;</span>策略模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="设计模式"><span class="iconfont-archer">&#xe606;</span>设计模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="后缀表达式"><span class="iconfont-archer">&#xe606;</span>后缀表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="symbol"><span class="iconfont-archer">&#xe606;</span>symbol</span>
+    
+        <span class="sidebar-tag-name" data-tags="Network"><span class="iconfont-archer">&#xe606;</span>Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="TCP"><span class="iconfont-archer">&#xe606;</span>TCP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="Thread"><span class="iconfont-archer">&#xe606;</span>Thread</span>
+    
+        <span class="sidebar-tag-name" data-tags="concurrency"><span class="iconfont-archer">&#xe606;</span>concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="u盘"><span class="iconfont-archer">&#xe606;</span>u盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="病毒"><span class="iconfont-archer">&#xe606;</span>病毒</span>
+    
+        <span class="sidebar-tag-name" data-tags="csrf"><span class="iconfont-archer">&#xe606;</span>csrf</span>
+    
+        <span class="sidebar-tag-name" data-tags="login"><span class="iconfont-archer">&#xe606;</span>login</span>
+    
+        <span class="sidebar-tag-name" data-tags="session"><span class="iconfont-archer">&#xe606;</span>session</span>
+    
+        <span class="sidebar-tag-name" data-tags="token"><span class="iconfont-archer">&#xe606;</span>token</span>
+    
+        <span class="sidebar-tag-name" data-tags="uid"><span class="iconfont-archer">&#xe606;</span>uid</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="Story"><span class="iconfont-archer">&#xe606;</span>Story</span>
+    
+        <span class="sidebar-tag-name" data-tags="effective"><span class="iconfont-archer">&#xe606;</span>effective</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="win10"><span class="iconfont-archer">&#xe606;</span>win10</span>
+    
+        <span class="sidebar-tag-name" data-tags="windows"><span class="iconfont-archer">&#xe606;</span>windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="castby"><span class="iconfont-archer">&#xe606;</span>castby</span>
+    
+        <span class="sidebar-tag-name" data-tags="story"><span class="iconfont-archer">&#xe606;</span>story</span>
+    
+        <span class="sidebar-tag-name" data-tags="Program"><span class="iconfont-archer">&#xe606;</span>Program</span>
+    
+        <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="http"><span class="iconfont-archer">&#xe606;</span>http</span>
+    
+        <span class="sidebar-tag-name" data-tags="Disk"><span class="iconfont-archer">&#xe606;</span>Disk</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deploy"><span class="iconfont-archer">&#xe606;</span>Deploy</span>
+    
+        <span class="sidebar-tag-name" data-tags="Redis"><span class="iconfont-archer">&#xe606;</span>Redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Middleware"><span class="iconfont-archer">&#xe606;</span>Middleware</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cache"><span class="iconfont-archer">&#xe606;</span>Cache</span>
+    
+        <span class="sidebar-tag-name" data-tags="Architecture"><span class="iconfont-archer">&#xe606;</span>Architecture</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="atom"><span class="iconfont-archer">&#xe606;</span>atom</span>
+    
+        <span class="sidebar-tag-name" data-tags="expression"><span class="iconfont-archer">&#xe606;</span>expression</span>
+    
+        <span class="sidebar-tag-name" data-tags="lanauage"><span class="iconfont-archer">&#xe606;</span>lanauage</span>
+    
+        <span class="sidebar-tag-name" data-tags="operator"><span class="iconfont-archer">&#xe606;</span>operator</span>
+    
+        <span class="sidebar-tag-name" data-tags="parse"><span class="iconfont-archer">&#xe606;</span>parse</span>
+    
+        <span class="sidebar-tag-name" data-tags="precedence"><span class="iconfont-archer">&#xe606;</span>precedence</span>
+    
+        <span class="sidebar-tag-name" data-tags="match"><span class="iconfont-archer">&#xe606;</span>match</span>
+    
+        <span class="sidebar-tag-name" data-tags="regex"><span class="iconfont-archer">&#xe606;</span>regex</span>
+    
+        <span class="sidebar-tag-name" data-tags="test"><span class="iconfont-archer">&#xe606;</span>test</span>
+    
+        <span class="sidebar-tag-name" data-tags="tutorial"><span class="iconfont-archer">&#xe606;</span>tutorial</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Security"><span class="iconfont-archer">&#xe60a;</span>Security</span>
+    
+        <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontPage"><span class="iconfont-archer">&#xe60a;</span>FrontPage</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="Cocos"><span class="iconfont-archer">&#xe60a;</span>Cocos</span>
+    
+        <span class="sidebar-category-name" data-categories="BackStage"><span class="iconfont-archer">&#xe60a;</span>BackStage</span>
+    
+        <span class="sidebar-category-name" data-categories="K8s"><span class="iconfont-archer">&#xe60a;</span>K8s</span>
+    
+        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="Story"><span class="iconfont-archer">&#xe60a;</span>Story</span>
+    
+        <span class="sidebar-category-name" data-categories="GDB"><span class="iconfont-archer">&#xe60a;</span>GDB</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontDesign"><span class="iconfont-archer">&#xe60a;</span>FrontDesign</span>
+    
+        <span class="sidebar-category-name" data-categories="Spider"><span class="iconfont-archer">&#xe60a;</span>Spider</span>
+    
+        <span class="sidebar-category-name" data-categories="Parser-amp-language"><span class="iconfont-archer">&#xe60a;</span>Parser-amp-language</span>
+    
+        <span class="sidebar-category-name" data-categories="Design"><span class="iconfont-archer">&#xe60a;</span>Design</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM"><span class="iconfont-archer">&#xe60a;</span>JVM</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM/Java"><span class="iconfont-archer">&#xe60a;</span>JVM/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql"><span class="iconfont-archer">&#xe60a;</span>Mysql</span>
+    
+        <span class="sidebar-category-name" data-categories="Database"><span class="iconfont-archer">&#xe60a;</span>Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network"><span class="iconfont-archer">&#xe60a;</span>Java/Network</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Database"><span class="iconfont-archer">&#xe60a;</span>Mysql/Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm/Bit-operation"><span class="iconfont-archer">&#xe60a;</span>Algorithm/Bit-operation</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network/IO"><span class="iconfont-archer">&#xe60a;</span>Java/Network/IO</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Middleware"><span class="iconfont-archer">&#xe60a;</span>Java/Middleware</span>
+    
+        <span class="sidebar-category-name" data-categories="Front"><span class="iconfont-archer">&#xe60a;</span>Front</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Sql"><span class="iconfont-archer">&#xe60a;</span>Mysql/Sql</span>
+    
+        <span class="sidebar-category-name" data-categories="Network"><span class="iconfont-archer">&#xe60a;</span>Network</span>
+    
+        <span class="sidebar-category-name" data-categories="System"><span class="iconfont-archer">&#xe60a;</span>System</span>
+    
+        <span class="sidebar-category-name" data-categories="OS"><span class="iconfont-archer">&#xe60a;</span>OS</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis"><span class="iconfont-archer">&#xe60a;</span>Redis</span>
+    
+        <span class="sidebar-category-name" data-categories="Architecture"><span class="iconfont-archer">&#xe60a;</span>Architecture</span>
+    
+        <span class="sidebar-category-name" data-categories="Idea"><span class="iconfont-archer">&#xe60a;</span>Idea</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis/Cache"><span class="iconfont-archer">&#xe60a;</span>Redis/Cache</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "ReZero"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

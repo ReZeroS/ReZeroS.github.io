@@ -1,0 +1,3892 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="ReZero">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="ReZero">
+    
+    <meta name="keywords" content="java,ReZero,programming">
+    
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="description" content="Not be the real thing digit might be overfolw  float will not be overflow, but could lost precision   Memory RAM: Random am  BitExclusive-Or(XOR)  A ^ B Union | &#x2F;&#x2F;并 Complement ~ &#x2F;&#x2F;补 Intersection &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSAPP">
+<meta property="og:url" content="https://rezeros.github.io/2020/10/01/csapp/index.html">
+<meta property="og:site_name" content="ReZero">
+<meta property="og:description" content="Not be the real thing digit might be overfolw  float will not be overflow, but could lost precision   Memory RAM: Random am  BitExclusive-Or(XOR)  A ^ B Union | &#x2F;&#x2F;并 Complement ~ &#x2F;&#x2F;补 Intersection &amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/unsigned.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/decimal.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/normalize.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/plusmult.jpeg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/address.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/endian.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/x86_64.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/switch.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/stackp.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/frame.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/zone.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/struct1.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/struct2.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/good.png">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/Morgnize.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/4006d6.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/cache.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/attack.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/disk.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/hostline.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/Hierarch.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/cpu.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/cachecalc.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/index.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/direct.jpg">
+<meta property="og:image" content="https://rezeros.github.io/2020/10/01/csapp/oformat.jpg">
+<meta property="article:published_time" content="2020-10-01T12:41:00.000Z">
+<meta property="article:modified_time" content="2021-07-17T09:37:19.054Z">
+<meta property="article:author" content="ReZero">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rezeros.github.io/2020/10/01/csapp/unsigned.jpg">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <title>CSAPP · ReZero</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="ReZero" type="application/atom+xml">
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >ReZero&#39;s Utopia.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">CSAPP</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>ReZero's Utopia.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            CSAPP
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Program">Program</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "OS">OS</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">5.3k</span>Reading time: <span class="post-count reading-time">24 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2020/10/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Not-be-the-real-thing"><a href="#Not-be-the-real-thing" class="headerlink" title="Not be the real thing"></a>Not be the real thing</h2><ol>
+<li><p>digit might be overfolw</p>
+</li>
+<li><p>float will not be overflow, but could lost precision</p>
+</li>
+</ol>
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><ol>
+<li>RAM: Random am</li>
+</ol>
+<h2 id="Bit"><a href="#Bit" class="headerlink" title="Bit"></a>Bit</h2><p>Exclusive-Or(XOR)  A ^ B</p>
+<p>Union | //并</p>
+<p>Complement ~ //补</p>
+<p>Intersection &amp; //交</p>
+<p>Symmetric difference ^ //差</p>
+<h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2><p>Unsigned： </p>
+<p>$$ B2U(X)=\sum_{i=0}^{w-1}x_i*2^i $$</p>
+<p>Signed：</p>
+<p>$$ B2T(X)=-x_{w-1}<em>2^{w-1}+\sum_{i=0}^{w-2}x_i</em>2^i $$</p>
+<h3 id="Type-Conversion"><a href="#Type-Conversion" class="headerlink" title="Type Conversion"></a>Type Conversion</h3><img src="/2020/10/01/csapp/unsigned.jpg" class="" title="TypeConversion">
+
+<p>If not set keyword(unsigned) in C, then must use U follow number to change the default value(signed) such as 15213U</p>
+<h3 id="Conversion-mutual"><a href="#Conversion-mutual" class="headerlink" title="Conversion mutual"></a>Conversion mutual</h3><ul>
+<li><p>Byte will not changed, but change the interpreted way.</p>
+</li>
+<li><p>Both all will be convert into unsigned if include one unsigned.</p>
+</li>
+</ul>
+<h3 id="Type-extension-amp-Intercept"><a href="#Type-extension-amp-Intercept" class="headerlink" title="Type extension &amp; Intercept"></a>Type extension &amp; Intercept</h3><ul>
+<li><p>Extend: from short to int</p>
+<ul>
+<li>unsigned: plus 0</li>
+<li>signed: plus sign</li>
+</ul>
+</li>
+<li><p>Intercept: from unsigned int to unsigned short</p>
+<ul>
+<li>unsigned: mod operation</li>
+<li>signed: almost mod operation</li>
+</ul>
+</li>
+</ul>
+<h3 id="Calculate-amp-Overflow"><a href="#Calculate-amp-Overflow" class="headerlink" title="Calculate &amp; Overflow"></a>Calculate &amp; Overflow</h3><p>Both w bit unsigned number mutual plus, and get a result w+1 bit. Then it will lose the highest bit, just like mod operation:</p>
+<p>$$s=UAdd_w(u,v)=u+v ; mod ; 2^w$$</p>
+<p>So as signed number, but change the sign symbol.</p>
+<h2 id="Float"><a href="#Float" class="headerlink" title="Float"></a>Float</h2><p>$$\sum_{k=-j}^ib_k\times 2^k$$</p>
+<h3 id="IEEE-standard"><a href="#IEEE-standard" class="headerlink" title="IEEE standard"></a>IEEE standard</h3><p>$$(-1)^s ; M ; 2^E$$</p>
+<p><code>s</code> is sign symbol, <code>M</code> always be [1.0, 2.0) decimal, and <code>E</code> is power.</p>
+<img src="/2020/10/01/csapp/decimal.jpg" class="" title="decimal">
+
+<p>Exp related E(not equal must, as the limit of bit count), frac related M(So as E)</p>
+<hr>
+<h4 id="Normalized-Values"><a href="#Normalized-Values" class="headerlink" title="Normalized Values"></a>Normalized Values</h4><p>$$v=(-1)^s ; M ; 2^E$$</p>
+<ul>
+<li>E = Exp - Bias</li>
+<li>Exp: exp encode area unsigned digit</li>
+<li>Bias: as k is exp encode count, which means</li>
+</ul>
+<p>$$2^{k-1} - 1$$</p>
+<pre><code>- single precision: 127 (Exp:1...254,E:-126...127)
+- double precision: 1023 (Exp:1...2046, E:-1022...1023)</code></pre><p>Note: Exp encode only need unsigned digit to operate.</p>
+<p>For M, it must begin with 1: M = 1.xxx…x2, and xxx means frac(frac = 000.00 corresponding minium M = 1.0), when frac=111…1, M will be infinite close to 2.0</p>
+<p>For Example: Float F = 15213.0</p>
+<p>$$15213_{10}=11101101101101_2=1.1101101101101_2 \times 2^{13}$$</p>
+<p>So the frac part is the point behind, and Exp = E + Bias = 12 + 127 = 140 = 10001100(b)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 10001100 11011011011010000000000</span><br><span class="line">s   exp             frac</span><br></pre></td></tr></table></figure>
+
+<h4 id="Denormalized-Values"><a href="#Denormalized-Values" class="headerlink" title="Denormalized Values"></a>Denormalized Values</h4><p><code>E = 1 - Bias</code> And <code>M = 0.xxx...x2</code> But others not changed.</p>
+<p>exp = 000…0 &amp; frac = 000…0 : 0<br>exp = 000…0 &amp; frac != 000…0 : infinite to 0<br>exp = 111…1 &amp; frac = 000..0 infinite<br>exp = 111…1 &amp; frac != 000…0 NaN</p>
+<h4 id="Real-sample"><a href="#Real-sample" class="headerlink" title="Real sample"></a>Real sample</h4><img src="/2020/10/01/csapp/normalize.jpg" class="" title="normalize">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    s exp  frac   E   值</span><br><span class="line">------------------------------------------------------------------</span><br><span class="line">    0 0000 000   -6   0   # 这部分是非规范化数值，下一部分是规范化值</span><br><span class="line">    0 0000 001   -6   1/8 * 1/64 = 1/512 # 能表示的最接近零的值</span><br><span class="line">    0 0000 010   -6   2/8 * 1/64 = 2/512 </span><br><span class="line">    ...</span><br><span class="line">    0 0000 110   -6   6/8 * 1/64 = 6/512</span><br><span class="line">    0 0000 111   -6   7/8 * 1/64 = 7/512 # 能表示的最大非规范化值</span><br><span class="line">------------------------------------------------------------------</span><br><span class="line">    0 0001 000   -6   8/8 * 1/64 = 8/512 # 能表示的最小规范化值</span><br><span class="line">    0 0001 001   -6   9/8 * 1/64 = 9/512</span><br><span class="line">    ...</span><br><span class="line">    0 0110 110   -1   14/8 * 1/2 = 14/16</span><br><span class="line">    0 0110 111   -1   15/8 * 1/2 = 15/16 # 最接近且小于 1 的值</span><br><span class="line">    0 0111 000    0   8/8 * 1 = 1</span><br><span class="line">    0 0111 001    0   9/8 * 1 = 9/8      # 最接近且大于 1 的值</span><br><span class="line">    0 0111 010    0   10/8 * 1 = 10/8</span><br><span class="line">    ...</span><br><span class="line">    0 1110 110    7   14/8 * 128 = 224</span><br><span class="line">    0 1110 111    7   15/8 * 128 = 240   # 能表示的最大规范化值</span><br><span class="line">------------------------------------------------------------------</span><br><span class="line">    0 1111 000   n/a  无穷               # 特殊值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Note: </p>
+<ul>
+<li>exp = 0000(Denormalize) 1/8 is the distance</li>
+</ul>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  原数值       舍入结果    原因</span><br><span class="line">2.8949999      2.89    不到一半，正常四舍五入</span><br><span class="line">2.8950001      2.90    超过一半，正常四舍五入</span><br><span class="line">2.8950000      2.90    刚好在一半时，保证最后一位是偶数，所以向上舍入</span><br><span class="line">2.8850000      2.88    刚好在一半时，保证最后一位是偶数，所以向下舍入</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  十进制    二进制     舍入结果  十进制    原因</span><br><span class="line">2 又 3/32  10.00011   10.00     2      不到一半，正常四舍五入</span><br><span class="line">2 又 3/16  10.00110   10.01  2 又 1/4   超过一半，正常四舍五入</span><br><span class="line">2 又 7/8   10.11100   11.00     3      刚好在一半时，保证最后一位是偶数，所以向上舍入</span><br><span class="line">2 又 5/8   10.10100   10.10  2 又 1/2   刚好在一半时，保证最后一位是偶数，所以向下舍入</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<img src="/2020/10/01/csapp/plusmult.jpeg" class="" title="plus&amp;mult">
+
+
+<h2 id="Data-in-Memory"><a href="#Data-in-Memory" class="headerlink" title="Data in Memory"></a>Data in Memory</h2><img src="/2020/10/01/csapp/address.jpg" class="" title="address">
+
+<p>Internet: Big Endian</p>
+<p>x86 OR ARM: Little Endian</p>
+<img src="/2020/10/01/csapp/endian.jpg" class="" title="Endian">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Check the num format</span><br><span class="line">typedef unsigned char *pointer;</span><br><span class="line">void show_bytes(pointer start, size_t len) &#123;</span><br><span class="line">	size_t i;</span><br><span class="line">	for (i = 0; i &lt; len; i++)</span><br><span class="line">		printf(&quot;%p\t0x%.2x\n&quot;, start+i, start[i]);</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>%p: point, %x: Hex, Execute as:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int a = 15213;</span><br><span class="line">printf(&quot;int a = 15213;\n&quot;);</span><br><span class="line">show_bytes((pointer) &amp;a, sizeof(int));</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><h3 id="C2M"><a href="#C2M" class="headerlink" title="C2M"></a>C2M</h3><p>.c (gcc -0g 0S) -&gt; .s<br>.s (gcc OR as) -&gt; .o<br>.o (with lib.a operated by gcc OR ld) execute.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">plus</span><span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> y)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sumstore</span><span class="params">(<span class="keyword">long</span> x, <span class="keyword">long</span> y, <span class="keyword">long</span> *dest)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> t = plus(x, y);</span><br><span class="line">    *dest = t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>appropriate code:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sumstore:</span><br><span class="line">    pushq   %rbx</span><br><span class="line">    movq    %rbx, %rbx</span><br><span class="line">    call    plus</span><br><span class="line">    movq    %rax, (%rbx)</span><br><span class="line">    popq    %rbx</span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Processor: </p>
+<ul>
+<li>Storage: Memory &amp; Register</li>
+<li>Calc: Memory &amp; Register</li>
+<li>Transfer: condition call OR condition branch</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// C 代码</span><br><span class="line">*dest = t;</span><br><span class="line">// 对应的汇编代码</span><br><span class="line">movq    %rax, (%rbx)</span><br><span class="line">// 对应的对象代码</span><br><span class="line">0x40059e:   46 89 03</span><br></pre></td></tr></table></figure>
+
+<h3 id="Assembly"><a href="#Assembly" class="headerlink" title="Assembly"></a>Assembly</h3><img src="/2020/10/01/csapp/x86_64.jpg" class="" title="x86_64">
+
+<p>General purpose register</p>
+<ul>
+<li>%rax(%eax) 用于做累加</li>
+<li>%rcx(%ecx) 用于计数</li>
+<li>%rdx(%edx) 用于保存数据</li>
+<li>%rbx(%ebx) 用于做内存查找的基础地址</li>
+<li>%rsi(%esi) 用于保存源索引值</li>
+<li>%rdi(%edi) 用于保存目标索引值</li>
+</ul>
+<hr>
+<p><em>%rsp(%esp) 和 %rbp(%ebp) 则是作为栈指针和基指针来使用的</em></p>
+<hr>
+<p>movq Sour:[Imm|Reg|Mem], Dest[Reg|Mem] (But No Mem Mem)</p>
+<p><code>D(Rb, Ri, S) -&gt; Mem[Reg[Rb]+S*Reg[Ri]+D]</code></p>
+<ul>
+<li><p>D - 常数偏移量</p>
+</li>
+<li><p>Rb - 基寄存器</p>
+</li>
+<li><p>Ri - 索引寄存器，不能是 %rsp</p>
+</li>
+<li><p>S - 系数</p>
+</li>
+<li><p>(Rb, Ri) -&gt; Mem[Reg[Rb]+Reg[Ri]]</p>
+</li>
+<li><p>D(Rb, Ri) -&gt; Mem[Reg[Rb]+Reg[Ri]+D]</p>
+</li>
+<li><p>(Rb, Ri, S) -&gt; Mem[Reg[Rb]+S*Reg[Ri]]</p>
+</li>
+</ul>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">long m12(long x)</span><br><span class="line">&#123;</span><br><span class="line">    return x * 12;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">leaq (%rdi, %rdi, 2), %rax # t &lt;- x+x*2</span><br><span class="line">salq $2, %rax              # return t &lt;&lt; 2</span><br></pre></td></tr></table></figure>
+
+<p>More orders:</p>
+<ul>
+<li><p>addq Src, Dest -&gt; Dest = Dest + Src</p>
+</li>
+<li><p>subq Src, Dest -&gt; Dest = Dest - Src</p>
+</li>
+<li><p>imulq Src, Dest -&gt; Dest = Dest * Src</p>
+</li>
+<li><p>salq Src, Dest -&gt; Dest = Dest &lt;&lt; Src</p>
+</li>
+<li><p>sarq Src, Dest -&gt; Dest = Dest &gt;&gt; Src</p>
+</li>
+<li><p>shrq Src, Dest -&gt; Dest = Dest &gt;&gt; Src</p>
+</li>
+<li><p>xorq Src, Dest -&gt; Dest = Dest ^ Src</p>
+</li>
+<li><p>andq Src, Dest -&gt; Dest = Dest &amp; Src</p>
+</li>
+<li><p>orq Src, Dest -&gt; Dest = Dest | Src</p>
+</li>
+<li></li>
+<li><p>incq Dest -&gt; Dest = Dest + 1</p>
+</li>
+<li><p>decq Dest -&gt; Dest = Dest - 1</p>
+</li>
+<li><p>negq Dest -&gt; Dest = -Dest</p>
+</li>
+<li><p>notq Dest -&gt; Dest = ~Dest</p>
+</li>
+</ul>
+<h2 id="Flow-Control"><a href="#Flow-Control" class="headerlink" title="Flow Control"></a>Flow Control</h2><ul>
+<li>临时数据存放在 (%rax, …)</li>
+<li>运行时栈的地址存储在 (%rsp) 中</li>
+<li>目前的代码控制点存储在 (%rip, …) 中</li>
+<li>目前测试的状态放在 CF, ZF, SF, OF 中</li>
+</ul>
+<h3 id="Condition-amp-Jump"><a href="#Condition-amp-Jump" class="headerlink" title="Condition &amp; Jump"></a>Condition &amp; Jump</h3><ul>
+<li>CF: Carry Flag (针对无符号数)</li>
+<li>ZF: Zero Flag</li>
+<li>SF: Sign Flag (针对有符号数)</li>
+<li>OF: Overflow Flag (针对有符号数)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">long absdiff(long x, long y)</span><br><span class="line">&#123;</span><br><span class="line">    long result;</span><br><span class="line">    if (x &gt; y)</span><br><span class="line">        result = x-y;</span><br><span class="line">    else</span><br><span class="line">        result = y-x;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> %rdi save x，%rsi save y， %rax save return.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">absdiff:</span><br><span class="line">    cmpq    %rsi, %rdi</span><br><span class="line">    jle     .L4</span><br><span class="line">    movq    %rdi, %rax</span><br><span class="line">    subq    %rsi, %rax</span><br><span class="line">    ret</span><br><span class="line">.L4:    # x &lt;= y</span><br><span class="line">    movq    %rsi, %rax</span><br><span class="line">    subq    %rdi, %rax</span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">long absdiff_goto(long x, long y)</span><br><span class="line">&#123;</span><br><span class="line">    long result;</span><br><span class="line">    int ntest = x &lt;= y;</span><br><span class="line">    if (ntest) goto Else;</span><br><span class="line">    result = x-y;</span><br><span class="line">    goto Done;</span><br><span class="line">Else:</span><br><span class="line">    result = y-x;</span><br><span class="line">Done:</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val = Test ? Then_Expr : Else_Expr;</span><br><span class="line">val = x&gt;y ? x-y : y-x;</span><br></pre></td></tr></table></figure>
+
+<p>To Goto</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	ntest = !Test;</span><br><span class="line">	if (ntest) goto Else;</span><br><span class="line">	value = Then_Expr;</span><br><span class="line">	goto Done;</span><br><span class="line">Else:</span><br><span class="line">	val = Else_Expr;</span><br><span class="line">Done:</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+
+<p>Calc all to avoid the reset assembly line operation</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">result = Then_Expr;</span><br><span class="line">eval = Else_Expr;</span><br><span class="line">nt = !Test;</span><br><span class="line">if (nt) result = eval;</span><br><span class="line">return result;</span><br></pre></td></tr></table></figure>
+
+<p>Such as:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">absdiff:</span><br><span class="line">    movq    %rdi, %rax  # x</span><br><span class="line">    subq    %rsi, %rax  # result = x-y</span><br><span class="line">    movq    %rsi, %rdx</span><br><span class="line">    subq    %rdi, %rdx  # eval = y-x</span><br><span class="line">    cmpq    %rsi, %rdi  # x:y</span><br><span class="line">    cmovle  %rdx, %rax  # if &lt;=, result = eval</span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+
+<p>Not suited:</p>
+<ul>
+<li><p>Much more calc in the two branches</p>
+</li>
+<li><p><code>val = p ? *p : 0;</code> some interesting happen</p>
+</li>
+<li><p><code>val = x &gt; 0? x *= 7: x *= 3</code> x will change </p>
+</li>
+</ul>
+<h4 id="Do-While"><a href="#Do-While" class="headerlink" title="Do While"></a>Do While</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// Do While 的 C 语言代码</span><br><span class="line">long pcount_do(unsigned long x)</span><br><span class="line">&#123;</span><br><span class="line">    long result = 0;</span><br><span class="line">    do &#123;</span><br><span class="line">        result += x &amp; 0x1;</span><br><span class="line">        x &gt;&gt;= 1;</span><br><span class="line">    &#125; while (x);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line">// Goto 版本</span><br><span class="line">long pcount_goto(unsigned long x)</span><br><span class="line">&#123;</span><br><span class="line">    long result = 0;</span><br><span class="line">loop:</span><br><span class="line">    result += x &amp; 0x1;</span><br><span class="line">    x &gt;&gt;= 1;</span><br><span class="line">    if (x) goto loop;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>To assembly:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    movl    $0, %eax    # result = 0</span><br><span class="line">.L2:                    # loop:</span><br><span class="line">    movq    %rdi, %rdx</span><br><span class="line">    andl    $1, %edx    # t = x &amp; 0x1</span><br><span class="line">    addq    %rdx, %rax  # result += t</span><br><span class="line">    shrq    %rdi        # x &gt;&gt;= 1</span><br><span class="line">    jne     .L2         # if (x) goto loop</span><br><span class="line">    rep; ret</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// C Code</span><br><span class="line">do</span><br><span class="line">	Body</span><br><span class="line">	while (Test);</span><br><span class="line">// Goto Version</span><br><span class="line">loop:</span><br><span class="line">	Body</span><br><span class="line">	if (Test)</span><br><span class="line">		goto loop</span><br><span class="line"></span><br><span class="line">// C While version</span><br><span class="line">while (Test)</span><br><span class="line">	Body</span><br><span class="line">// Goto Version</span><br><span class="line">	goto test;</span><br><span class="line">loop:</span><br><span class="line">	Body</span><br><span class="line">test:</span><br><span class="line">	if (Test)</span><br><span class="line">		goto loop;</span><br><span class="line">done:</span><br></pre></td></tr></table></figure>
+
+<p>Turn on <code>-01</code> Optimize option, <code>While</code> will be transfer into Do-While, then transfer into Goto, Because Do-While execute so faster, which much more suit CPU calc model.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// For</span><br><span class="line">for (Init; Test; Update)</span><br><span class="line">	Body</span><br><span class="line">	</span><br><span class="line">// While Version</span><br><span class="line">Init;</span><br><span class="line">while (Test) &#123;</span><br><span class="line">	Body</span><br><span class="line">	Update;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Switch:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">long switch_eg (long x, long y, long z)&#123;</span><br><span class="line">	long w = 1;</span><br><span class="line">	switch (x) &#123;</span><br><span class="line">		case 1:</span><br><span class="line">			w = y*z;</span><br><span class="line">			break;</span><br><span class="line">		case 2:</span><br><span class="line">			w = y/z;</span><br><span class="line">			// fall through</span><br><span class="line">		case 3:</span><br><span class="line">			w += z;</span><br><span class="line">			break;</span><br><span class="line">		case 5:</span><br><span class="line">		case 6:</span><br><span class="line">			w -= z;</span><br><span class="line">			break;</span><br><span class="line">		default:</span><br><span class="line">			w = 2;</span><br><span class="line">	&#125;</span><br><span class="line">	return w;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We will use jump table:<br>%rdi is x, %rsi is y, %rdx is z, %rax is return</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">switch_eg:</span><br><span class="line">    movq    %rdx, %rcx</span><br><span class="line">    cmpq    $6, %rdi    # x:6</span><br><span class="line">    ja      .L8</span><br><span class="line">    jmp     *.L4(, %rdi, 8)</span><br><span class="line"></span><br><span class="line">--------------</span><br><span class="line">Jump table as</span><br><span class="line">--------------</span><br><span class="line"></span><br><span class="line">.section    .rodata</span><br><span class="line">    .align 8</span><br><span class="line">.L4:</span><br><span class="line">    .quad   .L8 # x = 0</span><br><span class="line">    .quad   .L3 # x = 1</span><br><span class="line">    .quad   .L5 # x = 2</span><br><span class="line">    .quad   .L9 # x = 3</span><br><span class="line">    .quad   .L8 # x = 4</span><br><span class="line">    .quad   .L7 # x = 5</span><br><span class="line">    .quad   .L7 # x = 6</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/10/01/csapp/switch.png" class="" title="switch"> 
+
+<h2 id="Process-call"><a href="#Process-call" class="headerlink" title="Process call"></a>Process call</h2><ul>
+<li>Delivery Control: How to begin, and return back the begin</li>
+<li>Delivery Data: Args and return value.</li>
+<li>Memory Manage: How to free and malloc memory.</li>
+</ul>
+<h3 id="Stack-Structure"><a href="#Stack-Structure" class="headerlink" title="Stack Structure"></a>Stack Structure</h3><p>%rsp is stack point</p>
+<img src="/2020/10/01/csapp/stackp.jpg" class="" title="stackp">
+
+<h3 id="Call-ways"><a href="#Call-ways" class="headerlink" title="Call ways"></a>Call ways</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// multstore 函数</span><br><span class="line">void multstore (long x, long, y, long *dest)</span><br><span class="line">&#123;</span><br><span class="line">    long t = mult2(x, y);</span><br><span class="line">    *dest = t;</span><br><span class="line">&#125;</span><br><span class="line">// mult2 函数</span><br><span class="line">long mult2(long a, long b)</span><br><span class="line">&#123;</span><br><span class="line">    long s = a * b;</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Assembly</span><br><span class="line">0000000000400540 &lt;multstore&gt;:</span><br><span class="line">    # x 在 %rdi 中，y 在 %rsi 中，dest 在 %rdx 中</span><br><span class="line">    400540: push    %rbx            # 通过压栈保存 %rbx</span><br><span class="line">    400541: mov     %rdx, %rbx      # 保存 dest</span><br><span class="line">    400544: callq   400550 &lt;mult2&gt;  # 调用 mult2(x, y)</span><br><span class="line">    # t 在 %rax 中</span><br><span class="line">    400549: mov     %rax, (%rbx)    # 结果保存到 dest 中</span><br><span class="line">    40054c: pop     %rbx            # 通过出栈恢复原来的 %rbx</span><br><span class="line">    40054d: retq                    # 返回</span><br><span class="line">0000000000400550 &lt;mult2&gt;:</span><br><span class="line">    # a 在 %rdi 中，b 在 %rsi 中</span><br><span class="line">    400550: mov     %rdi, %rax      # 得到 a 的值</span><br><span class="line">    400553: imul    %rsi, %rax      # a * b</span><br><span class="line">    # s 在 %rax 中</span><br><span class="line">    400557: retq                    # 返回</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>call: 将当前的IP 或者 CS:IP 压入栈中, 跳转到指定位置<br>ret :  用栈中所保存的数据赋值给IP的， 跳转回来</p>
+<hr>
+<p>参数没有超过六个，那么会放在：%rdi, %rsi, %rdx, %rcx, %r8, %r9 中。</p>
+<p>如果超过了，会另外放在一个栈中。而返回值会放在 %rax 中</p>
+<p>A Frame will be assigned to every call process by on stack which include three as follows:</p>
+<ul>
+<li>返回信息</li>
+<li>本地存储（如果需要）</li>
+<li>临时空间（如果需要）</li>
+</ul>
+<p>Call then alloc, free when return.</p>
+<hr>
+<p>x86_64/Linux, fixed in that:</p>
+<ul>
+<li>Argument Build: 需要使用的参数</li>
+<li>如果不能保存在寄存器中，会把一些本地变量放在这里</li>
+<li>已保存的寄存器上下文</li>
+<li>老的栈帧的指针（可选）</li>
+</ul>
+<p>While caller include:</p>
+<ul>
+<li>返回地址（因为 call 指令被压入栈的）</li>
+<li>调用所需的参数</li>
+</ul>
+<img src="/2020/10/01/csapp/frame.jpg" class="" title="frame">
+
+
+<h4 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">long pcount_r(unsigned long x) &#123;</span><br><span class="line">	if (x == 0)</span><br><span class="line">		return 0;</span><br><span class="line">	else</span><br><span class="line">		return (x &amp; 1) + pcount_r(x &gt;&gt; 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pcount_r:</span><br><span class="line">    mov     $0, %eax</span><br><span class="line">    testq   %rdi, %rdi</span><br><span class="line">    je      .L6</span><br><span class="line">    push    %rbx</span><br><span class="line">    movq    %rdi, %rbx</span><br><span class="line">    andl    $1, %ebx</span><br><span class="line">    shrq    %rdi</span><br><span class="line">    call    pcount_r</span><br><span class="line">    addq    %rbx, %rax</span><br><span class="line">    popq    %rbx</span><br><span class="line">.L6:</span><br><span class="line">    rep; ret</span><br></pre></td></tr></table></figure>
+
+<h2 id="Data-Storage"><a href="#Data-Storage" class="headerlink" title="Data Storage"></a>Data Storage</h2><img src="/2020/10/01/csapp/zone.jpg" class="" title="zone">
+
+<p>Struct:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct rec </span><br><span class="line">&#123;</span><br><span class="line">    int a[4];</span><br><span class="line">    size_t i;       </span><br><span class="line">    struct rect *next;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/10/01/csapp/struct1.jpg" class="" title="struct1">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct S1</span><br><span class="line">&#123;</span><br><span class="line">    char c;</span><br><span class="line">    int i[2];</span><br><span class="line">    double v;</span><br><span class="line">&#125; *p;</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/10/01/csapp/struct2.jpg" class="" title="struct2">
+
+<blockquote>
+<p>Align theory: </p>
+</blockquote>
+<blockquote>
+<p>Win: 如果数据类型需要 K 个字节，那么地址都必须是 K 的倍数</p>
+</blockquote>
+<blockquote>
+<p>Linux: 2字节数据类型的地址必须为2的倍数，较大的数据类型（int,double,float）的地址必须是4的倍数</p>
+</blockquote>
+<p>So we could design struct like this(big bit number on the front):</p>
+<img src="/2020/10/01/csapp/good.png" class="" title="good">
+
+
+<h2 id="Cache-overflow"><a href="#Cache-overflow" class="headerlink" title="Cache overflow"></a>Cache overflow</h2><img src="/2020/10/01/csapp/Morgnize.jpg" class="" title="Morgnize">
+
+<blockquote>
+<p>最上面是运行时栈，有 8MB 的大小限制，一般用来保存局部变量。然后是堆，动态的内存分配会在这里处理，例如 malloc(), calloc(), new() 等。然后是数据，指的是静态分配的数据，比如说全局变量，静态变量，常量字符串。最后是共享库等可执行的机器指令，这一部分是只读的。</p>
+</blockquote>
+<blockquote>
+<p>可以见到，栈在最上面，也就是说，栈再往上就是另一个程序的内存范围了，这种时候我们就可以通过这种方式修改内存的其他部分了。</p>
+</blockquote>
+<p>Sample:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">void echo() &#123;</span><br><span class="line">	char buf[4]; // 太小</span><br><span class="line">	gets(buf);</span><br><span class="line">	puts(buf);</span><br><span class="line">&#125;</span><br><span class="line">void call_echo() &#123;</span><br><span class="line">	echo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">00000000004006cf &lt;echo&gt;:</span><br><span class="line">    4006cf: 48 83 ec 18         sub   $0x18, %rsp</span><br><span class="line">    4006d3: 48 89 e7            mov   %rsp, %rdi</span><br><span class="line">    4006d6: e8 a5 ff ff ff      callq 400680 &lt;gets&gt;</span><br><span class="line">    4006db: 48 89 e7            mov   %rsp, %rdi</span><br><span class="line">    4006de: e8 3d fe ff ff      callq 400520 &lt;puts@plt&gt;</span><br><span class="line">    4006e3: 48 83 c4 18         add   $0x18, %rsp</span><br><span class="line">    4006e7: c3                  retq</span><br><span class="line"># call_echo 部分</span><br><span class="line">    4006e8: 48 83 ec 08         sub   $0x8, %rsp</span><br><span class="line">    4006ec: b8 00 00 00 00      mov   $0x0, %eax</span><br><span class="line">    4006f1: e8 d9 ff ff ff      callq 4006cf &lt;echo&gt;</span><br><span class="line">    4006f6: 48 83 c4 08         add   $0x8, %rsp</span><br><span class="line">    4006fa: c3                  retq</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>0x18 not 4, before 4006d6</p>
+<img src="/2020/10/01/csapp/4006d6.jpg" class="" title="4006d6">
+
+<p>See, the call_echo frame saved 4006f6 order, and when we type <code>01234567890123456789012</code></p>
+<p>Cache like this(No Segment Fault):</p>
+<img src="/2020/10/01/csapp/cache.jpg" class="" title="cache">
+
+<p>but more will override the 4006f6 get 400034(the back next order)</p>
+<img src="/2020/10/01/csapp/attack.jpg" class="" title="attack">
+
+<p>返回导向编程: 可以利用修改已有的代码，来绕过系统和编译器的保护机制，攻击者控制堆栈调用以劫持程序控制流并执行针对性的机器语言指令序列（称为Gadgets）。每一段 gadget 通常结束于 return 指令，并位于共享库代码中的子程序。系列调用这些代码，攻击者可以在拥有更简单攻击防范的程序内执行任意操作。</p>
+<h2 id="Optimize"><a href="#Optimize" class="headerlink" title="Optimize"></a>Optimize</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 把 nxn 的矩阵 a 的每一行加起来，存到向量 b 中</span><br><span class="line">void sum_rows1(double *a, double *b, long n)</span><br><span class="line">&#123;</span><br><span class="line">    long i, j;</span><br><span class="line">    for (i = 0; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        b[i] = 0;</span><br><span class="line">        for (j = 0; j &lt; n; j++)</span><br><span class="line">            b[i] += a[i*n + j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 把 nxn 的矩阵 a 的每一行加起来，存到向量 b 中</span><br><span class="line">void sum_rows2(double *a, double *b, long n)</span><br><span class="line">&#123;</span><br><span class="line">    long i, j;</span><br><span class="line">    for (i = 0; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        double val = 0;</span><br><span class="line">        for (j = 0; j &lt; n; j++)</span><br><span class="line">            val += a[i*n + j];</span><br><span class="line">        b[i] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>To remove quote memory</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 把 nxn 的矩阵 a 的每一行加起来，存到向量 b 中</span><br><span class="line">void sum_rows2(double *a, double *b, long n)</span><br><span class="line">&#123;</span><br><span class="line">    long i, j;</span><br><span class="line">    for (i = 0; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        double val = 0;</span><br><span class="line">        for (j = 0; j &lt; n; j++)</span><br><span class="line">            val += a[i*n + j];</span><br><span class="line">        b[i] = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># sum_rows2 内循环</span><br><span class="line">.L10:</span><br><span class="line">    addsd   (%rdi), %xmm0   # 浮点数载入 + 加法</span><br><span class="line">    addq    $9, %rdi</span><br><span class="line">    cmpq    %rax, %rdi</span><br><span class="line">    jne     .L10</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>这个问题，如果不是对处理器执行指令的机制有一定了解的话，可能会难以理解。</p>
+<p>现代处理器普遍采用超标量设计，也就是基于流水线来进行指令的处理，也就是说，当执行当前指令时，接下来要执行的几条指令已经进入流水线的处理流程了。</p>
+<p>这个很重要，对于顺序执行来说，不会有任何问题，但是对于条件分支来说，在跳转指令时可能会改变程序的走向，也就是说，之前载入的指令可能是无效的。这个时候就只能清空流水线，然后重新进行载入。为了减少清空流水线所带来的性能损失，处理器内部会采用称为『分支预测』的技术。</p>
+<p>比方说在一个循环中，根据预测，可能除了最后一次跳出循环的时候会判断错误之外，其他都是没有问题的。这就可以接受，但是如果处理器不停判断错误的话（比方说代码逻辑写得很奇怪），性能就会得到极大的拖累。</p>
+<p>分支问题有些时候会成为最主要的影响性能的因素，但有的时候其实很难避免。</p>
+<hr>
+<h2 id="Base-concept"><a href="#Base-concept" class="headerlink" title="Base concept"></a>Base concept</h2><p>容量 Capacity = 每个扇区的字节数(bytes/sector) x 磁道上的平均扇区数(avg sectors/track) x 磁盘一面的磁道数(tracks/surface) x 磁盘的面数(surfaces/platter) x 硬盘包含的磁盘数(platters/disk)</p>
+<p>总的访问时间 Taccess = 寻址时间 Tavg seek + 旋转时间 Tavg rotation + 传输时间 Tavg transfer</p>
+<p>主要决定访问时间的是寻址时间和旋转延迟；读取一个扇区的第一个比特是非常耗时的，之后的都几乎可以忽略不计；硬盘比 SRAM 慢 40,000 倍，比 DRAM 慢 2500 倍。</p>
+<img src="/2020/10/01/csapp/disk.jpg" class="" title="disk">
+
+<img src="/2020/10/01/csapp/hostline.jpg" class="" title="hostline">
+
+<p>假设 CPU 需要从硬盘中读取一些数据，会给定<code>指令</code>，<code>逻辑块编号</code>和<code>目标地址</code>，并发送给磁盘控制器。然后磁盘控制器会读取对应的数据，并通过 DMA(direct memory access)把数据传输到内存中；传输完成后，磁盘控制器通过中断的方式通知 CPU，然后 CPU 完成之后的工作</p>
+<h3 id="Memory-Hierarchy"><a href="#Memory-Hierarchy" class="headerlink" title="Memory Hierarchy"></a>Memory Hierarchy</h3><img src="/2020/10/01/csapp/Hierarch.jpg" class="" title="Hierarch">
+
+<blockquote>
+<p>每一层都可以看作是下一层的缓存。利用局部性原理，程序会更倾向于访问第 k 层的数据，而非第 k+1 层，这样就减少了访问时间。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">缓存类型</th>
+<th align="center">缓存内容</th>
+<th align="right">缓存位置</th>
+<th align="right">延迟(时钟周期)</th>
+<th align="right">管理者</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">寄存器</td>
+<td align="center">4-8 字节的字</td>
+<td align="right">CPU 内核</td>
+<td align="right">0</td>
+<td align="right">编译器</td>
+</tr>
+<tr>
+<td align="left">TLB</td>
+<td align="center">地址翻译</td>
+<td align="right">芯片 TLB</td>
+<td align="right">0</td>
+<td align="right">内存管理单元</td>
+</tr>
+<tr>
+<td align="left">L1 缓存</td>
+<td align="center">64 字节的块</td>
+<td align="right">芯片 L1 缓存</td>
+<td align="right">4</td>
+<td align="right">硬件</td>
+</tr>
+<tr>
+<td align="left">L2 缓存</td>
+<td align="center">64 字节的块</td>
+<td align="right">芯片 L2 缓存</td>
+<td align="right">10</td>
+<td align="right">硬件</td>
+</tr>
+<tr>
+<td align="left">虚拟内存</td>
+<td align="center">4 KB 的页</td>
+<td align="right">主存</td>
+<td align="right">100</td>
+<td align="right">硬件 + 操作系统</td>
+</tr>
+<tr>
+<td align="left">缓冲区缓存</td>
+<td align="center">文件的部分内容</td>
+<td align="right">主存</td>
+<td align="right">100</td>
+<td align="right">操作系统</td>
+</tr>
+<tr>
+<td align="left">磁盘缓存</td>
+<td align="center">磁盘扇区</td>
+<td align="right">磁盘控制器</td>
+<td align="right">100,000</td>
+<td align="right">磁盘固件</td>
+</tr>
+<tr>
+<td align="left">网络缓冲区缓存</td>
+<td align="center">文件的部分内容</td>
+<td align="right">本地磁盘</td>
+<td align="right">10,000,000</td>
+<td align="right">NFS 客户端</td>
+</tr>
+<tr>
+<td align="left">浏览器缓存</td>
+<td align="center">网页</td>
+<td align="right">本地磁盘</td>
+<td align="right">10,000,000</td>
+<td align="right">网络浏览器</td>
+</tr>
+<tr>
+<td align="left">Web 缓存</td>
+<td align="center">网页</td>
+<td align="right">远程服务器磁盘</td>
+<td align="right">1,000,000,000    Web</td>
+<td align="right">代理服务器</td>
+</tr>
+</tbody></table>
+<p>Cache miss</p>
+<ul>
+<li>强制性失效(Cold/compulsory Miss): CPU 第一次访问相应缓存块，缓存中肯定没有对应数据，这是不可避免的</li>
+<li>冲突失效(Confilict Miss): 在直接相联或组相联的缓存中，不同的缓存块由于索引相同相互替换，引起的失效叫做冲突失效<ul>
+<li>假设这里有 32KB 直接相联的缓存</li>
+<li>如果有两个 8KB 的数据需要来回访问，但是这两个数组都映射到相同的地址，缓存大小足够存储全部的数据，但是因为相同地址发生了冲突需要来回替换，发生的失效则全都是冲突失效（第一次访问失效依旧是强制性失效），这时缓存并没有存满</li>
+</ul>
+</li>
+<li>容量失效(Capacity Miss): 有限的缓存容量导致缓存放不下而被替换，被替换出去的缓存块再被访问，引起的失效叫做容量失效<ul>
+<li>假设这里有 32KB 直接相联的缓存</li>
+<li>如果有一个 64KB 的数组需要重复访问，数组的大小远远大于缓存大小，没办法全部放入缓存。第一次访问数组发生的失效全都是强制性失效。之后再访问数组，再发生的失效则全都是容量失效，这时缓存已经存满，容量不足以存储全部数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="Cache-Memory"><a href="#Cache-Memory" class="headerlink" title="Cache Memory"></a>Cache Memory</h2><img src="/2020/10/01/csapp/cpu.jpg" class="" title="Cpu">
+
+<ul>
+<li>S 表示集合(set)数量</li>
+<li>E 表示数据行(line)的数量</li>
+<li>B 表示每个缓存块(block)保存的字节数目</li>
+</ul>
+<img src="/2020/10/01/csapp/cachecalc.jpg" class="" title="cachecalc">
+
+<p>C = E * S * B</p>
+<img src="/2020/10/01/csapp/index.jpg" class="" title="index">
+
+<h3 id="Read"><a href="#Read" class="headerlink" title="Read:"></a>Read:</h3><p>set index: set; tag: compare to every line; block offset: line offset</p>
+<p>If E = 1: Direct Mapped Cache</p>
+<img src="/2020/10/01/csapp/direct.jpg" class="" title="DIRECT">
+
+<p>| 寻址空间是 M=16 字节，也就是 4 位的地址，对应 B=2, S=4, E=1</p>
+<blockquote>
+<p>先从 set index 确定那个 set，然后看 valid 位，接着利用 t bits 分别和每个 line 的 tag 进行比较，如果匹配则命中，那么返回 4 5 位置的数据，如果不匹配，就需要替换，可以随机替换，也可以用 least recently used(LRU) 来进行替换</p>
+</blockquote>
+<hr>
+<h2 id="Complie"><a href="#Complie" class="headerlink" title="Complie"></a>Complie</h2><p>预处理器：将 C 语言代码(da.c)转化成 da.i 文件(gcc –E)，对应于预处理命令 cpp<br>编译器：C 语言代码(da.c, wang.c)经过编译器的处理(gcc -0g -S)成为汇编代码(da.s, wang.s)<br>汇编器：汇编代码(da.s, wang.s)经过汇编器的处理(gcc 或 as)成为对象程序(da.o, wang.o)<br>链接器：对象程序(da.o, wang.o)以及所需静态库(lib.a)经过链接器的处理(gcc 或 ld)最终成为计算机可执行的程序<br>加载器：将可执行程序加载到内存并进行执行，loader 和 ld-linux.so</p>
+<p>head file search rule:</p>
+<ol>
+<li>所有头文件的搜寻会从 -I 开始</li>
+<li>然后找环境变量 C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, OBJC_INCLUDE_PATH 指定的路径</li>
+<li>再找默认目录(/usr/include, /usr/local/include, /usr/lib/gcc-lib/i386-linux/2.95.2/include 等等)</li>
+</ol>
+<h3 id="Object-files"><a href="#Object-files" class="headerlink" title="Object files"></a>Object files</h3><p>所谓的对象文件(Object File)实际上是一个统称，具体来说有以下三种形式：</p>
+<ul>
+<li>可重定位目标文件 Relocatable object file (.o file)<ul>
+<li>每个 .o 文件都是由对应的 .c 文件通过编译器和汇编器生成，包含代码和数据，可以与其他可重定位目标文件合并创建一个可执行或共享的目标文件</li>
+</ul>
+</li>
+<li>可执行目标文件 Executable object file (a.out file)<ul>
+<li>由链接器生成，可以直接通过加载器加载到内存中充当进程执行的文件，包含代码和数据</li>
+</ul>
+</li>
+<li>共享目标文件 Shared object file (.so file)<ul>
+<li>在 windows 中被称为 Dynamic Link Libraries(DLLs)，是类特殊的可重定位目标文件，可以在链接(静态共享库)时加入目标文件或加载时或运行时(动态共享库)被动态的加载到内存并执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="Object-format"><a href="#Object-format" class="headerlink" title="Object format"></a>Object format</h3><img src="/2020/10/01/csapp/oformat.jpg" class="" title="objectformat">
+
+<p>ELF header</p>
+<ul>
+<li>包含 word size, byte ordering, file type (.o, exec, .so), machine type, etc</li>
+</ul>
+<p>Segment header table</p>
+<ul>
+<li>包含 page size, virtual addresses memory segments(sections), segment sizes</li>
+</ul>
+<p>.text section</p>
+<ul>
+<li>代码部分</li>
+</ul>
+<p>.rodata section</p>
+<ul>
+<li>只读数据部分，例如跳转表</li>
+</ul>
+<p>.data section</p>
+<ul>
+<li>初始化的全局变量</li>
+</ul>
+<p>.bss section</p>
+<ul>
+<li>未初始化的全局变量</li>
+</ul>
+<p>.symtab section</p>
+<ul>
+<li>包含 symbol table, procudure 和 static variable names 以及 section names 和 location</li>
+</ul>
+<p>.rel.txt section</p>
+<ul>
+<li>.text section 的重定位信息</li>
+</ul>
+<p>.rel.data section</p>
+<ul>
+<li>.data section 的重定位信息</li>
+</ul>
+<p>.debug section</p>
+<ul>
+<li>包含 symbolic debugging (gcc -g) 的信息</li>
+</ul>
+<p>Section header table</p>
+<ul>
+<li>每个 section 的大小和偏移量</li>
+</ul>
+<p>链接器实际上会处理三种不同的符号，对应于代码中不同写法的部分：</p>
+<ul>
+<li>全局符号 Global symbols<ul>
+<li>在当前模块中定义，且可以被其他代码引用的符号，例如非静态 C 函数和非静态全局变量</li>
+</ul>
+</li>
+<li>外部符号 External symbols<ul>
+<li>同样是全局符号，但是是在其他模块（也就是其他的源代码）中定义的，但是可以在当前模块中引用</li>
+</ul>
+</li>
+<li>本地符号 Local symbols<ul>
+<li>在当前模块中定义，只能被当前模块引用的符号，例如静态函数和静态全局变量</li>
+<li>注意，Local linker symbol 并不是 local program variables</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 文件 main.c</span><br><span class="line">int sum(int *a, int n);</span><br><span class="line">int array[2] = &#123;1, 2&#125;; // 变量 array 在此定义</span><br><span class="line">int main() // 定义了一个全局函数</span><br><span class="line">&#123;</span><br><span class="line">    int val = sum(array, 2);</span><br><span class="line">    // val 是局部变量，链接器并不知道</span><br><span class="line">    // sum 函数是一个全局引用</span><br><span class="line">    // array 变量是一个全局引用</span><br><span class="line">    return val;</span><br><span class="line">&#125;</span><br><span class="line">// -----------------------------------------</span><br><span class="line">// 文件 sum.c</span><br><span class="line">int sum(int *a, int n) // 定义了一个全局函数</span><br><span class="line">&#123;</span><br><span class="line">    int i, s = 0;</span><br><span class="line">    // i 和 s 是局部变量，链接器并不知道</span><br><span class="line">    for (i = 0; i &lt; n; i++)</span><br><span class="line">        s += a[i];</span><br><span class="line">    </span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>链接器只知道非静态的全局变量/函数，不了解局部变量</p>
+<ul>
+<li>局部非静态变量会保存在栈中</li>
+<li>局部静态变量会保存在 .bss 或 .data 中</li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="https://rezeros.github.io">ReZero</a>
+            <p>原文链接：<a href="https://rezeros.github.io/2020/10/01/csapp/">https://rezeros.github.io/2020/10/01/csapp/</a>
+            <p>发表日期：<a href="https://rezeros.github.io/2020/10/01/csapp/">October 1st 2020, 12:41:00 pm</a>
+            <p>更新日期：<a href="https://rezeros.github.io/2020/10/01/csapp/">July 17th 2021, 9:37:19 am</a>
+            <p>版权声明：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2020/10/04/linux-disk/" title= "Linux-disk">
+                    <div class="nextTitle">Linux-disk</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/09/26/oql/" title= "OQL">
+                    <div class="prevTitle">OQL</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- gitalk评论 -->
+
+    <div id="comment-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '1a431f8724008b2fe548',
+            clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+            id: '1601556060000',
+            repo: 'ReZeroS.github.io',
+            owner: 'ReZeroS',
+            admin: ["ReZeroS"],
+            createIssueManually: true,
+            distractionFreeMode: false
+        })
+        gitalk.render('comment-container')
+    </script>
+    
+    <!-- utteranc评论 -->
+
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:ljrezero@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/rezeros" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <a href="//t.me/ReZeros" class="iconfont-archer telegram" target="_blank" title=telegram></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/assets/qq.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//twitter.com/T21ck" class="iconfont-archer twitter" target="_blank" title=twitter></a>
+            
+        
+    
+        
+            
+                <a href="//instagram.com/xer0sesss" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+            
+                <a href="//stackoverflow.com/users/7103214/rezero" class="iconfont-archer stack-overflow" target="_blank" title=stack-overflow></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//space.bilibili.com/22340853/#/" class="iconfont-archer bilibili" target="_blank" title=bilibili></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="//steamcommunity.com/id/rezeros/" class="iconfont-archer steam" target="_blank" title=steam></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Not-be-the-real-thing"><span class="toc-number">1.</span> <span class="toc-text">Not be the real thing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Memory"><span class="toc-number">2.</span> <span class="toc-text">Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bit"><span class="toc-number">3.</span> <span class="toc-text">Bit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Integer"><span class="toc-number">4.</span> <span class="toc-text">Integer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-Conversion"><span class="toc-number">4.1.</span> <span class="toc-text">Type Conversion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conversion-mutual"><span class="toc-number">4.2.</span> <span class="toc-text">Conversion mutual</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-extension-amp-Intercept"><span class="toc-number">4.3.</span> <span class="toc-text">Type extension &amp; Intercept</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Calculate-amp-Overflow"><span class="toc-number">4.4.</span> <span class="toc-text">Calculate &amp; Overflow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Float"><span class="toc-number">5.</span> <span class="toc-text">Float</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IEEE-standard"><span class="toc-number">5.1.</span> <span class="toc-text">IEEE standard</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Normalized-Values"><span class="toc-number">5.1.1.</span> <span class="toc-text">Normalized Values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Denormalized-Values"><span class="toc-number">5.1.2.</span> <span class="toc-text">Denormalized Values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Real-sample"><span class="toc-number">5.1.3.</span> <span class="toc-text">Real sample</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-in-Memory"><span class="toc-number">6.</span> <span class="toc-text">Data in Memory</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic"><span class="toc-number">7.</span> <span class="toc-text">Basic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C2M"><span class="toc-number">7.1.</span> <span class="toc-text">C2M</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Assembly"><span class="toc-number">7.2.</span> <span class="toc-text">Assembly</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flow-Control"><span class="toc-number">8.</span> <span class="toc-text">Flow Control</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Condition-amp-Jump"><span class="toc-number">8.1.</span> <span class="toc-text">Condition &amp; Jump</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Do-While"><span class="toc-number">8.1.1.</span> <span class="toc-text">Do While</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-call"><span class="toc-number">9.</span> <span class="toc-text">Process call</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Stack-Structure"><span class="toc-number">9.1.</span> <span class="toc-text">Stack Structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Call-ways"><span class="toc-number">9.2.</span> <span class="toc-text">Call ways</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Recursive"><span class="toc-number">9.2.1.</span> <span class="toc-text">Recursive</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Storage"><span class="toc-number">10.</span> <span class="toc-text">Data Storage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache-overflow"><span class="toc-number">11.</span> <span class="toc-text">Cache overflow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimize"><span class="toc-number">12.</span> <span class="toc-text">Optimize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Base-concept"><span class="toc-number">13.</span> <span class="toc-text">Base concept</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-Hierarchy"><span class="toc-number">13.1.</span> <span class="toc-text">Memory Hierarchy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cache-Memory"><span class="toc-number">14.</span> <span class="toc-text">Cache Memory</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Read"><span class="toc-number">14.1.</span> <span class="toc-text">Read:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Complie"><span class="toc-number">15.</span> <span class="toc-text">Complie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-files"><span class="toc-number">15.1.</span> <span class="toc-text">Object files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-format"><span class="toc-number">15.2.</span> <span class="toc-text">Object format</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 99
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/2021/07/17/gdb-debug-remote/" >Clion remote debug docker redis</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/16</span><a class="archive-post-title" href= "/2021/06/16/go-share/" >Go Share</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2021/05/01/java-tools/" >Java tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/06</span><a class="archive-post-title" href= "/2021/04/06/go-tutorial/" >Go Tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/04</span><a class="archive-post-title" href= "/2021/03/04/java-tricks/" >Java tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/10</span><a class="archive-post-title" href= "/2021/02/10/zit/" >ZIT development log</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2021/01/23/sql-log-cheat/" >sql打印的一种暴力解决方式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/docker/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2021/01/01/mysql45/" >Mysql 45 讲</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2020/12/13/elastic-search/" >elastic-search 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/2020/10/04/linux-disk/" >Linux-disk</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2020/10/01/csapp/" >CSAPP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/26</span><a class="archive-post-title" href= "/2020/09/26/oql/" >OQL</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2020/09/23/think-more/" >Think More</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/20</span><a class="archive-post-title" href= "/2020/09/20/threadpool/" >Thread pool</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/k8s/" >K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/19</span><a class="archive-post-title" href= "/2020/09/19/thread/" >Thread</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2020/09/18/go-exception-handle/" >Go exception handle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/12</span><a class="archive-post-title" href= "/2020/09/12/AQS/" >AQS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/14</span><a class="archive-post-title" href= "/2020/08/14/leetcode/" >Leet-Code</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/12</span><a class="archive-post-title" href= "/2020/08/12/java-lock/" >Java Lock</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/10</span><a class="archive-post-title" href= "/2020/08/10/algo-tips/" >Algo tips</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/tcp/" >TCP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/09</span><a class="archive-post-title" href= "/2020/08/09/HashMap/" >Java HashMap & Concurrent Hash Map</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/06</span><a class="archive-post-title" href= "/2020/08/06/mysql-innodb%5B0%5D/" >Mysql InnoDB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/jvm/" >(转) JVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2020/08/01/mysql-index/" >(转) Mysql 索引</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/29</span><a class="archive-post-title" href= "/2020/07/29/mysql-transaction/" >(转)Mysql Transaction</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/2020/07/19/redis/" >(转) Redis 基础知识笔记记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/18</span><a class="archive-post-title" href= "/2020/07/18/site-architechture/" >Site Architecture</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/cache-oblivious-algo/" >（译）缓存参数无关算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/05</span><a class="archive-post-title" href= "/2020/07/05/netty/" >Netty note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/Java-Debug/" >（转）Java Debug</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/04</span><a class="archive-post-title" href= "/2020/07/04/sql-optimize/" >Sql Optimization</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/2020/07/03/rabbitmq/" >（转） RabbitMq 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href= "/2020/06/14/git-myers-diff/" >（译） Git Myers diff 笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/06</span><a class="archive-post-title" href= "/2020/06/06/remote-debug-on-rancher/" >Spring Boot Remote debug on K8s</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2020/03/08/init-spider/" >如何写一个简易的爬虫</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2020/03/07/init-chrome-plugin/" >如何写一个简易的chrome插件</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/06</span><a class="archive-post-title" href= "/2020/02/06/request-record/" >Request record</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/2019/09/18/KMP/" >KMP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2019/08/21/liquibase/" >liquibase</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/power-of-two/" >Power of Two</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/30</span><a class="archive-post-title" href= "/2019/07/30/impl-stack-by-queues/" >Implement Stack using Queues</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/08</span><a class="archive-post-title" href= "/2019/07/08/sqrt(x)/" >Newton</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2019/03/18/javassist/" >Jdk8 feature or trouble ?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/01</span><a class="archive-post-title" href= "/2019/01/01/hexo-blog%5B0%5D/" >Hexo & (GithubActions | Travis CI)</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/28</span><a class="archive-post-title" href= "/2018/08/28/jvmLearn/" >jvmLearn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2018/08/01/redis-source-code/" >redis-note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href= "/2018/05/08/llone/" >LL(1) Parser</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/win-userful-tools/" >Win Userful Tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-gdm-background/" >ArchLinux change gdm background</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/20</span><a class="archive-post-title" href= "/2018/02/20/arch-enable-bbr/" >Arch enable BBR</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/custom-classloader/" >（转）Custom ClassLoader</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/23</span><a class="archive-post-title" href= "/2018/01/23/messy-code/" >Messy code issue</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/linux-note0x02/" >Linux note0x02</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1b-computing-process/" >SICP lec1b: # Computing process</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/03</span><a class="archive-post-title" href= "/2017/12/03/sicp-lec1a-lisp-overview/" >SICP lec1a: # Lisp overview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/initial-build-pl-js/" >[Initial] Build: PL By: JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/02</span><a class="archive-post-title" href= "/2017/12/02/parser-build-pl-byjs/" >[Parser] Build: PL By:JS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href= "/2017/10/14/web-security%5B1%5D/" >如何实现一个安全的Web登录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2017/10/13/exploding-git-repositories/" >Exploding Git Repositories</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/01</span><a class="archive-post-title" href= "/2017/10/01/master-horse-training-standard/" >Master horse training standard</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2017/09/23/regex/" >(转)Regex</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2017/09/10/andrid-compress/" >(转)Android-Compress</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/08</span><a class="archive-post-title" href= "/2017/09/08/java-interview/" >Java & Android Interview</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2017/09/06/struts2-052/" >(转) struts2-052漏洞</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/25</span><a class="archive-post-title" href= "/2017/08/25/css-diner/" >CSS Diner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/2017/08/21/ftp-service-setup/" >FTP Service Setup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/2017/08/01/nsa-tools/" >NSA tools</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/09</span><a class="archive-post-title" href= "/2017/07/09/animation-light-card/" >Awesome card lighting</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/14</span><a class="archive-post-title" href= "/2017/05/14/strategypattern/" >Strategy Pattern</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href= "/2017/04/28/cdntorealip/" >CDN to Real IP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/2017/04/20/phpstorm/" >PhpStorm 配置php7.0环境</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/02</span><a class="archive-post-title" href= "/2017/04/02/selenium-qzone/" >Selenium Qzone登陆</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/18</span><a class="archive-post-title" href= "/2017/03/18/scrapy%5B0%5D/" >Scrapy 初窥笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href= "/2017/02/16/ptentest%5B0%5D/" >渗透菜鸟概览</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/08</span><a class="archive-post-title" href= "/2017/02/08/sympy/" >Sympy 解方程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/27</span><a class="archive-post-title" href= "/2017/01/27/fluxion/" >fluxion使用</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/26</span><a class="archive-post-title" href= "/2017/01/26/english/" >EnNote</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/24</span><a class="archive-post-title" href= "/2017/01/24/kalicommandnote/" >kali command note</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2016/12/26/chapter-one/" >（译）Chapter_one</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2016/11/27/python-pickle/" >Python闯关pickle</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/2016/11/19/rsa-basic%5B1%5D/" >数论（指数取余）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/caesar-encode/" >凯撒密码（Python）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/13</span><a class="archive-post-title" href= "/2016/11/13/wechat-publosher/" >2016.11.12</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/10</span><a class="archive-post-title" href= "/2016/11/10/toplistfile/" >ToPlistFile</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/09</span><a class="archive-post-title" href= "/2016/11/09/cocos2dx%5B0%5D/" >Cocos2dx 炮台坐标准备</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/python-47/" >python解47元方程组</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/04</span><a class="archive-post-title" href= "/2016/11/04/http-note/" >http学习记录</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2016/11/03/udisk-antivirus/" >U盘快捷方式病毒修复</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/redo-or-undo/" >Redo or Undo</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/02</span><a class="archive-post-title" href= "/2016/11/02/suffix-expression/" >求后缀表达式</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/30</span><a class="archive-post-title" href= "/2016/10/30/huffman/" >哈夫曼编码</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/25</span><a class="archive-post-title" href= "/2016/10/25/floyd/" >（转）坐在马桶上看算法：只有五行的Floyd最短路算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/2016/10/23/DAG%5B1%5D/" >拓扑排序问题(队列实现)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Disjoint-set/" >(转)并查集</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2016/10/22/Kruskal-falied/" >通畅工程问题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/21</span><a class="archive-post-title" href= "/2016/10/21/eight-queens/" >八皇后问题</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="AQS"><span class="iconfont-archer">&#xe606;</span>AQS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrency"><span class="iconfont-archer">&#xe606;</span>Concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="拓扑排序"><span class="iconfont-archer">&#xe606;</span>拓扑排序</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构与算法"><span class="iconfont-archer">&#xe606;</span>数据结构与算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="课程安排"><span class="iconfont-archer">&#xe606;</span>课程安排</span>
+    
+        <span class="sidebar-tag-name" data-tags="join"><span class="iconfont-archer">&#xe606;</span>join</span>
+    
+        <span class="sidebar-tag-name" data-tags="优化"><span class="iconfont-archer">&#xe606;</span>优化</span>
+    
+        <span class="sidebar-tag-name" data-tags="电话"><span class="iconfont-archer">&#xe606;</span>电话</span>
+    
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="编程"><span class="iconfont-archer">&#xe606;</span>编程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="HashMap"><span class="iconfont-archer">&#xe606;</span>HashMap</span>
+    
+        <span class="sidebar-tag-name" data-tags="Concurrent Hash Map"><span class="iconfont-archer">&#xe606;</span>Concurrent Hash Map</span>
+    
+        <span class="sidebar-tag-name" data-tags="Debug"><span class="iconfont-archer">&#xe606;</span>Debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="JDWP"><span class="iconfont-archer">&#xe606;</span>JDWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KMP"><span class="iconfont-archer">&#xe606;</span>KMP</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据"><span class="iconfont-archer">&#xe606;</span>数据</span>
+    
+        <span class="sidebar-tag-name" data-tags="Math"><span class="iconfont-archer">&#xe606;</span>Math</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="3d"><span class="iconfont-archer">&#xe606;</span>3d</span>
+    
+        <span class="sidebar-tag-name" data-tags="animation"><span class="iconfont-archer">&#xe606;</span>animation</span>
+    
+        <span class="sidebar-tag-name" data-tags="css"><span class="iconfont-archer">&#xe606;</span>css</span>
+    
+        <span class="sidebar-tag-name" data-tags="javascript"><span class="iconfont-archer">&#xe606;</span>javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="arch"><span class="iconfont-archer">&#xe606;</span>arch</span>
+    
+        <span class="sidebar-tag-name" data-tags="bbr"><span class="iconfont-archer">&#xe606;</span>bbr</span>
+    
+        <span class="sidebar-tag-name" data-tags="google"><span class="iconfont-archer">&#xe606;</span>google</span>
+    
+        <span class="sidebar-tag-name" data-tags="linux"><span class="iconfont-archer">&#xe606;</span>linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="network"><span class="iconfont-archer">&#xe606;</span>network</span>
+    
+        <span class="sidebar-tag-name" data-tags="speed"><span class="iconfont-archer">&#xe606;</span>speed</span>
+    
+        <span class="sidebar-tag-name" data-tags="tcp"><span class="iconfont-archer">&#xe606;</span>tcp</span>
+    
+        <span class="sidebar-tag-name" data-tags="archlinux"><span class="iconfont-archer">&#xe606;</span>archlinux</span>
+    
+        <span class="sidebar-tag-name" data-tags="gdm"><span class="iconfont-archer">&#xe606;</span>gdm</span>
+    
+        <span class="sidebar-tag-name" data-tags="shell"><span class="iconfont-archer">&#xe606;</span>shell</span>
+    
+        <span class="sidebar-tag-name" data-tags="themes"><span class="iconfont-archer">&#xe606;</span>themes</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="凯撒密码"><span class="iconfont-archer">&#xe606;</span>凯撒密码</span>
+    
+        <span class="sidebar-tag-name" data-tags="cdn"><span class="iconfont-archer">&#xe606;</span>cdn</span>
+    
+        <span class="sidebar-tag-name" data-tags="ip"><span class="iconfont-archer">&#xe606;</span>ip</span>
+    
+        <span class="sidebar-tag-name" data-tags="网络安全"><span class="iconfont-archer">&#xe606;</span>网络安全</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos"><span class="iconfont-archer">&#xe606;</span>cocos</span>
+    
+        <span class="sidebar-tag-name" data-tags="cocos2dx"><span class="iconfont-archer">&#xe606;</span>cocos2dx</span>
+    
+        <span class="sidebar-tag-name" data-tags="game"><span class="iconfont-archer">&#xe606;</span>game</span>
+    
+        <span class="sidebar-tag-name" data-tags="selector"><span class="iconfont-archer">&#xe606;</span>selector</span>
+    
+        <span class="sidebar-tag-name" data-tags="classLoader"><span class="iconfont-archer">&#xe606;</span>classLoader</span>
+    
+        <span class="sidebar-tag-name" data-tags="findClass"><span class="iconfont-archer">&#xe606;</span>findClass</span>
+    
+        <span class="sidebar-tag-name" data-tags="java"><span class="iconfont-archer">&#xe606;</span>java</span>
+    
+        <span class="sidebar-tag-name" data-tags="K8s"><span class="iconfont-archer">&#xe606;</span>K8s</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deployment"><span class="iconfont-archer">&#xe606;</span>Deployment</span>
+    
+        <span class="sidebar-tag-name" data-tags="八皇后"><span class="iconfont-archer">&#xe606;</span>八皇后</span>
+    
+        <span class="sidebar-tag-name" data-tags="Search engine"><span class="iconfont-archer">&#xe606;</span>Search engine</span>
+    
+        <span class="sidebar-tag-name" data-tags="english"><span class="iconfont-archer">&#xe606;</span>english</span>
+    
+        <span class="sidebar-tag-name" data-tags="funnny"><span class="iconfont-archer">&#xe606;</span>funnny</span>
+    
+        <span class="sidebar-tag-name" data-tags="blob"><span class="iconfont-archer">&#xe606;</span>blob</span>
+    
+        <span class="sidebar-tag-name" data-tags="bomb"><span class="iconfont-archer">&#xe606;</span>bomb</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploding"><span class="iconfont-archer">&#xe606;</span>exploding</span>
+    
+        <span class="sidebar-tag-name" data-tags="git"><span class="iconfont-archer">&#xe606;</span>git</span>
+    
+        <span class="sidebar-tag-name" data-tags="memory"><span class="iconfont-archer">&#xe606;</span>memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="tree"><span class="iconfont-archer">&#xe606;</span>tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="algorithm"><span class="iconfont-archer">&#xe606;</span>algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="php5"><span class="iconfont-archer">&#xe606;</span>php5</span>
+    
+        <span class="sidebar-tag-name" data-tags="wifi"><span class="iconfont-archer">&#xe606;</span>wifi</span>
+    
+        <span class="sidebar-tag-name" data-tags="ftp"><span class="iconfont-archer">&#xe606;</span>ftp</span>
+    
+        <span class="sidebar-tag-name" data-tags="service"><span class="iconfont-archer">&#xe606;</span>service</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="Clion"><span class="iconfont-archer">&#xe606;</span>Clion</span>
+    
+        <span class="sidebar-tag-name" data-tags="debug"><span class="iconfont-archer">&#xe606;</span>debug</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="exception"><span class="iconfont-archer">&#xe606;</span>exception</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="hexo"><span class="iconfont-archer">&#xe606;</span>hexo</span>
+    
+        <span class="sidebar-tag-name" data-tags="blog"><span class="iconfont-archer">&#xe606;</span>blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="CI/CD"><span class="iconfont-archer">&#xe606;</span>CI/CD</span>
+    
+        <span class="sidebar-tag-name" data-tags="github actions"><span class="iconfont-archer">&#xe606;</span>github actions</span>
+    
+        <span class="sidebar-tag-name" data-tags="编码"><span class="iconfont-archer">&#xe606;</span>编码</span>
+    
+        <span class="sidebar-tag-name" data-tags="Queue"><span class="iconfont-archer">&#xe606;</span>Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Stack"><span class="iconfont-archer">&#xe606;</span>Stack</span>
+    
+        <span class="sidebar-tag-name" data-tags="FrontDesign"><span class="iconfont-archer">&#xe606;</span>FrontDesign</span>
+    
+        <span class="sidebar-tag-name" data-tags="Chrome"><span class="iconfont-archer">&#xe606;</span>Chrome</span>
+    
+        <span class="sidebar-tag-name" data-tags="Plugins"><span class="iconfont-archer">&#xe606;</span>Plugins</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sprider"><span class="iconfont-archer">&#xe606;</span>Sprider</span>
+    
+        <span class="sidebar-tag-name" data-tags="Basic knowledge"><span class="iconfont-archer">&#xe606;</span>Basic knowledge</span>
+    
+        <span class="sidebar-tag-name" data-tags="js"><span class="iconfont-archer">&#xe606;</span>js</span>
+    
+        <span class="sidebar-tag-name" data-tags="language"><span class="iconfont-archer">&#xe606;</span>language</span>
+    
+        <span class="sidebar-tag-name" data-tags="parser"><span class="iconfont-archer">&#xe606;</span>parser</span>
+    
+        <span class="sidebar-tag-name" data-tags="Lock"><span class="iconfont-archer">&#xe606;</span>Lock</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tricks"><span class="iconfont-archer">&#xe606;</span>Tricks</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cheat Sheet"><span class="iconfont-archer">&#xe606;</span>Cheat Sheet</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javassist"><span class="iconfont-archer">&#xe606;</span>Javassist</span>
+    
+        <span class="sidebar-tag-name" data-tags="JVM"><span class="iconfont-archer">&#xe606;</span>JVM</span>
+    
+        <span class="sidebar-tag-name" data-tags="Class file"><span class="iconfont-archer">&#xe606;</span>Class file</span>
+    
+        <span class="sidebar-tag-name" data-tags="Memory"><span class="iconfont-archer">&#xe606;</span>Memory</span>
+    
+        <span class="sidebar-tag-name" data-tags="jvm"><span class="iconfont-archer">&#xe606;</span>jvm</span>
+    
+        <span class="sidebar-tag-name" data-tags="kali"><span class="iconfont-archer">&#xe606;</span>kali</span>
+    
+        <span class="sidebar-tag-name" data-tags="渗透"><span class="iconfont-archer">&#xe606;</span>渗透</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewall"><span class="iconfont-archer">&#xe606;</span>firewall</span>
+    
+        <span class="sidebar-tag-name" data-tags="firewalld"><span class="iconfont-archer">&#xe606;</span>firewalld</span>
+    
+        <span class="sidebar-tag-name" data-tags="iptables"><span class="iconfont-archer">&#xe606;</span>iptables</span>
+    
+        <span class="sidebar-tag-name" data-tags="protocol"><span class="iconfont-archer">&#xe606;</span>protocol</span>
+    
+        <span class="sidebar-tag-name" data-tags="strategy"><span class="iconfont-archer">&#xe606;</span>strategy</span>
+    
+        <span class="sidebar-tag-name" data-tags="firstSet"><span class="iconfont-archer">&#xe606;</span>firstSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="FollowSet"><span class="iconfont-archer">&#xe606;</span>FollowSet</span>
+    
+        <span class="sidebar-tag-name" data-tags="ll1"><span class="iconfont-archer">&#xe606;</span>ll1</span>
+    
+        <span class="sidebar-tag-name" data-tags="table"><span class="iconfont-archer">&#xe606;</span>table</span>
+    
+        <span class="sidebar-tag-name" data-tags="acm"><span class="iconfont-archer">&#xe606;</span>acm</span>
+    
+        <span class="sidebar-tag-name" data-tags="ANSI"><span class="iconfont-archer">&#xe606;</span>ANSI</span>
+    
+        <span class="sidebar-tag-name" data-tags="ASCII"><span class="iconfont-archer">&#xe606;</span>ASCII</span>
+    
+        <span class="sidebar-tag-name" data-tags="decode"><span class="iconfont-archer">&#xe606;</span>decode</span>
+    
+        <span class="sidebar-tag-name" data-tags="encode"><span class="iconfont-archer">&#xe606;</span>encode</span>
+    
+        <span class="sidebar-tag-name" data-tags="ISO-8859-1"><span class="iconfont-archer">&#xe606;</span>ISO-8859-1</span>
+    
+        <span class="sidebar-tag-name" data-tags="messy code"><span class="iconfont-archer">&#xe606;</span>messy code</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql optimization"><span class="iconfont-archer">&#xe606;</span>Sql optimization</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="index"><span class="iconfont-archer">&#xe606;</span>index</span>
+    
+        <span class="sidebar-tag-name" data-tags="B + tree"><span class="iconfont-archer">&#xe606;</span>B + tree</span>
+    
+        <span class="sidebar-tag-name" data-tags="InnoDB"><span class="iconfont-archer">&#xe606;</span>InnoDB</span>
+    
+        <span class="sidebar-tag-name" data-tags="IO"><span class="iconfont-archer">&#xe606;</span>IO</span>
+    
+        <span class="sidebar-tag-name" data-tags="exploit"><span class="iconfont-archer">&#xe606;</span>exploit</span>
+    
+        <span class="sidebar-tag-name" data-tags="NSA"><span class="iconfont-archer">&#xe606;</span>NSA</span>
+    
+        <span class="sidebar-tag-name" data-tags="php"><span class="iconfont-archer">&#xe606;</span>php</span>
+    
+        <span class="sidebar-tag-name" data-tags="phpstorm"><span class="iconfont-archer">&#xe606;</span>phpstorm</span>
+    
+        <span class="sidebar-tag-name" data-tags="xampp"><span class="iconfont-archer">&#xe606;</span>xampp</span>
+    
+        <span class="sidebar-tag-name" data-tags="xdebug"><span class="iconfont-archer">&#xe606;</span>xdebug</span>
+    
+        <span class="sidebar-tag-name" data-tags="环境配置"><span class="iconfont-archer">&#xe606;</span>环境配置</span>
+    
+        <span class="sidebar-tag-name" data-tags="apache"><span class="iconfont-archer">&#xe606;</span>apache</span>
+    
+        <span class="sidebar-tag-name" data-tags="security"><span class="iconfont-archer">&#xe606;</span>security</span>
+    
+        <span class="sidebar-tag-name" data-tags="web server"><span class="iconfont-archer">&#xe606;</span>web server</span>
+    
+        <span class="sidebar-tag-name" data-tags="pickle"><span class="iconfont-archer">&#xe606;</span>pickle</span>
+    
+        <span class="sidebar-tag-name" data-tags="序列化"><span class="iconfont-archer">&#xe606;</span>序列化</span>
+    
+        <span class="sidebar-tag-name" data-tags="Message Queue"><span class="iconfont-archer">&#xe606;</span>Message Queue</span>
+    
+        <span class="sidebar-tag-name" data-tags="Notes"><span class="iconfont-archer">&#xe606;</span>Notes</span>
+    
+        <span class="sidebar-tag-name" data-tags="redis"><span class="iconfont-archer">&#xe606;</span>redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="string"><span class="iconfont-archer">&#xe606;</span>string</span>
+    
+        <span class="sidebar-tag-name" data-tags="note"><span class="iconfont-archer">&#xe606;</span>note</span>
+    
+        <span class="sidebar-tag-name" data-tags="撤销"><span class="iconfont-archer">&#xe606;</span>撤销</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据结构"><span class="iconfont-archer">&#xe606;</span>数据结构</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Extension"><span class="iconfont-archer">&#xe606;</span>Extension</span>
+    
+        <span class="sidebar-tag-name" data-tags="gcd"><span class="iconfont-archer">&#xe606;</span>gcd</span>
+    
+        <span class="sidebar-tag-name" data-tags="rsa"><span class="iconfont-archer">&#xe606;</span>rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="call-back"><span class="iconfont-archer">&#xe606;</span>call-back</span>
+    
+        <span class="sidebar-tag-name" data-tags="Request"><span class="iconfont-archer">&#xe606;</span>Request</span>
+    
+        <span class="sidebar-tag-name" data-tags="scrapy"><span class="iconfont-archer">&#xe606;</span>scrapy</span>
+    
+        <span class="sidebar-tag-name" data-tags="spider"><span class="iconfont-archer">&#xe606;</span>spider</span>
+    
+        <span class="sidebar-tag-name" data-tags="爬虫"><span class="iconfont-archer">&#xe606;</span>爬虫</span>
+    
+        <span class="sidebar-tag-name" data-tags="qzone"><span class="iconfont-archer">&#xe606;</span>qzone</span>
+    
+        <span class="sidebar-tag-name" data-tags="selenium"><span class="iconfont-archer">&#xe606;</span>selenium</span>
+    
+        <span class="sidebar-tag-name" data-tags="webdriver"><span class="iconfont-archer">&#xe606;</span>webdriver</span>
+    
+        <span class="sidebar-tag-name" data-tags="black box"><span class="iconfont-archer">&#xe606;</span>black box</span>
+    
+        <span class="sidebar-tag-name" data-tags="lisp"><span class="iconfont-archer">&#xe606;</span>lisp</span>
+    
+        <span class="sidebar-tag-name" data-tags="module"><span class="iconfont-archer">&#xe606;</span>module</span>
+    
+        <span class="sidebar-tag-name" data-tags="scheme"><span class="iconfont-archer">&#xe606;</span>scheme</span>
+    
+        <span class="sidebar-tag-name" data-tags="sicp"><span class="iconfont-archer">&#xe606;</span>sicp</span>
+    
+        <span class="sidebar-tag-name" data-tags="case"><span class="iconfont-archer">&#xe606;</span>case</span>
+    
+        <span class="sidebar-tag-name" data-tags="condition"><span class="iconfont-archer">&#xe606;</span>condition</span>
+    
+        <span class="sidebar-tag-name" data-tags="hanoi"><span class="iconfont-archer">&#xe606;</span>hanoi</span>
+    
+        <span class="sidebar-tag-name" data-tags="recursion"><span class="iconfont-archer">&#xe606;</span>recursion</span>
+    
+        <span class="sidebar-tag-name" data-tags="Sql"><span class="iconfont-archer">&#xe606;</span>Sql</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mybatis"><span class="iconfont-archer">&#xe606;</span>Mybatis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Log"><span class="iconfont-archer">&#xe606;</span>Log</span>
+    
+        <span class="sidebar-tag-name" data-tags="Optimize"><span class="iconfont-archer">&#xe606;</span>Optimize</span>
+    
+        <span class="sidebar-tag-name" data-tags="Explain"><span class="iconfont-archer">&#xe606;</span>Explain</span>
+    
+        <span class="sidebar-tag-name" data-tags="策略模式"><span class="iconfont-archer">&#xe606;</span>策略模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="设计模式"><span class="iconfont-archer">&#xe606;</span>设计模式</span>
+    
+        <span class="sidebar-tag-name" data-tags="后缀表达式"><span class="iconfont-archer">&#xe606;</span>后缀表达式</span>
+    
+        <span class="sidebar-tag-name" data-tags="symbol"><span class="iconfont-archer">&#xe606;</span>symbol</span>
+    
+        <span class="sidebar-tag-name" data-tags="Network"><span class="iconfont-archer">&#xe606;</span>Network</span>
+    
+        <span class="sidebar-tag-name" data-tags="TCP"><span class="iconfont-archer">&#xe606;</span>TCP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="Thread"><span class="iconfont-archer">&#xe606;</span>Thread</span>
+    
+        <span class="sidebar-tag-name" data-tags="concurrency"><span class="iconfont-archer">&#xe606;</span>concurrency</span>
+    
+        <span class="sidebar-tag-name" data-tags="u盘"><span class="iconfont-archer">&#xe606;</span>u盘</span>
+    
+        <span class="sidebar-tag-name" data-tags="病毒"><span class="iconfont-archer">&#xe606;</span>病毒</span>
+    
+        <span class="sidebar-tag-name" data-tags="csrf"><span class="iconfont-archer">&#xe606;</span>csrf</span>
+    
+        <span class="sidebar-tag-name" data-tags="login"><span class="iconfont-archer">&#xe606;</span>login</span>
+    
+        <span class="sidebar-tag-name" data-tags="session"><span class="iconfont-archer">&#xe606;</span>session</span>
+    
+        <span class="sidebar-tag-name" data-tags="token"><span class="iconfont-archer">&#xe606;</span>token</span>
+    
+        <span class="sidebar-tag-name" data-tags="uid"><span class="iconfont-archer">&#xe606;</span>uid</span>
+    
+        <span class="sidebar-tag-name" data-tags="web"><span class="iconfont-archer">&#xe606;</span>web</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="Story"><span class="iconfont-archer">&#xe606;</span>Story</span>
+    
+        <span class="sidebar-tag-name" data-tags="effective"><span class="iconfont-archer">&#xe606;</span>effective</span>
+    
+        <span class="sidebar-tag-name" data-tags="tools"><span class="iconfont-archer">&#xe606;</span>tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="win10"><span class="iconfont-archer">&#xe606;</span>win10</span>
+    
+        <span class="sidebar-tag-name" data-tags="windows"><span class="iconfont-archer">&#xe606;</span>windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="castby"><span class="iconfont-archer">&#xe606;</span>castby</span>
+    
+        <span class="sidebar-tag-name" data-tags="story"><span class="iconfont-archer">&#xe606;</span>story</span>
+    
+        <span class="sidebar-tag-name" data-tags="Program"><span class="iconfont-archer">&#xe606;</span>Program</span>
+    
+        <span class="sidebar-tag-name" data-tags="OS"><span class="iconfont-archer">&#xe606;</span>OS</span>
+    
+        <span class="sidebar-tag-name" data-tags="http"><span class="iconfont-archer">&#xe606;</span>http</span>
+    
+        <span class="sidebar-tag-name" data-tags="Disk"><span class="iconfont-archer">&#xe606;</span>Disk</span>
+    
+        <span class="sidebar-tag-name" data-tags="Deploy"><span class="iconfont-archer">&#xe606;</span>Deploy</span>
+    
+        <span class="sidebar-tag-name" data-tags="Redis"><span class="iconfont-archer">&#xe606;</span>Redis</span>
+    
+        <span class="sidebar-tag-name" data-tags="Middleware"><span class="iconfont-archer">&#xe606;</span>Middleware</span>
+    
+        <span class="sidebar-tag-name" data-tags="Cache"><span class="iconfont-archer">&#xe606;</span>Cache</span>
+    
+        <span class="sidebar-tag-name" data-tags="Architecture"><span class="iconfont-archer">&#xe606;</span>Architecture</span>
+    
+        <span class="sidebar-tag-name" data-tags="Idea"><span class="iconfont-archer">&#xe606;</span>Idea</span>
+    
+        <span class="sidebar-tag-name" data-tags="atom"><span class="iconfont-archer">&#xe606;</span>atom</span>
+    
+        <span class="sidebar-tag-name" data-tags="expression"><span class="iconfont-archer">&#xe606;</span>expression</span>
+    
+        <span class="sidebar-tag-name" data-tags="lanauage"><span class="iconfont-archer">&#xe606;</span>lanauage</span>
+    
+        <span class="sidebar-tag-name" data-tags="operator"><span class="iconfont-archer">&#xe606;</span>operator</span>
+    
+        <span class="sidebar-tag-name" data-tags="parse"><span class="iconfont-archer">&#xe606;</span>parse</span>
+    
+        <span class="sidebar-tag-name" data-tags="precedence"><span class="iconfont-archer">&#xe606;</span>precedence</span>
+    
+        <span class="sidebar-tag-name" data-tags="match"><span class="iconfont-archer">&#xe606;</span>match</span>
+    
+        <span class="sidebar-tag-name" data-tags="regex"><span class="iconfont-archer">&#xe606;</span>regex</span>
+    
+        <span class="sidebar-tag-name" data-tags="test"><span class="iconfont-archer">&#xe606;</span>test</span>
+    
+        <span class="sidebar-tag-name" data-tags="tutorial"><span class="iconfont-archer">&#xe606;</span>tutorial</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Security"><span class="iconfont-archer">&#xe60a;</span>Security</span>
+    
+        <span class="sidebar-category-name" data-categories="Java"><span class="iconfont-archer">&#xe60a;</span>Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm"><span class="iconfont-archer">&#xe60a;</span>Algorithm</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontPage"><span class="iconfont-archer">&#xe60a;</span>FrontPage</span>
+    
+        <span class="sidebar-category-name" data-categories="Linux"><span class="iconfont-archer">&#xe60a;</span>Linux</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="Cocos"><span class="iconfont-archer">&#xe60a;</span>Cocos</span>
+    
+        <span class="sidebar-category-name" data-categories="BackStage"><span class="iconfont-archer">&#xe60a;</span>BackStage</span>
+    
+        <span class="sidebar-category-name" data-categories="K8s"><span class="iconfont-archer">&#xe60a;</span>K8s</span>
+    
+        <span class="sidebar-category-name" data-categories="java"><span class="iconfont-archer">&#xe60a;</span>java</span>
+    
+        <span class="sidebar-category-name" data-categories="Story"><span class="iconfont-archer">&#xe60a;</span>Story</span>
+    
+        <span class="sidebar-category-name" data-categories="GDB"><span class="iconfont-archer">&#xe60a;</span>GDB</span>
+    
+        <span class="sidebar-category-name" data-categories="Go"><span class="iconfont-archer">&#xe60a;</span>Go</span>
+    
+        <span class="sidebar-category-name" data-categories="FrontDesign"><span class="iconfont-archer">&#xe60a;</span>FrontDesign</span>
+    
+        <span class="sidebar-category-name" data-categories="Spider"><span class="iconfont-archer">&#xe60a;</span>Spider</span>
+    
+        <span class="sidebar-category-name" data-categories="Parser-amp-language"><span class="iconfont-archer">&#xe60a;</span>Parser-amp-language</span>
+    
+        <span class="sidebar-category-name" data-categories="Design"><span class="iconfont-archer">&#xe60a;</span>Design</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM"><span class="iconfont-archer">&#xe60a;</span>JVM</span>
+    
+        <span class="sidebar-category-name" data-categories="JVM/Java"><span class="iconfont-archer">&#xe60a;</span>JVM/Java</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql"><span class="iconfont-archer">&#xe60a;</span>Mysql</span>
+    
+        <span class="sidebar-category-name" data-categories="Database"><span class="iconfont-archer">&#xe60a;</span>Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network"><span class="iconfont-archer">&#xe60a;</span>Java/Network</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Database"><span class="iconfont-archer">&#xe60a;</span>Mysql/Database</span>
+    
+        <span class="sidebar-category-name" data-categories="Algorithm/Bit-operation"><span class="iconfont-archer">&#xe60a;</span>Algorithm/Bit-operation</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Network/IO"><span class="iconfont-archer">&#xe60a;</span>Java/Network/IO</span>
+    
+        <span class="sidebar-category-name" data-categories="Java/Middleware"><span class="iconfont-archer">&#xe60a;</span>Java/Middleware</span>
+    
+        <span class="sidebar-category-name" data-categories="Front"><span class="iconfont-archer">&#xe60a;</span>Front</span>
+    
+        <span class="sidebar-category-name" data-categories="Mysql/Sql"><span class="iconfont-archer">&#xe60a;</span>Mysql/Sql</span>
+    
+        <span class="sidebar-category-name" data-categories="Network"><span class="iconfont-archer">&#xe60a;</span>Network</span>
+    
+        <span class="sidebar-category-name" data-categories="System"><span class="iconfont-archer">&#xe60a;</span>System</span>
+    
+        <span class="sidebar-category-name" data-categories="OS"><span class="iconfont-archer">&#xe60a;</span>OS</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis"><span class="iconfont-archer">&#xe60a;</span>Redis</span>
+    
+        <span class="sidebar-category-name" data-categories="Architecture"><span class="iconfont-archer">&#xe60a;</span>Architecture</span>
+    
+        <span class="sidebar-category-name" data-categories="Idea"><span class="iconfont-archer">&#xe60a;</span>Idea</span>
+    
+        <span class="sidebar-category-name" data-categories="Redis/Cache"><span class="iconfont-archer">&#xe60a;</span>Redis/Cache</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "ReZero"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
