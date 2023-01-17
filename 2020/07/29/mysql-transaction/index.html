@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            (转)Mysql Transaction |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">(转)Mysql Transaction</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-07-29 10:10:00</span>
+        <span class="mobile">2020-07-29 10:10</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Mysql/">Mysql</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Database/">Database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="MySql-Transaction"><a href="#MySql-Transaction" class="headerlink" title="MySql Transaction"></a>MySql Transaction</h2><h3 id="事务如何保证"><a href="#事务如何保证" class="headerlink" title="事务如何保证"></a>事务如何保证</h3><ol>
+<li>原子性： undo log<ul>
+<li><p>binlog记载的是update&#x2F;delete&#x2F;insert这样的SQL语句，而redo log记载的是物理修改的内容（xxxx页修改了xxx）。即redo log 记录的是数据的物理变化，binlog 记录的是数据的逻辑变化。</p>
+</li>
+<li><p>binlog的作用是复制和恢复而生的。</p>
+</li>
+<li><p>主从服务器需要保持数据的一致性，通过binlog来同步数据。</p>
+</li>
+<li><p>如果整个数据库的数据都被删除了，binlog存储着所有的数据变更情况，那么可以通过binlog来对数据进行恢复。而redo log 存储的是物理数据的变更，如果我们内存的数据已经刷到了磁盘了，那redo log</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>的数据就无效了。所以redo log不会存储着历史所有数据的变更，文件的内容会被覆盖的</p>
+<ol start="2">
+<li><p>持久性： redo log</p>
+<ul>
+<li><p>redo log事务开始的时候，就开始记录每次的变更信息，而binlog是在事务提交的时候才记录</p>
+</li>
+<li><p>如果写redo log失败了，那我们就认为这次事务有问题，回滚，不再写binlog。</p>
+</li>
+<li><p>如果写redo log成功了，写binlog，写binlog写一半了，但失败了怎么办？我们还是会对这次的事务回滚，将无效的binlog给删除（因为binlog会影响从库的数据，所以需要做删除操作）</p>
+</li>
+<li><p>如果写redo log和binlog都成功了，那这次算是事务才会真正成功。</p>
+</li>
+<li><p>简单来说：MySQL需要保证redo log和binlog的数据是一致的，如果不一致，那就乱套了。</p>
+</li>
+</ul>
+</li>
+<li><p>两阶段提交</p>
+<ul>
+<li><p>阶段1：InnoDBredo log 写盘，InnoDB 事务进入 prepare 状态</p>
+</li>
+<li><p>阶段2：binlog 写盘，InooDB 事务进入 commit 状态</p>
+</li>
+<li><p>每个事务binlog的末尾，会记录一个 XID event，标志着事务是否提交成功，也就是说，恢复过程中，binlog 最后一个 XID event 之后的内容都应该被 purge。</p>
+</li>
+</ul>
+</li>
+<li><p>undo_log: 回滚和多版本控制(MVCC)</p>
+<ul>
+<li><p>undo log主要存储的也是逻辑日志，比如我们要insert一条数据了，那undo log会记录的一条对应的delete日志。我们要update一条记录时，它会记录一条对应相反的update记录(原子性保证的前提)</p>
+</li>
+<li><p>undo log存储着修改之前的数据，相当于一个前版本，MVCC实现的是读写不阻塞，读的时候只要返回前一个版本的数据就行了。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="关于锁"><a href="#关于锁" class="headerlink" title="关于锁"></a>关于锁</h4><h4 id="锁协议"><a href="#锁协议" class="headerlink" title="锁协议"></a>锁协议</h4><ul>
+<li>无法像应用一样预知用哪些数据，直接锁对应的数据即可，因而数据库提出了两段锁协议</li>
+</ul>
+<ol>
+<li>加锁阶段：在该阶段可以进行加锁操作。在对任何数据进行读操作之前要申请并获得S锁（共享锁，其它事务可以继续加共享锁，但不能加排它锁），在进行写操作之前要申请并获得X<br>锁（排它锁，其它事务不能再获得任何锁）。加锁不成功，则事务进入等待状态，直到加锁成功才继续执行。</li>
+<li>解锁阶段：当事务释放了一个封锁以后，事务进入解锁阶段，在该阶段只能进行解锁操作不能再进行加锁操作。</li>
+</ol>
+<h4 id="加锁方式"><a href="#加锁方式" class="headerlink" title="加锁方式"></a>加锁方式</h4><ol>
+<li><p>读提交：读不加锁，写加锁</p>
+<ul>
+<li><p>如果一个条件无法通过索引快速过滤，存储引擎层面就会将所有记录加锁后返回，再由MySQL Server层进行过滤</p>
+</li>
+<li><p>实际改进：在MySQL Server过滤条件，发现不满足后，会调用unlock_row<br> 方法，把不满足条件的记录释放锁 (违背了二段锁协议的约束)。这样做，保证了最后只会持有满足条件记录上的锁，但是每条记录的加锁操作还是不能省略的。</p>
+</li>
+</ul>
+</li>
+<li><p>不可重复读</p>
+<ul>
+<li><p>悲观锁：事务开启时就锁数据，锁数据期间别的无法修改，自然看到的就一直是对应的数据了，此方法低效且无法处理插入这种幻读的情况。</p>
+</li>
+<li><p>所以采取了乐观锁 ：MVCC 这种模式</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h4><ul>
+<li><p>SELECT时，读取创建版本号&lt;&#x3D;当前事务版本号，删除版本号为空或&gt;当前事务版本号。</p>
+</li>
+<li><p>INSERT时，保存当前事务版本号为行的创建版本号</p>
+</li>
+<li><p>DELETE时，保存当前事务版本号为行的删除版本号</p>
+</li>
+<li><p>UPDATE时，插入一条新纪录，保存当前事务版本号为行创建版本号，同时保存当前事务版本号到原来删除的行</p>
+<ul>
+<li><p>Mysql 的 可重复读解决了 幻读的 <strong>读</strong> 问题，因为幻读插入的数据版本号高于当前版本，因此不会读到。但这也意味着读的不是最新的数据，因此称为快照读，与之对应的就是锁数据来保持当前版本读，称为当前读。</p>
+</li>
+<li><p>为了解决当前读中的幻读 <strong>写</strong> 问题，MySQL事务使用了Next-Key锁。Next-Key锁是行锁和GAP（间隙锁）的合并。RR级别中，事务A在update后加锁，事务B无法插入新数据，这样事务A在update<br>  前后读的数据保持一致，避免了幻读。这个锁，就是Gap锁，所谓Gap锁就是按索引字段将修改数据附近的区间进行加锁，进而保证不可插入，但弊端就在于对没有索引的字段会锁全表，而有索引的字段在没有命中数据的情况下，仍然回对该区间加锁</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="加锁只针对当前读，快照读不需要加锁"><a href="#加锁只针对当前读，快照读不需要加锁" class="headerlink" title="加锁只针对当前读，快照读不需要加锁"></a>加锁只针对当前读，快照读不需要加锁</h4><p>读锁和写锁都是最基本的锁模式，它们的概念也比较容易理解。<br>读锁，又称共享锁（Share locks，简称 S 锁），加了读锁的记录，所有的事务都可以读取，但是不能修改，并且可同时有多个事务对记录加读锁。写锁，又称排他锁（Exclusive locks，简称 X 锁），或独占锁，对记录加了排他锁之后，只有拥有该锁的事务可以读取和修改，其他事务都不可以读取和修改，并且同一时间只能有一个事务加写锁。（注意：这里说的读都是当前读，快照读是无需加锁的，记录上无论有没有锁，都可以快照读）</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：(转)Mysql Transaction</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2020-07-29 10:10:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2020/07/29/mysql-transaction/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Mysql/">#Mysql</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Database/">#Database</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/08/01/mysql-index/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">(转) Mysql 索引</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2020/07/19/redis/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">(转) Redis 基础知识笔记记录</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySql-Transaction"><span class="nav-text">MySql Transaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81"><span class="nav-text">事务如何保证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%94%81"><span class="nav-text">关于锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-text">锁协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E9%94%81%E6%96%B9%E5%BC%8F"><span class="nav-text">加锁方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVCC"><span class="nav-text">MVCC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E9%94%81%E5%8F%AA%E9%92%88%E5%AF%B9%E5%BD%93%E5%89%8D%E8%AF%BB%EF%BC%8C%E5%BF%AB%E7%85%A7%E8%AF%BB%E4%B8%8D%E9%9C%80%E8%A6%81%E5%8A%A0%E9%94%81"><span class="nav-text">加锁只针对当前读，快照读不需要加锁</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

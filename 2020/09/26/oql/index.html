@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            OQL |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">OQL</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-09-26 10:10:00</span>
+        <span class="mobile">2020-09-26 10:10</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/JVM/">JVM</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="JVM-Object-Query-Language"><a href="#JVM-Object-Query-Language" class="headerlink" title="JVM Object Query Language"></a>JVM Object Query Language</h1><p><a class="link"   target="_blank" rel="noopener" href="http://cr.openjdk.java.net/~sundar/8022483/webrev.01/raw_files/new/src/share/classes/com/sun/tools/hat/resources/oqlhelp.html" >参考链接<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>简单说就是 java heap 信息的查询语言。<br>原本的小工具 hat 其实已经够用了，但是为了增加点灵活性，所以引入了 oql 方便查询。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select &lt;JavaScript expression to select&gt;</span><br><span class="line">        [ from [instanceof] &lt;class name&gt; &lt;identifier&gt;</span><br><span class="line">        [ where &lt;JavaScript boolean expression to filter&gt; ] ]</span><br></pre></td></tr></table></figure></div>
+
+<p>上面的表达式大致介绍下：</p>
+<ul>
+<li><p><code>&lt;class name&gt;</code>  标准Java类名（例如：<code>java.net.URL</code>）或数组类名。<br> <code>[C</code>是字符数组名称，<code>[Ljava.io.File;</code> 是<code>java.io.File []</code>的名称，依此类推。<br> 要注意全限定描述的类名在运行时并不总是唯一地标识Java类，毕竟可能用着不一样的 <code>classloader</code>。<br> 因此，只是允许将类名作为类对象的 <code>identifier</code> 字符串。</p>
+</li>
+<li><p><code>[instanceof]</code> 可选，选了就连子类一同查，否则只查对应的类</p>
+</li>
+<li><p><code>select</code> 和 <code>where</code> 后跟进的都是 <code>js</code> 表达式作为子句。<br> 这么搞是为了方便，<code>js</code> 作为动态语言用起来算是比较爽的了，比如 <code>object.filed_name</code>, <code>arr[index]</code>，用个正则啊之类的。<br> 然后跟 <code>sql</code> 差不多，就是 <code>from</code> 里给个别名，然后 <code>select</code> 里用。通过这种方式把 <code>from</code> 里的 <code>id</code> 对应的 <code>object</code> 绑到 <code>js</code> 变量上。</p>
+</li>
+</ul>
+<h2 id="整活"><a href="#整活" class="headerlink" title="整活"></a>整活</h2><ul>
+<li><p>select all Strings of length 100 or more &#x2F;&#x2F; 查询超过 100 长度的字符串</p>
+<p>  <code>select s from java.lang.String s where s.value.length &gt;= 100</code></p>
+</li>
+<li><p>select all int arrays of length 256 or more &#x2F;&#x2F; 查询超过 256 长度的数组</p>
+<p>  <code>select a from [I a where a.length &gt;= 256</code></p>
+</li>
+<li><p>show content of Strings that match a regular expression &#x2F;&#x2F; 字符串对象匹配正则</p>
+<p>  <code>select s.value.toString() from java.lang.String s where /java/.test(s.value.toString())</code></p>
+</li>
+<li><p>show path value of all File objects &#x2F;&#x2F; 是不是开始 get 爽点了？</p>
+<p>  <code>select file.path.value.toString() from java.io.File file</code></p>
+</li>
+<li><p>show names of all ClassLoader classes &#x2F;&#x2F; 这个应该算是真正的唯一标识了吧</p>
+<p>  <code>select classof(cl).name from instanceof java.lang.ClassLoader cl</code></p>
+</li>
+<li><p>show instances of the Class identified by given id string &#x2F;&#x2F; 这个 id 就是 jhat 的id(如下图), 或者后文中的objectId函数也可以拿到</p>
+<p>  <code>select o from instanceof 0xd404b198 o</code></p>
+</li>
+</ul>
+<p>Note that 0xd404b198 is id of a Class (in a session). This is found by looking at the id shown in that class’s page. </p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/09/26/oql/jhat.png"
+                      class="" title="jhat"
+                >
+
+<h2 id="OQL-内置-对象，函数"><a href="#OQL-内置-对象，函数" class="headerlink" title="OQL 内置 对象，函数"></a>OQL 内置 对象，函数</h2><h3 id="全局性的-heap-对象"><a href="#全局性的-heap-对象" class="headerlink" title="全局性的 heap 对象"></a>全局性的 heap 对象</h3><h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><ol>
+<li><p>heap.forEachClass - 为每个Java类调用一个回调函数<br> <code>heap.forEachClass(callback)</code></p>
+</li>
+<li><p>heap.forEachObject - 为每个Java对象调用回调函数 <code>clazz</code> 就是选中的对象对应的类，<code>includeSubtypes</code> 就是指要不要包含子类<br> <code>heap.forEachObject(callback, [clazz = java.lang.Object], [includeSubtypes = true])</code></p>
+</li>
+</ol>
+<p>上面俩基本就简单的循环，没找到啥好应用，差不多好点的就是用来做个<a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/a/48895782/7103214" >特殊计数啊之类的<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<hr>
+<h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><ol>
+<li><code>heap.findClass(className)</code> 根据 className 查出对应的 class 对象</li>
+</ol>
+<ul>
+<li><p>对象有以下的属性</p>
+<ul>
+<li><p>name - 类的名称。</p>
+</li>
+<li><p>superclass - 超类的类对象（如果是java.lang.Object，则为null）。</p>
+</li>
+<li><p>statics - 类的静态字段的 <code>&lt;名称，值&gt;</code> 键值对集合。</p>
+</li>
+<li><p>fields - 字段对象的数组。field对象具有名称，签名属性。</p>
+</li>
+<li><p>loader - 加载此类的 <code>ClassLoader</code> 对象。</p>
+</li>
+<li><p>signers - 签署此类的签名者。</p>
+</li>
+<li><p>protectionDomain - 此类所属的保护域</p>
+</li>
+</ul>
+</li>
+<li><p>对象有以下的方法<br>  -isSubclassOf - 测试给定的类是否是此类的直接或间接子类。</p>
+<ul>
+<li><p>isSuperclassOf - 测试给定的Class是否是此类的直接或间接超类。</p>
+</li>
+<li><p>subclasses - 返回直接和间接子类的数组。</p>
+</li>
+<li><p>superclasses - 返回直接和间接超类的数组。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><code>heap.findObject(stringIdOfObject)</code> – 找实例</li>
+</ol>
+<h4 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h4><ol>
+<li><p>heap.classes – returns an enumeration of all Java classes</p>
+</li>
+<li><p>heap.objects – 这个 filter 参数指的是在结果集的基础上用 filter 表达式做层过滤</p>
+</li>
+</ol>
+<ul>
+<li><code>heap.objects(clazz, [includeSubtypes=true], [filter])</code></li>
+</ul>
+<ol start="3">
+<li><p>heap.finalizables – 返回等待 <code>finalized</code> 对象的枚举.</p>
+</li>
+<li><p>heap.livepaths – 返回数组，数组里包含了存活的对象. 同时接一个次要参数，表明是否返回持有对象弱引用的。</p>
+</li>
+</ol>
+<ul>
+<li><code>heap.livepaths(id, [weakRef=false])</code>  </li>
+<li>返回对象的每个数组元素都是一个数组，这个子数组包含了在这个 <strong>引用链</strong> 路径上的对象</li>
+</ul>
+<ol start="5">
+<li>heap.roots – 返回根对象<ul>
+<li>id 此根引用的对象的字符串id</li>
+<li>type 描述类型的 Root (JNI Global, JNI Local, Java Static etc)</li>
+<li>description Root的字符串描述</li>
+<li>referrer - 负责此根或null的Thread Object或Class对象</li>
+</ul>
+</li>
+</ol>
+<h4 id="举两个例子"><a href="#举两个例子" class="headerlink" title="举两个例子"></a>举两个例子</h4><p>access static field ‘props’ of class java.lang.System &#x2F;&#x2F; 找出 System 类 static 字段 props 的相关信息</p>
+<pre><code>select heap.findClass(&quot;java.lang.System&quot;).statics.props
+</code></pre>
+<p>get number of fields of java.lang.String class &#x2F;&#x2F; 找出 String 类的 字段信息</p>
+<pre><code>select heap.findClass(&quot;java.lang.String&quot;).fields.length
+</code></pre>
+<p>find the object whose object id is given &#x2F;&#x2F; 楞找</p>
+<pre><code>select heap.findObject(&quot;0xf3800b58&quot;)
+</code></pre>
+<p>select all classes that have name pattern java.net.*  &#x2F;&#x2F; 过滤，看到这感觉 <code>oql</code> 的 api 设计的不够简练，似乎有些冗余 api</p>
+<pre><code>select filter(heap.classes(), &quot;/java.net./.test(it.name)&quot;)
+</code></pre>
+<h3 id="单个对象上的函数"><a href="#单个对象上的函数" class="headerlink" title="单个对象上的函数"></a>单个对象上的函数</h3><ol>
+<li>allocTrace 如果给定的Java对象可用，则返回分配栈跟踪。 具体是返回 帧对象的数组。每个帧对象具有以下属性：</li>
+</ol>
+<ul>
+<li>className - 其方法在 frame 中运行的Java类的名称。</li>
+<li>methodName - 运行的Java方法的名称。</li>
+<li>methodSignature - frame 中运行的Java方法的签名。</li>
+<li>sourceFileName - frame 中运行的Java类的源文件的名称。</li>
+<li>lineNumber - 方法中的源行号。</li>
+</ul>
+<ol start="2">
+<li>classof 返回给定Java对象的Class对象。结果对象支持以下属性，和 heap.object 的那个差不多</li>
+</ol>
+<ul>
+<li><p>属性</p>
+<ul>
+<li>name - 类的名称。</li>
+<li>superclass - 超类的类对象（如果是java.lang.Object，则为null）。</li>
+<li>statics  - 类的静态字段的名称，值对。</li>
+<li>fields - 字段对象的数组。字段对象具有名称，签名属性。</li>
+<li>loader - 加载此类的ClassLoader对象。</li>
+<li>signers  - 签署此类的签名者。</li>
+<li>protectionDomain - 此类所属的保护域。</li>
+</ul>
+</li>
+<li><p>方法</p>
+<ul>
+<li>isSubclassOf - 测试给定的类是否是此类的直接或间接子类。</li>
+<li>isSuperclassOf - 测试给定的Class是否是此类的直接或间接超类。</li>
+<li>subclasses - 返回直接和间接子类的数组。</li>
+<li>superclasses - 返回直接和间接超类的数组。</li>
+</ul>
+</li>
+</ul>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><ul>
+<li><p>show class name of each Reference type object &#x2F;&#x2F; </p>
+<p>  <code>select classof(o).name from instanceof java.lang.ref.Reference o</code></p>
+</li>
+<li><p>show all subclasses of java.io.InputStream &#x2F;&#x2F; inpustream 的子类</p>
+<p>  <code>select heap.findClass(&quot;java.io.InputStream&quot;).subclasses()</code></p>
+</li>
+<li><p>show all superclasses of java.io.BufferedInputStream &#x2F;&#x2F; bufferedInputStream 的父类</p>
+<p>  <code>select heap.findClass(&quot;java.io.BufferedInputStream&quot;).superclasses()</code></p>
+</li>
+</ul>
+<h4 id="其他常用函数"><a href="#其他常用函数" class="headerlink" title="其他常用函数"></a>其他常用函数</h4><ol>
+<li><p><code>forEachReferrer</code> 为给定Java对象的每个引用者调用一个回调函数。</p>
+</li>
+<li><p><code>identical</code> 返回两个给定的Java对象是否相同。</p>
+<ul>
+<li><code>select identical(heap.findClass(&quot;Foo&quot;).statics.bar, heap.findClass(&quot;AnotherClass&quot;).statics.bar)</code></li>
+</ul>
+</li>
+<li><p><code>objectid</code> 返回给定Java对象的String id。此id可以传递给 heap.findObject，也可以用于比较对象以进行标识</p>
+<ul>
+<li><code>select objectid(o) from java.lang.Object o</code></li>
+</ul>
+</li>
+<li><p><code>reachables</code> 返回从给定Java对象传递引用的Java对象数组。（可选）接受第二个参数，该参数是逗号分隔的字段名称，以从可达性计算中排除。字段以class_name.field_name模式编写。</p>
+<ul>
+<li><code>select reachables(u, &#39;java.net.URL.handler&#39;) from java.net.URL u</code> 打印每个java.net.URL中的所有可访问内容，但省略可通过指定字段访问的对象。</li>
+</ul>
+</li>
+<li><p><code>referrers</code> 返回引用了给定Java对象的所有对象</p>
+<ul>
+<li><code>select u from java.net.URL u where count(referrers(u)) &gt; 2</code> 查询持有URL引用次数超过2的对象</li>
+</ul>
+</li>
+<li><p>refers function, root function, sizeof function, toHtml function 这些听个名就了解大概了，不介绍了，感兴趣的话可以看文章开头的链接</p>
+</li>
+</ol>
+<h3 id="多值筛选"><a href="#多值筛选" class="headerlink" title="多值筛选"></a>多值筛选</h3><p>展示每个线程的名称和线程信息</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select &#123; name: t.name? t.name.toString() : &quot;null&quot;, thread: t &#125; </span><br><span class="line">    from instanceof java.lang.Thread t</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="迭代操作方法"><a href="#迭代操作方法" class="headerlink" title="迭代操作方法"></a>迭代操作方法</h4><p>这些方法接受 array&#x2F;iterator&#x2F;enumeration 和 一个表达式，用来对 集合对象迭代应用这些表达式</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">concat(array1/enumeration1, array2/enumeration2)</span><br><span class="line">contains(array/enumeration, expression)</span><br><span class="line">count(array/enumeration, expression)</span><br><span class="line">filter(array/enumeration, expression)</span><br><span class="line">length(array/enumeration)</span><br><span class="line">map(array/enumeration, expression)</span><br><span class="line">max(array/enumeration, [expression])</span><br><span class="line">min(array/enumeration, [expression])</span><br><span class="line">sort(array/enumeration, [expression])</span><br><span class="line">sum(array/enumeration, [expression])</span><br><span class="line">toArray(array/enumeration)</span><br><span class="line">unique(array/enumeration, [expression])</span><br></pre></td></tr></table></figure></div>
+
+<p>三个迭代时使用的内置变量</p>
+<ul>
+<li>it -&gt; currently visited element</li>
+<li>index -&gt; index of the current element</li>
+<li>array -&gt; array&#x2F;enumeration that is being iterated</li>
+</ul>
+<p>用 <code>contains</code> 举个例子： 选择所有被某类静态字段引用的 Properties 对象。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select p from java.util.Properties p</span><br><span class="line">where contains(referrers(p), &quot;classof(it).name == &#x27;java.lang.Class&#x27;&quot;)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="用两个复杂的例子收个尾"><a href="#用两个复杂的例子收个尾" class="headerlink" title="用两个复杂的例子收个尾"></a>用两个复杂的例子收个尾</h3><h4 id="Print-histogram-of-each-class-loader-and-number-of-classes-loaded-by-it"><a href="#Print-histogram-of-each-class-loader-and-number-of-classes-loaded-by-it" class="headerlink" title="Print histogram of each class loader and number of classes loaded by it"></a>Print histogram of each class loader and number of classes loaded by it</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select map(sort(map(heap.objects(&#x27;java.lang.ClassLoader&#x27;), </span><br><span class="line">&#x27;&#123; loader: it, count: it.classes.elementCount &#125;&#x27;), &#x27;lhs.count &lt; rhs.count&#x27;),</span><br><span class="line">&#x27;toHtml(it) + &quot;&lt;br&gt;&quot;&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>java.lang.ClassLoader有一个名为classes的私有字段，类型为java.util.Vector。</li>
+<li>Vector有一个名为 elementCount的私有字段，是矢量中元素的数量。</li>
+<li>我们使用JavaScript对象标识符 和map函数选择多个值（loader，count）。</li>
+<li>然后带有比较表达式的排序函数对结果按计数（即加载的类数）进行排序。</li>
+</ol>
+<h4 id="Printing-value-of-all-System-properties"><a href="#Printing-value-of-all-System-properties" class="headerlink" title="Printing value of all System properties"></a>Printing value of all System properties</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select map(filter(heap.findClass(&#x27;java.lang.System&#x27;).statics.props.table, &#x27;it != null&#x27;), </span><br><span class="line">        function (it) &#123;</span><br><span class="line">            var res = &quot;&quot;;</span><br><span class="line">            while (it != null) &#123;</span><br><span class="line">                res += it.key.value.toString() + &#x27;=&#x27; +</span><br><span class="line">                       it.value.value.toString() + &#x27;&lt;br&gt;&#x27;;</span><br><span class="line">                it = it.next;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">       &#125;);</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li>java.lang.System具有类型为java.util.Properties的名称为’props’的静态字段。</li>
+<li>java.util.Properties的字段为’table’，类型为java.util.Hashtable $ Entry（此字段继承自java.util.Hashtable）。这是hashtable桶数组。</li>
+<li>java.util.Hashtable $ Entry包含’key’，’value’和’next’字段。每个条目指向同一哈希表桶中的下一个条目（或null）。</li>
+<li>java.lang.String类具有char []类型的’value’字段。</li>
+</ol>
+<h4 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h4><p><code>OQL</code> 可能并不稳定–因为Java平台类的私有字段可能会在没有任何通知的情况下被修改&#x2F;删除! (实现细节)。<br>但是，在用户类上使用这种查询可能是安全的–因为用户对类有控制权。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：OQL</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2020-09-26 10:10:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2020/09/26/oql/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Java/">#Java</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/JVM/">#JVM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/10/01/csapp/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">CSAPP</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2020/09/23/think-more/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Think More</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM-Object-Query-Language"><span class="nav-text">JVM Object Query Language</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%B4%BB"><span class="nav-text">整活</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OQL-%E5%86%85%E7%BD%AE-%E5%AF%B9%E8%B1%A1%EF%BC%8C%E5%87%BD%E6%95%B0"><span class="nav-text">OQL 内置 对象，函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%80%A7%E7%9A%84-heap-%E5%AF%B9%E8%B1%A1"><span class="nav-text">全局性的 heap 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86"><span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-text">查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-text">集合操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BE%E4%B8%A4%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-text">举两个例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-text">单个对象上的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B"><span class="nav-text">样例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-text">其他常用函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%80%BC%E7%AD%9B%E9%80%89"><span class="nav-text">多值筛选</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">迭代操作方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E4%B8%A4%E4%B8%AA%E5%A4%8D%E6%9D%82%E7%9A%84%E4%BE%8B%E5%AD%90%E6%94%B6%E4%B8%AA%E5%B0%BE"><span class="nav-text">用两个复杂的例子收个尾</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Print-histogram-of-each-class-loader-and-number-of-classes-loaded-by-it"><span class="nav-text">Print histogram of each class loader and number of classes loaded by it</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Printing-value-of-all-System-properties"><span class="nav-text">Printing value of all System properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tips"><span class="nav-text">tips</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

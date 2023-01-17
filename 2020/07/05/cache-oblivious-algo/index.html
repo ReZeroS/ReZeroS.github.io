@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            （译）缓存参数无关算法 |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">（译）缓存参数无关算法</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-07-05 22:10:00</span>
+        <span class="mobile">2020-07-05 22:10</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Algorithm/">Algorithm</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Math/">Math</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="缓存参数无关算法-笔记"><a href="#缓存参数无关算法-笔记" class="headerlink" title="缓存参数无关算法 笔记"></a>缓存参数无关算法 笔记</h2><p>参考链接：</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://jiahai-feng.github.io/posts/cache-oblivious-algorithms/" >Cache Oblivious Introduce blog<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://erikdemaine.org/papers/BRICS2002/paper.pdf" >Cache Oblivious paper<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p>假设 硬盘 存在 <code>M</code> bits，以 <code>B</code> bits 作为分页大小，缓存按页加载，介绍相关的缓存参数无关的命中算法，这里的参数指 B</p>
+<p>转化问题： <code>N</code> 个整数， 按 <code>B</code> 个 一页，求最快找到 <code>N</code> 所在页的算法</p>
+<h3 id="算法低效但是参数无关-二分查找"><a href="#算法低效但是参数无关-二分查找" class="headerlink" title="算法低效但是参数无关: 二分查找"></a>算法低效但是参数无关: 二分查找</h3><p>假设 <code>N</code> 个整数本身是有序的，采用方法： 总长 <code>O(N)</code> 所以计算查找次数为 <code>O(logN -logB)</code>，因为二分范围降到 <code>B</code> 时直接取出该页</p>
+<p>参数无关是因为该算法并不知晓 <code>B</code> 的值，它只是按照标准的二分查找去搜（调用方是缓存，它load <code>B</code> 页时会去查到真正的所需值来停止二分，这对二分算法本身不可见）</p>
+<h3 id="非低效，但是参数相关-B-Tree"><a href="#非低效，但是参数相关-B-Tree" class="headerlink" title="非低效，但是参数相关: B-Tree"></a>非低效，但是参数相关: B-Tree</h3><p>假设一开始知晓 <code>B</code> 的值，那么就可以达到 <code>O(log[B]N)</code> (中括号代表底数)，具体如下</p>
+<p>首先把 list 转成 <code>B</code> 树：也就是说每个节点有 <code>B</code> 个元素，统一节点的元素是有序的，不同节点之间是整体有序的，每个节点上 <code>B</code> 个元素会产生 <code>B+1</code> 个分支，这样生成树之后，每下降一层间隔就会减少 <code>B</code> 倍(也就是砍掉了其他分支，相当于树的第二层取了节点作为新树), 那时间复杂度就是 <code>O(logN/logB) = O(log[B]N)</code></p>
+<h3 id="非低效且参数无关算法-van-Emde-Boas-layout"><a href="#非低效且参数无关算法-van-Emde-Boas-layout" class="headerlink" title="非低效且参数无关算法: van Emde Boas layout"></a>非低效且参数无关算法: van Emde Boas layout</h3><p>传统的二分搜索树的特性决定了每次搜索都是 <code>O(logN - logB)</code>，这显然不合期望，<code>van Emde Boas layout</code> 算法使用了一种很好的递归方式来排序，从而使得每次分页的查询都包含接下来可能要查的几个节点，从而提高命中率。</p>
+<h3 id="简洁概念"><a href="#简洁概念" class="headerlink" title="简洁概念"></a>简洁概念</h3>
+
+<p>假设存在树高 <code>H = 2^K</code>.</p>
+<h3 id="概念展开"><a href="#概念展开" class="headerlink" title="概念展开"></a>概念展开</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-step0.png"
+                      class="" title="完全二叉树"
+                >
+
+
+<p>假设现在有一棵完全二叉树 <code>H = 2^K</code>，以 <code>x</code> 作为 <code>root</code> 节点，而我们的目的是计算出二叉树顶点的一种排列： <code>L(x, k)</code>  </p>
+<ol>
+<li><p>横切 2^(k-1) 和 2^(k-1) + 1 两层之间的枝，然后我们将得到这样的结果</p>
+<ul>
+<li><code>n=2^(h/2)</code> 个 <code>2^(K-1)</code> 高 的小完全二叉树这些二叉树是从上面的节点断开后生成的，分别以 <code>l1..ln</code> 作为根节点。</li>
+<li>以及以 <code>root</code> 作为根节点的 <code>2^(K-1)</code> 高的根树。</li>
+</ul>
+</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-step1.png"
+                      class="" title="横切一刀"
+                >
+
+<ol start="2">
+<li><p>以 <code>x</code> 根节点和 <code>k</code> 值得到的这 <code>n+1</code> 个 BST的调用函数 我们称为 <code>L(x, k)</code></p>
+</li>
+<li><p>将它们排列好后返回（顺序不重要）</p>
+</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-step2.png"
+                      class="" title="L(x，k)"
+                >
+
+<h3 id="Sierpinski-triangles-atoms-and-time"><a href="#Sierpinski-triangles-atoms-and-time" class="headerlink" title="Sierpinski triangles, atoms and time"></a>Sierpinski triangles, atoms and time</h3><p>为了更好的解释接下来如何实现这种构造，首先给出一个直观的演示，它很像 Sierpinski 三角，如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/sierpinski-triangle-evolution.png"
+                      class="" title="L(x，k)"
+                >
+
+<p>同过 Sierpinski 三角 我们大致能得到一种限制深度的递归，这使得这个递归更加偏像 BFS 而不是 DFS。</p>
+<p>具体一点来说，我们引入 <code>t</code> 变量作为限制的递归深度，并引入概念 <code>atom</code> 代表递归深度为 <code>t</code> 时的子树单元。举例来说，递归深度 <code>t</code> 为 0 的时候，<code>atom</code> 是整个树。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-step0.png"
+                      class="" title="t&#x3D;0"
+                >
+
+<p>接下来，当 <code>t = 1</code> 我们得到上面提到过的 <code>2^(K-1)</code> 高的子树，这时的 <code>atoms</code> 指的就是这些子树。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-step1.png"
+                      class="" title="t&#x3D;1"
+                >
+
+<p>继续提高 <code>t</code> 递归深度，得到一批 <code>2^(K-2)</code> 的 atoms。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/07/05/cache-oblivious-algo/veb-recur.png"
+                      class="" title="t&#x3D;1"
+                >
+
+<p>随着递归深度的提高最终 <code>atoms</code> 会变成最小的子树单元也就是一个个独立的节点。这一过程表明我们通过限制 <code>t</code> 即递归的深度可以得到不同程度精细的 <code>atoms</code>，综上可以获取如下推论</p>
+<blockquote>
+<p>In the final layout, we can choose any resolution to look at the layout. All vertices in any atom at this resolution will be in a contiguous segment.</p>
+</blockquote>
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><p>假设页面大小是 <code>B</code>。 每步进一次，原子的高度减半。这样 B 和原子的关系就构建出来了，无论 <code>B</code> 是多大，只要每次我们使得得到的 原子群 高度为 O(logB) 即可，这样他就可以塞进一页(2^(logB) &#x3D; B)当中去。</p>
+<p>现在来算下搜索复杂度：它会首先遍历第一个 <code>atom</code> 子树，直到遍历完该子树的所有节点，然后继续使用相同的遍历去遍历下一个 <code>atom</code> 子树，每次这样的遍历花费 <code>O(logB)</code> 次步进，然后未划分子树前我们知道整棵大树需要 <code>O(logN)</code> 次遍历，所以我们可以算出来一共有 <code>O(logN / logB) = O(log[B]N)</code> 个 <code>atom</code>，这个数量也同时就是我们需要 <code>access page</code> 的次数。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：（译）缓存参数无关算法</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2020-07-05 22:10:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2020/07/05/cache-oblivious-algo/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Algorithm/">#Algorithm</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Math/">#Math</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/07/18/site-architechture/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Site Architecture</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2020/07/04/Java-Debug/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">（转）Java Debug</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%8F%82%E6%95%B0%E6%97%A0%E5%85%B3%E7%AE%97%E6%B3%95-%E7%AC%94%E8%AE%B0"><span class="nav-text">缓存参数无关算法 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E4%BD%8E%E6%95%88%E4%BD%86%E6%98%AF%E5%8F%82%E6%95%B0%E6%97%A0%E5%85%B3-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-text">算法低效但是参数无关: 二分查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E4%BD%8E%E6%95%88%EF%BC%8C%E4%BD%86%E6%98%AF%E5%8F%82%E6%95%B0%E7%9B%B8%E5%85%B3-B-Tree"><span class="nav-text">非低效，但是参数相关: B-Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E4%BD%8E%E6%95%88%E4%B8%94%E5%8F%82%E6%95%B0%E6%97%A0%E5%85%B3%E7%AE%97%E6%B3%95-van-Emde-Boas-layout"><span class="nav-text">非低效且参数无关算法: van Emde Boas layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E6%B4%81%E6%A6%82%E5%BF%B5"><span class="nav-text">简洁概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E5%B1%95%E5%BC%80"><span class="nav-text">概念展开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sierpinski-triangles-atoms-and-time"><span class="nav-text">Sierpinski triangles, atoms and time</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Algorithm"><span class="nav-text">Algorithm</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

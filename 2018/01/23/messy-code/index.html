@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            Messy code issue |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Messy code issue</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-01-23 16:55:51</span>
+        <span class="mobile">2018-01-23 16:55</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E7%BC%96%E7%A0%81/">编码</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/ANSI/">ANSI</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ASCII/">ASCII</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/decode/">decode</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/encode/">encode</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ISO-8859-1/">ISO-8859-1</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/messy-code/">messy code</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>Source: <a class="link"   target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/analysis-and-summary-of-common-random-code-problems/index.html?cm_mmc=dwchina-_-homepage-_-social-_-weibo#N101F9" >https://www.ibm.com/developerworks/cn/java/analysis-and-summary-of-common-random-code-problems/index.html?cm_mmc=dwchina-_-homepage-_-social-_-weibo#N101F9<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<h3 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h3><ol>
+<li><p>Encode</p>
+</li>
+<li><p><em>Decode</em></p>
+</li>
+<li><p>Lack of a font library</p>
+</li>
+</ol>
+<h3 id="Analysis-phenomenon"><a href="#Analysis-phenomenon" class="headerlink" title="Analysis phenomenon"></a>Analysis phenomenon</h3><ol>
+<li>Caused by encoding</li>
+</ol>
+<p>In English Windows, u create a txt, type and save “你好”. Then u will see “??” after u open it.</p>
+<ul>
+<li><p>Reason:<br> Windows uses ANSI encode by default, and locale of Ewin is English, which mapping codepage 437 as the encode way is ISO-8859-1. This cause all chinese symbols will be mapping “3F3F” as encode result. And 3F reach “?”.</p>
+</li>
+<li><p>Solution:<br> No decode way could display that right characters. So we should choose the right encode way when we save double byte character doc such as GB2312 or UTF-8 as simple chinese while BIG5 or UTF-8 in complex chinese. For chinese user, changing the locale to Chinese also a good idea.</p>
+</li>
+</ul>
+<ol start="2">
+<li>Caused by decoding</li>
+</ol>
+<p>Create a txt with “你好”, and copy it to Ewin. Then open it and get the error.</p>
+<ul>
+<li><p>Reason:<br> Cwin create txt used ANSI as GB2312, and after copy it to Ewin, notepad will use ISO-8859-1 as decode way.</p>
+</li>
+<li><p>Solution:<br> Select the right decode method.</p>
+</li>
+</ul>
+<ol start="3">
+<li>Caused by application function.</li>
+</ol>
+<p>Open the uedit32.exe(cn version) and get the messy code.</p>
+<ul>
+<li><p>Reason: Windows will use Unicode if the application support Unicode or use the ANSI(Which means as the country decided standard encode method)</p>
+</li>
+<li><p>Solution: Edit the Regional and language options: set the <code>standard and format</code> and <code>non-Unicode</code> as simple chinese. Then the system will decode use ANSI.</p>
+</li>
+</ul>
+<ol start="4">
+<li>Caused by lack of font</li>
+</ol>
+<p> Open file and get square symbol.</p>
+<ul>
+<li><p>Reason: From binary byte sequence to code point, then to character which is found from font library. Then show as lattice on the screen. If not fonud, then use square to replace it.</p>
+</li>
+<li><p>Solution: Setup the library.</p>
+</li>
+</ul>
+<h3 id="Think-in-coding"><a href="#Think-in-coding" class="headerlink" title="Think in coding"></a>Think in coding</h3><ol>
+<li><p>I&#x2F;O operation: read is decode(byte-&gt;character) while write is encode(character-&gt;byte)</p>
+</li>
+<li><p>Here is the java I&#x2F;O interface:</p>
+</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2018/01/23/messy-code/image010.png"
+                      class="" title="java i&#x2F;o interface"
+                >
+
+<p>When we use Writer and FileOutputStream:</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2018/01/23/messy-code/image011.jpg"
+                      class="" title="File I&#x2F;O Stream"
+                >
+
+<ol start="3">
+<li>String.getBytes.</li>
+</ol>
+<p>String.getBytes(): Encodes this String into a sequence of bytes using the platform’s default charset(Charset.defaultCharset(), which is decided by system attribute file.encoding), storing the result into a new byte array.</p>
+<p>Note: if use do not set the jvm’s file.encoding, it will depend on the environment which start the JVM: If cmd, then use regional language while eclipse could set this attribute.</p>
+<p>List[1]. String.getBytes() display messy code</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    private static final String fileName = &quot;c:\\log.txt&quot; ;</span><br><span class="line">    String str =&quot;你好，中国&quot;;</span><br><span class="line">    writeError(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void writeError(String a_error) &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        File logFile = new File(fileName);</span><br><span class="line">        //创建字节流对象</span><br><span class="line">        FileOutputStream outPutStream = new FileOutputStream(logFile, true);</span><br><span class="line">        //使用平台的默认字符集将此字符串编码为一系列字节</span><br><span class="line">        outPutStream.write(a_error.getBytes(), 0, a_error.length() );</span><br><span class="line">        outPutStream.flush();</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>List[2].outputStreamWrite to set character library</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private static void writeErrorWithCharSet(String a_error) &#123;</span><br><span class="line">    try &#123; </span><br><span class="line">        File logFile = new File(FileName);</span><br><span class="line">        String charsetName = &quot;utf-8&quot;;</span><br><span class="line">        //指定字符字节转换时使用的字符集为 Unicode，编码方式为 utf-8 </span><br><span class="line">        Writer m_write = new BufferedWriter(</span><br><span class="line">        new OutputStreamWriter(new java.io.FileOutputStream(logFile, true),</span><br><span class="line">        charsetName) );</span><br><span class="line">        m_write.write(a_error);</span><br><span class="line">        m_write.close();</span><br><span class="line">    &#125; catch (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p><em>To avoid messy code issue, when call the I&#x2F;O api, u had better to use the overload format with pointing library args.</em></p>
+<h3 id="Web-Application"><a href="#Web-Application" class="headerlink" title="Web Application"></a>Web Application</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2018/01/23/messy-code/image012.jpg"
+                      class="" title="Web messy code"
+                >
+
+<p>Reason: </p>
+<ol>
+<li><p>Browser not followed the URI encode standard. Server not config the encode and decode. Devloper’s error.</p>
+</li>
+<li><p>GET method: encode the non-ASCII character by <a class="link"   target="_blank" rel="noopener" href="https://www.w3schools.com/tags/ref_urlencode.asp" >urlencode<i class="fa-solid fa-up-right-from-square"></i></a>.</p>
+</li>
+</ol>
+<p><code>域名:端口/contextPath/servletPath/pathInfo?queryString</code> PathInfo and queryString will depend on the server. Tomcat always set them on the server.xml, pathInfo part decode character library is defined on the connector’s <Connector URIEncoding="UTF-8" />, and queryString was by useBodyEncodingForURI(if not set, tomcat will use UTF-8:version &gt;&#x3D; 8.0)  </p>
+<p>To avoid the encode which we do not want, we had better use ASCII only(or urlencode first) on the url. </p>
+<ol start="3">
+<li>Post method: Browser will check the contentType(“text&#x2F;html;charset&#x3D;utf-8”) then encode form by using it.</li>
+</ol>
+<p><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=&quot;GB18030&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</code> pageEncoding is how to save the jsp file.</p>
+<p>list[3] POST request set setContentType</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">protected void doPost(HttpServletRequest request, HttpServletResponse</span><br><span class="line">response) throws ServletException, IOException &#123;</span><br><span class="line">    if(!ServletFileUpload.isMultipartContent(request))&#123;</span><br><span class="line">        throw new ServletException(&quot;Content type is not multipart/form-data&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    response.setCharacterEncoding(&quot;UTF-8&quot;);//设置响应编码 </span><br><span class="line">    response.setContentType(&quot;text/html;charset=UTF-8&quot;);</span><br><span class="line">    PrintWriter out = response.getWriter();</span><br><span class="line">    out.write(&quot;&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&quot;);</span><br><span class="line">    try &#123; </span><br><span class="line">        List&lt;FileItem&gt; items = (List&lt;FileItem&gt;)</span><br><span class="line">        uploader.parseRequest(request);</span><br><span class="line">        …</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>JSP, use post method to do request</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=utf-8&quot; pageEncoding=&quot;utf-8&quot;%&gt;</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;title&gt;index&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=&quot;expires&quot; content=&quot;0&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;form action=&quot;FileUploadServlet&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line"></span><br><span class="line">选择上传文件：&lt;input type=&quot;file&quot; name=&quot;fileName&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;br&gt;</span><br><span class="line"></span><br><span class="line">&lt;input type=&quot;submit&quot; value=&quot;上传&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>- Browser display: Chrome use jsp contentType and charset while firefox use text encoding.
+
+- For jsp(html): jsp will saved as pageEncoding, if not ponit it, then use charset, if not charset, then as default ISO-8859-1. Charset reponse for notify the browser how to decode web page.
+
+- For dynamic: Server use HttpServletResponse.setContentType to set http header&#39;s contentType.
+</code></pre>
+<h3 id="File-name-be-messy-code-when-downloading"><a href="#File-name-be-messy-code-when-downloading" class="headerlink" title="File name be messy code when downloading"></a>File name be messy code when downloading</h3><p>Reason: Header only support ASCII library, and encode other character to 3F(<code>?</code>)</p>
+<p>Solution: urlEncode.encode(filename, charset) at first, then put it on the header.</p>
+<p>list[4]</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">protected void doGet(HttpServletRequest request, HttpServletResponse</span><br><span class="line">response) throws ServletException, IOException &#123;</span><br><span class="line">    String fileName = getDecodeParameter(request,&quot;fileName&quot;);</span><br><span class="line">    String userName = getDecodeParameter(request, &quot;username&quot;);</span><br><span class="line">    response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment; filename=\&quot;&quot; +</span><br><span class="line">    URLEncoder.encode(fileName,&quot;utf-8&quot;) + &quot;\&quot;;userName=\&quot;&quot; +</span><br><span class="line">    URLEncoder.encode(userName,&quot;utf-8&quot;) + &quot;\&quot;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="DataBase-operation"><a href="#DataBase-operation" class="headerlink" title="DataBase operation"></a>DataBase operation</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2018/01/23/messy-code/image015.jpg"
+                      class="" title="database messy code"
+                >
+
+<p>Bridge: Unicode</p>
+<p>Server database, client system, client environment varible.</p>
+<p>Create databse using utf-8, and SQL NCHAR could solve the multi-language issues.</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/web/wa-lo-ecoding-response-problem/index.html" >Deep in analyzing the web request<i class="fa-solid fa-up-right-from-square"></i></a> </p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://www.faqs.org/rfcs/rfc3986.html" >Referring RFC<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/index.html" >Deep in analyzing java cnEncode<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="http://www.unicode.org/charts/" >Unicode Encode standard<i class="fa-solid fa-up-right-from-square"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Messy code issue</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2018-01-23 16:55:51</li>
+        <li>
+            Post link：https://rezeros.github.io/2018/01/23/messy-code/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ANSI/">#ANSI</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ASCII/">#ASCII</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/decode/">#decode</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/encode/">#encode</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ISO-8859-1/">#ISO-8859-1</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/messy-code/">#messy code</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2018/02/11/custom-classloader/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">（转）Custom ClassLoader</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2017/12/03/sicp/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">SICP lec1a: # Lisp overview</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reason"><span class="nav-text">Reason</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analysis-phenomenon"><span class="nav-text">Analysis phenomenon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Think-in-coding"><span class="nav-text">Think in coding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Application"><span class="nav-text">Web Application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File-name-be-messy-code-when-downloading"><span class="nav-text">File name be messy code when downloading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataBase-operation"><span class="nav-text">DataBase operation</span></a></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

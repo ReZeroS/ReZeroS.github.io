@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            liquibase |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">liquibase</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2019-08-21 21:31:00</span>
+        <span class="mobile">2019-08-21 21:31</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Database/">Database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <ol>
+<li><p>As Liquibase executes the databaseChangeLog, it reads the changeSets <strong>in order</strong> and, for each one, checks the “databasechangelog” table to see if the combination of id&#x2F;author&#x2F;filepath has been run. If it has been run, the changeSet will be skipped unless there is a true <code>“runAlways”</code> tag. After all the changes in the changeSet are run, Liquibase will insert a new row with the id&#x2F;author&#x2F;filepath along with an MD5Sum of the changeSet (see below) in the “databasechangelog”.</p>
+</li>
+<li><p>Liquibase attempts to execute each changeSet in a transaction that is committed at the end, or rolled back if there is an error. Some databases will auto-commit statements which interferes with this transaction setup and could lead to an unexpected database state. Therefore, it is usually best to have just one change per changeSet unless there is a group of non-auto-committing changes that you want applied as a transaction such as inserting data.</p>
+</li>
+<li><p>When Liquibase reaches a changeSet, it computes a check sum and stores it in the “databasechangelog”. The value of storing the check sum is so that Liquibase can know if someone changed the changes in the changeSet since it was run. If the changeSet was changed since it was run, Liquibase will exit the migration with an error because it cannot know what was changed and the database may be in a state different than what the changeLog is expecting. If there was a valid reason for the changeSet to have been changed and you want to ignore this error, update the databasechangelog table so that the row with the corresponding id&#x2F;author&#x2F;filepath has a null value for the check sum. The next time Liquibase runs, it will update the check sum value to the new correct value.</p>
+</li>
+<li><p>Check sums are also used in conjunction with the “runOnChange” changeSet attribute. There are times you may not want to add a new changeSet because you only need to know about the current version, but you want this change applied whenever it is updated. A good example of when you would want this is stored procedures. If you copy the entire text of the stored procedure to a new changeSet each time you make a change you will not only end up with a very long changeLog, but you will lose the merging and diff-ing power of your source control. Instead, put the text of the stored procedure in a changeSet with a runOnChange&#x3D;”true” attribute. The stored procedure will only be re-created when and only when there is a change to the text of it.</p>
+</li>
+<li><p>Do not use key word</p>
+</li>
+</ol>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">&quot;AUDIT&quot;, &quot;VOLUMES&quot;, &quot;MINVALUE&quot;, &quot;STATIC&quot;, &quot;FLOOR&quot;, &quot;CATALOG&quot;, &quot;YEAR&quot;, &quot;TRIGGER_CATALOG&quot;, &quot;WLM&quot;,</span><br><span class="line">            &quot;DISCONNECT&quot;, &quot;PARTITION&quot;, &quot;LEFT&quot;, &quot; MODE&quot;, &quot;SEARCH&quot;, &quot;CURRENT_PATH&quot;, &quot;DAYOFYEAR&quot;, &quot;SIZE&quot;, &quot;RESTRICT&quot;, &quot;RELEASE&quot;,</span><br><span class="line">            &quot;WHERE&quot;, &quot;POSTFIX&quot;, &quot;SQLWARNING&quot;, &quot;UID&quot;, &quot;AS&quot;, &quot;AT&quot;, &quot;SYSID&quot;, &quot;DATABASE&quot;, &quot;SPECIFIC_NAME&quot;, &quot;TIMEZONE_MINUTE&quot;,</span><br><span class="line">            &quot;LC_CTYPE&quot;, &quot;ATTRIBUTES&quot;, &quot;LOCATION&quot;, &quot;A&quot;, &quot;DOMAIN&quot;, &quot;C&quot;, &quot;SET&quot;, &quot; INCREMENT&quot;, &quot;MERGE&quot;, &quot;G&quot;, &quot;DAYS&quot;, &quot;HEADER&quot;,</span><br><span class="line">            &quot;K&quot;, &quot;CONSTRAINT&quot;, &quot;M&quot;, &quot;PRECISION&quot;, &quot;ROLE&quot;, &quot;COLLATION_NAME&quot;, &quot;BY&quot;, &quot;STRAIGHT_JOIN&quot;, &quot;CHARACTER&quot;, &quot;INSTEAD&quot;,</span><br><span class="line">            &quot;DUAL&quot;, &quot;DSNHATTR&quot;, &quot;BERNOULLI&quot;, &quot; ADD&quot;, &quot;CLUSTERED&quot;, &quot;CONTINUE&quot;, &quot;DIV&quot;, &quot;OPERATOR&quot;, &quot;SETS&quot;, &quot;SECURITY&quot;,</span><br><span class="line">            &quot;CURRENT_LC_CTYPE&quot;, &quot;TRUNCATE&quot;, &quot;CURSOR&quot;, &quot;SQL_LOW_PRIORITY_UPDATES&quot;, &quot;CONSTRAINT_SCHEMA&quot;, &quot;STATEMENT&quot;,</span><br><span class="line">            &quot;TABLE_NAME&quot;, &quot;NODENUMBER&quot;, &quot;DO&quot;, &quot;RECOVERY&quot;, &quot;LOW_PRIORITY&quot;, &quot;ADMIN&quot;, &quot;ESCAPED&quot;, &quot;CAPTURE&quot;, &quot;ALLOW&quot;, &quot;VARYING&quot;,</span><br><span class="line">            &quot;DISABLE&quot;, &quot;STRICT&quot;, &quot;SQL_BIG_RESULT&quot;, &quot;ABORT&quot;, &quot;FOR&quot;, &quot;IMPLICIT&quot;, &quot;USING&quot;, &quot;EXEC&quot;, &quot;DEFERRABLE&quot;, &quot;RAISERROR&quot;,</span><br><span class="line">            &quot;USER_DEFINED_TYPE_NAME&quot;, &quot;VALIDATOR&quot;, &quot;UNDO&quot;, &quot;STATE&quot;, &quot;WITHIN&quot;, &quot;NCHAR&quot;, &quot;ABSOLUTE&quot;, &quot;PREORDER&quot;, &quot;SCHEMA&quot;,</span><br><span class="line">            &quot;SEQUENCE&quot;, &quot;ASSIGNMENT&quot;, &quot;COLUMNS&quot;, &quot;END-EXEC1&quot;, &quot;GO&quot;, &quot;ROW_NUMBER&quot;, &quot;BIT&quot;, &quot;INTERSECT&quot;, &quot;SYSDATE&quot;, &quot;WITH&quot;,</span><br><span class="line">            &quot;CLASS_ORIGIN&quot;, &quot;ACTION&quot;, &quot;ISNULL&quot;, &quot;VALIDATE&quot;, &quot; COMPRESS&quot;, &quot;START&quot;, &quot;CHARACTER_LENGTH&quot;, &quot;BULK&quot;, &quot;EVERY&quot;,</span><br><span class="line">            &quot;NULLIF&quot;, &quot;CEIL&quot;, &quot;FLUSH&quot;, &quot;MIN_ROWS&quot;, &quot;GRANTED&quot;, &quot;IF&quot;, &quot;BIT_LENGTH&quot;, &quot;PARAMETER&quot;, &quot;CHARACTER_SET_SCHEMA&quot;,</span><br><span class="line">            &quot;DEFINITION&quot;, &quot;NCLOB&quot;, &quot;FIELDS&quot;, &quot;IN&quot;, &quot;DISTINCT&quot;, &quot;STYLE&quot;, &quot;IS&quot;, &quot;MASTER_BIND&quot;, &quot;REGR_INTERCEPT&quot;, &quot;TERMINATE&quot;,</span><br><span class="line">            &quot;FORCE&quot;, &quot;FENCED&quot;, &quot; IMMEDIATE&quot;, &quot;MAP&quot;, &quot;READTEXT&quot;, &quot;SYSFUN&quot;, &quot;EXIT&quot;, &quot;DBCC&quot;, &quot;OPENROWSET&quot;, &quot;COLLATION&quot;, &quot;GOTO&quot;,</span><br><span class="line">            &quot;RAID0&quot;, &quot;MAX&quot;, &quot;CASCADE&quot;, &quot;DELIMITERS&quot;, &quot;TRANSACTION&quot;, &quot;SECQTY&quot;, &quot;IGNORE&quot;, &quot;COMMENT&quot;, &quot;OFF&quot;, &quot;CHARACTERS&quot;,</span><br><span class="line">            &quot;IDENTITYCOL&quot;, &quot;USAGE&quot;, &quot;UPDATE&quot;, &quot;SAVE&quot;, &quot;REQUIRE&quot;, &quot;DISTINCTROW&quot;, &quot;USE&quot;, &quot;RETURNS&quot;, &quot;LOCATORS&quot;,</span><br><span class="line">            &quot;CHARACTERISTICS&quot;, &quot;FIRST&quot;, &quot;LINENO&quot;, &quot;ONLINE&quot;, &quot;SELECT&quot;, &quot;EXCLUDING&quot;, &quot;TABLES&quot;, &quot;OUTFILE&quot;, &quot;ERASE&quot;, &quot;GREATEST&quot;,</span><br><span class="line">            &quot;UTC_DATE&quot;, &quot;VARCHARACTER&quot;, &quot;INVOKER&quot;, &quot;STOGROUP&quot;, &quot;DEPTH&quot;, &quot;CURRENT_USER&quot;, &quot;LN&quot;, &quot;ARRAY&quot;, &quot;ATOMIC&quot;, &quot; ALTER&quot;,</span><br><span class="line">            &quot;COLUMN_NAME&quot;, &quot;COLUMN&quot;, &quot;MODE&quot;, &quot; COMMENT&quot;, &quot;DECIMAL&quot;, &quot;RESET&quot;, &quot;NEW_TABLE&quot;, &quot;ROUTINE_NAME&quot;, &quot;COMPRESS&quot;,</span><br><span class="line">            &quot;OVERLAY&quot;, &quot;READ_WRITE&quot;, &quot;COALESCE&quot;, &quot;STATUS&quot;, &quot; EXCLUSIVE&quot;, &quot;UNBOUNDED&quot;, &quot;REGR_SLOPE&quot;, &quot;CORRESPONDING&quot;,</span><br><span class="line">            &quot;TIMESTAMP&quot;, &quot;MESSAGE_OCTET_LENGTH&quot;, &quot;SQL_LOG_OFF&quot;, &quot;RETURNED_LENGTH&quot;, &quot;DISALLOW&quot;, &quot;PRIVILEGES&quot;, &quot;SQL&quot;, &quot;READ&quot;,</span><br><span class="line">            &quot; IDENTIFIED&quot;, &quot;REAL&quot;, &quot;LESS&quot;, &quot;DIAGNOSTICS&quot;, &quot;QUERYNO&quot;, &quot;NO&quot;, &quot;FLOAT&quot;, &quot;COMMAND_FUNCTION_CODE&quot;,</span><br><span class="line">            &quot;CURRENT_TIMESTAMP&quot;, &quot;TIES&quot;, &quot;ROUTINE&quot;, &quot;SUBLIST&quot;, &quot;FOLLOWING&quot;, &quot;ROLLBACK&quot;, &quot;MEMBER&quot;, &quot;DSSIZE&quot;, &quot;DUMP&quot;,</span><br><span class="line">            &quot;EXTERNAL&quot;, &quot;GROUPING&quot;, &quot;OF&quot;, &quot;CHANGE&quot;, &quot;RECHECK&quot;, &quot; NUMBER&quot;, &quot;ON&quot;, &quot;DBINFO&quot;, &quot;OR&quot;, &quot;EQUALS&quot;, &quot;CREATEROLE&quot;,</span><br><span class="line">            &quot;PRIMARY&quot;, &quot;SSL&quot;, &quot;MATCHED&quot;, &quot;DAYOFWEEK&quot;, &quot;DYNAMIC_FUNCTION_CODE&quot;, &quot;ENCODING&quot;, &quot;OPTIMIZATION&quot;, &quot;SECOND&quot;,</span><br><span class="line">            &quot;UNKNOWN&quot;, &quot;HOUR_SECOND&quot;, &quot;REFERENCES&quot;, &quot;ROWS&quot;, &quot;JAVA&quot;, &quot;SPATIAL&quot;, &quot;INHERIT&quot;, &quot;CREATE&quot;,</span><br><span class="line">            &quot;PARAMETER_SPECIFIC_SCHEMA&quot;, &quot;LEAST&quot;, &quot;OLD&quot;, &quot;TRIGGER&quot;, &quot;BETWEEN&quot;, &quot;OBID&quot;, &quot;CONVERT&quot;, &quot;POSITION&quot;, &quot;PROCESS&quot;,</span><br><span class="line">            &quot;SQL_SELECT_LIMIT&quot;, &quot;NOTHING&quot;, &quot;DEALLOCATE&quot;, &quot;SUBPAGES&quot;, &quot;INNER&quot;, &quot;SQL_BIG_SELECTS&quot;, &quot;EACH&quot;, &quot;OPTIONALLY&quot;,</span><br><span class="line">            &quot;SETUSER&quot;, &quot;BIGINT&quot;, &quot;NOAUDIT&quot;, &quot;SUM&quot;, &quot;OPTIONS&quot;, &quot;MIN&quot;, &quot;BITVAR&quot;, &quot;VARCHAR&quot;, &quot;SQLCA&quot;, &quot;KEY&quot;, &quot;PROGRAM&quot;, &quot;CALL&quot;,</span><br><span class="line">            &quot;WAITFOR&quot;, &quot;RELOAD&quot;, &quot;DELAY_KEY_WRITE&quot;, &quot;USER_DEFINED_TYPE_SCHEMA&quot;, &quot;RLIKE&quot;, &quot;EDITPROC&quot;, &quot;GROUP&quot;,</span><br><span class="line">            &quot;DATETIME_INTERVAL_PRECISION&quot;, &quot;ASSOCIATE&quot;, &quot;RESTORE&quot;, &quot;OFFSET&quot;, &quot;TEMPORARY&quot;, &quot;STANDARD&quot;, &quot;OPENDATASOURCE&quot;,</span><br><span class="line">            &quot;STATISTICS&quot;, &quot;COBOL&quot;, &quot;SECOND_MICROSECOND&quot;, &quot;NULLABLE&quot;, &quot;COMMITTED&quot;, &quot;DELAYED&quot;, &quot;PERCENT&quot;, &quot; ONLINE&quot;, &quot;DB2SQL&quot;,</span><br><span class="line">            &quot;TO&quot;, &quot;CONSTRUCTOR&quot;, &quot;DB2GNRL&quot;, &quot;UNION&quot;, &quot;FREEZE&quot;, &quot;SCOPE&quot;, &quot;CLASS&quot;, &quot;VIEW&quot;, &quot;LINES&quot;, &quot;ASSERTION&quot;, &quot;PACKAGE&quot;,</span><br><span class="line">            &quot;TRIGGER_NAME&quot;, &quot;CONSTRAINTS&quot;, &quot;LABEL&quot;, &quot;CURRENT_TIME&quot;, &quot;DEFERRED&quot;, &quot;REPLACE&quot;, &quot;KEY_MEMBER&quot;, &quot;INTEGER&quot;,</span><br><span class="line">            &quot;OVERRIDING&quot;, &quot;UNIQUE&quot;, &quot; MAXEXTENTS&quot;, &quot;TRAILING&quot;, &quot;COVAR_SAMP&quot;, &quot;FINAL&quot;, &quot; NOAUDIT&quot;, &quot;FULL&quot;, &quot;NAME&quot;, &quot;YEARS&quot;,</span><br><span class="line">            &quot;ROW_COUNT&quot;, &quot;NOCREATEROLE&quot;, &quot;CEILING&quot;, &quot;LAST&quot;, &quot;MAXVALUE&quot;, &quot;QUOTE&quot;, &quot;TOAST&quot;, &quot;LOCALTIME&quot;, &quot;CONTAINS&quot;, &quot;GENERAL&quot;,</span><br><span class="line">            &quot;DELIMITER&quot;, &quot;STDIN&quot;, &quot;REGEXP&quot;, &quot;REGR_COUNT&quot;, &quot;NOTIFY&quot;, &quot;NEXT&quot;, &quot;GLOBAL&quot;, &quot;LEAVE&quot;, &quot;SHOW&quot;, &quot;SHUTDOWN&quot;, &quot;VERBOSE&quot;,</span><br><span class="line">            &quot;NORMALIZE&quot;, &quot;CURRENT_TIMEZONE&quot;, &quot;MOD&quot;, &quot;EXISTS&quot;, &quot;TIME&quot;, &quot;MYISAM&quot;, &quot;INHERITS&quot;, &quot;DATETIME&quot;, &quot;HOURS&quot;,</span><br><span class="line">            &quot;NOMINVALUE&quot;, &quot;BOOL&quot;, &quot;ERRLVL&quot;, &quot;NESTING&quot;, &quot;FALSE&quot;, &quot;MINUTES&quot;, &quot;SECTION&quot;, &quot;NOCHECK&quot;, &quot;NOTNULL&quot;,</span><br><span class="line">            &quot;PERCENTILE_CONT&quot;, &quot;SYMMETRIC&quot;, &quot;VALID&quot;, &quot;PLAN&quot;, &quot;SHARE&quot;, &quot;TRAN&quot;, &quot;STDDEV_SAMP&quot;, &quot;WHEN&quot;,</span><br><span class="line">            &quot;TRANSACTIONS_COMMITTED&quot;, &quot;BREAK&quot;, &quot;LOCAL&quot;, &quot;CONSTRAINT_CATALOG&quot;, &quot;DICTIONARY&quot;, &quot;LOGIN&quot;, &quot;CLUSTER&quot;, &quot;GRANTS&quot;,</span><br><span class="line">            &quot;DAY_MINUTE&quot;, &quot;LONGBLOB&quot;, &quot;CYCLE&quot;, &quot;CAST&quot;, &quot;INSTANCE&quot;, &quot;VARCHAR2&quot;, &quot;FUNCTION&quot;, &quot;LEADING&quot;, &quot;MODIFIES&quot;, &quot;NOWAIT&quot;,</span><br><span class="line">            &quot;CASE&quot;, &quot;OUT&quot;, &quot;OPTIMIZE&quot;, &quot;REGR_SXX&quot;, &quot;REGR_SXY&quot;, &quot;OVERLAPS&quot;, &quot;GET&quot;, &quot;DENSE_RANK&quot;, &quot;PUBLIC&quot;, &quot;COUNT&quot;, &quot;TREAT&quot;,</span><br><span class="line">            &quot;NAMES&quot;, &quot; NOCOMPRESS&quot;, &quot;IDENTITY_INSERT&quot;, &quot;NONCLUSTERED&quot;, &quot;LENGTH&quot;, &quot;UNSIGNED&quot;, &quot;CHAR&quot;, &quot;BEGIN&quot;, &quot;MAX_ROWS&quot;,</span><br><span class="line">            &quot;WRITE&quot;, &quot;ORDER&quot;, &quot;ISOLATION&quot;, &quot;REPLICATION&quot;, &quot;SQL_CALC_FOUND_ROWS&quot;, &quot;REGR_SYY&quot;, &quot;LANCOMPILER&quot;, &quot; CLUSTER&quot;,</span><br><span class="line">            &quot;CHARACTER_SET_NAME&quot;, &quot;SIGNAL&quot;, &quot;SUBMULTISET&quot;, &quot;COLLATE&quot;, &quot;MODIFY&quot;, &quot;INSTANTIABLE&quot;, &quot;UNCOMMITTED&quot;, &quot;RESIGNAL&quot;,</span><br><span class="line">            &quot;MORE&quot;, &quot;PROC&quot;, &quot;REPEATABLE&quot;, &quot;COMPLETION&quot;, &quot;KEY_TYPE&quot;, &quot;KILL&quot;, &quot;TRANSFORMS&quot;, &quot;VOLATILE&quot;, &quot;INPUT&quot;, &quot;SUBSTRING&quot;,</span><br><span class="line">            &quot;ZONE&quot;, &quot;VCAT&quot;, &quot;DEREF&quot;, &quot;AUXILIARY&quot;, &quot;REGR_AVGY&quot;, &quot;REGR_AVGX&quot;, &quot;TEMPLATE&quot;, &quot;INCLUDING&quot;, &quot;INSENSITIVE&quot;, &quot;BOTH&quot;,</span><br><span class="line">            &quot;CHARACTER_SET_CATALOG&quot;, &quot;ENABLE&quot;, &quot;EXCEPT&quot;, &quot;HOSTS&quot;, &quot;SCHEMA_NAME&quot;, &quot;PREFIX&quot;, &quot;SCROLL&quot;, &quot;METHOD&quot;, &quot;DAY_SECOND&quot;,</span><br><span class="line">            &quot;DESTRUCTOR&quot;, &quot;OIDS&quot;, &quot;INT&quot;, &quot;PASCAL&quot;, &quot;COLLID&quot;, &quot;PART&quot;, &quot;ALSO&quot;, &quot;CARDINALITY&quot;, &quot;ACCESS&quot;, &quot;OPENQUERY&quot;, &quot;CLOB&quot;,</span><br><span class="line">            &quot;COMMIT&quot;, &quot;DISPATCH&quot;, &quot;STRUCTURE&quot;, &quot;DETERMINISTIC&quot;, &quot;SAVEPOINT&quot;, &quot;UNTIL&quot;, &quot;USER&quot;, &quot;TEMP&quot;, &quot;MEDIUMBLOB&quot;, &quot;MOVE&quot;,</span><br><span class="line">            &quot;CROSS&quot;, &quot;SMALLINT&quot;, &quot;UESCAPE&quot;, &quot;USER_DEFINED_TYPE_CATALOG&quot;, &quot;RESULT&quot;, &quot;SQLID&quot;, &quot;PATH&quot;, &quot;RESULT_SET_LOCATOR&quot;,</span><br><span class="line">            &quot;PURGE&quot;, &quot;TRIM&quot;, &quot;ROWGUIDCOL&quot;, &quot;RAW&quot;, &quot;RANK&quot;, &quot;VAR_POP&quot;, &quot;MUMPS&quot;, &quot;TRANSLATION&quot;, &quot;MINUS&quot;, &quot;EXPLAIN&quot;,</span><br><span class="line">            &quot;PARAMETER_SPECIFIC_CATALOG&quot;, &quot; INITIAL&quot;, &quot;MESSAGE_LENGTH&quot;, &quot;HOUR_MINUTE&quot;, &quot;LISTEN&quot;, &quot;WIDTH_BUCKET&quot;, &quot;STORAGE&quot;,</span><br><span class="line">            &quot;CURRENT_DEFAULT_TRANSFORM_GROUP&quot;, &quot;STDOUT&quot;, &quot;CUBE&quot;, &quot;IMMUTABLE&quot;, &quot;REGR_R2&quot;, &quot;SQL_LOG_UPDATE&quot;, &quot;XOR&quot;,</span><br><span class="line">            &quot;FREETEXTTABLE&quot;, &quot;ALTER&quot;, &quot;MONTHNAME&quot;, &quot;FUSION&quot;, &quot;DESTROY&quot;, &quot;PARAMETER_SPECIFIC_NAME&quot;, &quot;TEXTSIZE&quot;, &quot;SPACE&quot;,</span><br><span class="line">            &quot;UPPER&quot;, &quot;ABS&quot;, &quot;CREATEUSER&quot;, &quot;INTEGRITY&quot;, &quot;OCTET_LENGTH&quot;, &quot;TINYINT&quot;, &quot;INTERVAL&quot;, &quot;COLLATION_SCHEMA&quot;,</span><br><span class="line">            &quot;CATALOG_NAME&quot;, &quot;UNLISTEN&quot;, &quot;MASTER_SSL_VERIFY_SERVER_CERT&quot;, &quot;POWER&quot;, &quot;CONNECTION&quot;, &quot;PAD&quot;, &quot;REF&quot;, &quot;LOCALE&quot;,</span><br><span class="line">            &quot;OPERATION&quot;, &quot;SIMPLE&quot;, &quot;VARBINARY&quot;, &quot;VARIABLES&quot;, &quot;ADA&quot;, &quot;VIRTUAL&quot;, &quot; FILE&quot;, &quot;SYSTEM&quot;, &quot;ADD&quot;, &quot;SCOPE_CATALOG&quot;,</span><br><span class="line">            &quot;SQLERROR&quot;, &quot;CHECKED&quot;, &quot;VARIANT&quot;, &quot;OLD_TABLE&quot;, &quot;INFIX&quot;, &quot;TRUSTED&quot;, &quot;INDEX&quot;, &quot;FOUND&quot;, &quot;HOLD&quot;, &quot;EXTRACT&quot;,</span><br><span class="line">            &quot;OFFSETS&quot;, &quot;ATTRIBUTE&quot;, &quot;PERCENTILE_DISC&quot;, &quot;ITERATE&quot;, &quot;CURRENT_SERVER&quot;, &quot;CACHE&quot;, &quot; LOCK&quot;, &quot;CURRENT&quot;, &quot; NOWAIT&quot;,</span><br><span class="line">            &quot;RETURNED_SQLSTATE&quot;, &quot;SYSPROC&quot;, &quot;CONNECTION_NAME&quot;, &quot;END&quot;, &quot;PRESERVE&quot;, &quot;LOAD&quot;, &quot;TERMINATED&quot;, &quot;BINARY&quot;, &quot;FORWARD&quot;,</span><br><span class="line">            &quot;SOME&quot;, &quot;LAST_INSERT_ID&quot;, &quot;OUTER&quot;, &quot;INFILE&quot;, &quot;RENAME&quot;, &quot;EXCLUSIVE&quot;, &quot;FILTER&quot;, &quot;IDENTIFIED&quot;, &quot;NORMALIZED&quot;,</span><br><span class="line">            &quot; COLUMN&quot;, &quot;INITIALLY&quot;, &quot;OVER&quot;, &quot;CURRENT_ROLE&quot;, &quot;GRANT&quot;, &quot;OTHERS&quot;, &quot;SONAME&quot;, &quot;CHAR_LENGTH&quot;, &quot;NOMAXVALUE&quot;,</span><br><span class="line">            &quot;ROWID&quot;, &quot;DEFAULT&quot;, &quot;SQRT&quot;, &quot;JOIN&quot;, &quot;LOCK&quot;, &quot;TEXT&quot;, &quot;UNNEST&quot;, &quot;AVG_ROW_LENGTH&quot;, &quot;SESSION_USER&quot;, &quot;AGGREGATE&quot;,</span><br><span class="line">            &quot;MULTISET&quot;, &quot;ELSE&quot;, &quot;TRANSACTION_ACTIVE&quot;, &quot;LANGUAGE&quot;, &quot;PERCENT_RANK&quot;, &quot;ENUM&quot;, &quot;NATIONAL&quot;, &quot;SETOF&quot;,</span><br><span class="line">            &quot;RETURNED_CARDINALITY&quot;, &quot;SYNONYM&quot;, &quot;CURRENT_TRANSFORM_GROUP_FOR_TYPE&quot;, &quot;SPECIFICTYPE&quot;, &quot;TOP&quot;, &quot;FORTRAN&quot;,</span><br><span class="line">            &quot;DEGREE&quot;, &quot;ASYMMETRIC&quot;, &quot;GRAPHIC&quot;, &quot;ALWAYS&quot;, &quot;MEDIUMTEXT&quot;, &quot;SYSTEM_USER&quot;, &quot;ROUTINE_CATALOG&quot;, &quot;CURSOR_NAME&quot;,</span><br><span class="line">            &quot;RIGHT&quot;, &quot;STABLE&quot;, &quot;FILE&quot;, &quot;CREATEDB&quot;, &quot;DISTRIBUTED&quot;, &quot;FILLFACTOR&quot;, &quot;FETCH&quot;, &quot;NUMERIC&quot;, &quot;STARTING&quot;, &quot;REVOKE&quot;,</span><br><span class="line">            &quot;SQLEXCEPTION&quot;, &quot;DYNAMIC&quot;, &quot;CHAIN&quot;, &quot;CALLED&quot;, &quot;INCREMENT&quot;, &quot;ELEMENT&quot;, &quot;MAXEXTENTS&quot;, &quot;ROUTINE_SCHEMA&quot;,</span><br><span class="line">            &quot;IO_AFTER_GTIDS&quot;, &quot;TRIGGER_SCHEMA&quot;, &quot;ALL&quot;, &quot;NEW&quot;, &quot;THAN&quot;, &quot;ALIAS&quot;, &quot;HOST&quot;, &quot;VALUE&quot;, &quot;LOGS&quot;, &quot;SERIALIZABLE&quot;,</span><br><span class="line">            &quot;X509&quot;, &quot;AUTO_INCREMENT&quot;, &quot;BACKUP&quot;, &quot;MINUTE_MICROSECOND&quot;, &quot;ALLOCATE&quot;, &quot;HOLDLOCK&quot;, &quot;MINUTE&quot;, &quot;SCALE&quot;, &quot;TINYTEXT&quot;,</span><br><span class="line">            &quot;DESCRIBE&quot;, &quot;NOCREATEDB&quot;, &quot; INTERSECT&quot;, &quot; PCTFREE&quot;, &quot; PRIOR&quot;, &quot;NULL&quot;, &quot;TRUE&quot;, &quot;PCTFREE&quot;, &quot;EXISTING&quot;,</span><br><span class="line">            &quot;PARAMETERS&quot;, &quot;OBJECT&quot;, &quot;TABLESPACE&quot;, &quot;UTC_TIME&quot;, &quot; LEVEL&quot;, &quot;MODULE&quot;, &quot;PASSWORD&quot;, &quot;EXCLUDE&quot;, &quot;SQL_WARNINGS&quot;,</span><br><span class="line">            &quot;AND&quot;, &quot;SQLCODE&quot;, &quot;ROW&quot;, &quot;CURRENT_DATE&quot;, &quot;MESSAGE_TEXT&quot;, &quot;DISK&quot;, &quot;RANGE&quot;, &quot;VACUUM&quot;, &quot;MLSLABEL&quot;, &quot;STORED&quot;, &quot;HOUR&quot;,</span><br><span class="line">            &quot;CONCAT&quot;, &quot;APPLICATION&quot;, &quot;INITIAL&quot;, &quot;ANY&quot;, &quot;PLI&quot;, &quot;HEAP&quot;, &quot; AUDIT&quot;, &quot;NATURAL&quot;, &quot;NOINHERIT&quot;, &quot;STORES&quot;, &quot;UNNAMED&quot;,</span><br><span class="line">            &quot;KEYS&quot;, &quot;RESTART&quot;, &quot;READS&quot;, &quot;NUMPARTS&quot;, &quot;CSV&quot;, &quot;IMPLEMENTATION&quot;, &quot;ORDERING&quot;, &quot;TRANSLATE&quot;, &quot;REINDEX&quot;, &quot;JAR&quot;,</span><br><span class="line">            &quot;EXP&quot;, &quot;MATCH&quot;, &quot;PRINT&quot;, &quot;NOCREATEUSER&quot;, &quot;CHECKSUM&quot;, &quot;ELSEIF&quot;, &quot;MONTH&quot;, &quot;ROWCOUNT&quot;, &quot;AFTER&quot;, &quot;CLOSE&quot;, &quot;RRN&quot;,</span><br><span class="line">            &quot;MONTHS&quot;, &quot;OWNER&quot;, &quot;DENY&quot;, &quot;END-EXEC&quot;, &quot;INCLUDE&quot;, &quot;OCTETS&quot;, &quot;UPDATETEXT&quot;, &quot;PRIOR&quot;, &quot;SYSIBM&quot;, &quot; DATE&quot;,</span><br><span class="line">            &quot;SCRATCHPAD&quot;, &quot;NODENAME&quot;, &quot;IDENTITY&quot;, &quot;ARE&quot;, &quot;FULLTEXT&quot;, &quot;SOURCE&quot;, &quot;CONDITION&quot;, &quot;THEN&quot;, &quot;PROCEDURAL&quot;, &quot;UNLOCK&quot;,</span><br><span class="line">            &quot;HIERARCHY&quot;, &quot;ORDINALITY&quot;, &quot;INTO&quot;, &quot;MICROSECONDS&quot;, &quot;REPEAT&quot;, &quot;MICROSECOND&quot;, &quot;EXCEPTION&quot;, &quot;INDICATOR&quot;, &quot;FREE&quot;,</span><br><span class="line">            &quot;RETURNED_OCTET_LENGTH&quot;, &quot;NOCOMPRESS&quot;, &quot;ASC&quot;, &quot;DELETE&quot;, &quot;COVAR_POP&quot;, &quot;VARIABLE&quot;, &quot; INDEX&quot;, &quot;PREPARED&quot;,</span><br><span class="line">            &quot;GENERATED&quot;, &quot;SIMILAR&quot;, &quot;LONG&quot;, &quot;RESOURCE&quot;, &quot;INT1&quot;, &quot;INT2&quot;, &quot;PROCEDURE&quot;, &quot;INT3&quot;, &quot;STDDEV_POP&quot;, &quot;INT4&quot;, &quot;SECONDS&quot;,</span><br><span class="line">            &quot;COLLECT&quot;, &quot;ANALYZE&quot;, &quot;RUN&quot;, &quot;UNDER&quot;, &quot;INT8&quot;, &quot;OPEN&quot;, &quot;DERIVED&quot;, &quot;NO_WRITE_TO_BINLOG&quot;, &quot;REFERENCING&quot;, &quot;STRING&quot;,</span><br><span class="line">            &quot;PSID&quot;, &quot;BREADTH&quot;, &quot;STAY&quot;, &quot;LOCATOR&quot;, &quot;NOCACHE&quot;, &quot;LOOP&quot;, &quot;HIGH_PRIORITY&quot;, &quot;IMMEDIATE&quot;, &quot;DESC&quot;, &quot;FREETEXT&quot;,</span><br><span class="line">            &quot;NUMBER&quot;, &quot;AUX&quot;, &quot;OUTPUT&quot;, &quot;LONGTEXT&quot;, &quot;DATABASES&quot;, &quot;BOOLEAN&quot;, &quot;AVG&quot;, &quot;NOT&quot;, &quot;PLACING&quot;, &quot;INTERSECTION&quot;, &quot;LOWER&quot;,</span><br><span class="line">            &quot;SPECIFIC&quot;, &quot;MINUTE_SECOND&quot;, &quot;FLOAT8&quot;, &quot;HAVING&quot;, &quot;FIELDPROC&quot;, &quot;FLOAT4&quot;, &quot;SQLSTATE&quot;, &quot;RECONFIGURE&quot;, &quot;LOCKMAX&quot;,</span><br><span class="line">            &quot;BACKWARD&quot;, &quot;BUFFERPOOL&quot;, &quot;VALIDPROC&quot;, &quot; MINUS&quot;, &quot;COMMAND_FUNCTION&quot;, &quot;DROP&quot;, &quot;RETURN&quot;, &quot;FOREIGN&quot;,</span><br><span class="line">            &quot;PARAMETER_NAME&quot;, &quot;TSEQUAL&quot;, &quot;SQL_SMALL_RESULT&quot;, &quot;RULE&quot;, &quot;SERVER_NAME&quot;, &quot;DAYOFMONTH&quot;, &quot;IO_BEFORE_GTIDS&quot;,</span><br><span class="line">            &quot;PARTIAL&quot;, &quot;MEDIUMINT&quot;, &quot;TRANSACTIONS_ROLLED_BACK&quot;, &quot;OPENXML&quot;, &quot; DROP&quot;, &quot;ESCAPE&quot;, &quot;SCOPE_NAME&quot;, &quot;ISAM&quot;, &quot;LINEAR&quot;,</span><br><span class="line">            &quot;PARAMETER_ORDINAL_POSITION&quot;, &quot; OFFLINE&quot;, &quot;ROWNUM&quot;, &quot;DATETIME_INTERVAL_CODE&quot;, &quot;DEFINED&quot;, &quot;LOCALTIMESTAMP&quot;,</span><br><span class="line">            &quot; CONNECT&quot;, &quot;ISOBID&quot;, &quot;TABLE&quot;, &quot;ANALYSE&quot;, &quot;DEFINER&quot;, &quot;SCOPE_SCHEMA&quot;, &quot;COLLATION_CATALOG&quot;, &quot;NONE&quot;, &quot;PROCESSLIST&quot;,</span><br><span class="line">            &quot;TYPE&quot;, &quot;USER_DEFINED_TYPE_CODE&quot;, &quot;DESCRIPTOR&quot;, &quot;PIECESIZE&quot;, &quot;OPTION&quot;, &quot;WHENEVER&quot;, &quot;ENCLOSED&quot;, &quot;LEVEL&quot;,</span><br><span class="line">            &quot;COUNT_BIG&quot;, &quot;ASENSITIVE&quot;, &quot;LOCKSIZE&quot;, &quot;TINYBLOB&quot;, &quot;PREPARE&quot;, &quot;CHECK&quot;, &quot;WITHOUT&quot;, &quot;WORK&quot;, &quot;HANDLER&quot;, &quot;CUME_DIST&quot;,</span><br><span class="line">            &quot;WRITETEXT&quot;, &quot;INITIALIZE&quot;, &quot;DAY_HOUR&quot;, &quot;ILIKE&quot;, &quot;CONNECT&quot;, &quot;TABLESAMPLE&quot;, &quot;INSERT_ID&quot;, &quot;MIDDLEINT&quot;, &quot;RELATIVE&quot;,</span><br><span class="line">            &quot;LARGE&quot;, &quot;ACCESSIBLE&quot;, &quot;VALUES&quot;, &quot;DOUBLE&quot;, &quot;ASUTIME&quot;, &quot;DEFAULTS&quot;, &quot;NOLOGIN&quot;, &quot;TIMEZONE_HOUR&quot;, &quot;COMPUTE&quot;, &quot;COPY&quot;,</span><br><span class="line">            &quot;SELF&quot;, &quot;SESSION&quot;, &quot;NOCYCLE&quot;, &quot;DUMMY&quot;, &quot;WINDOW&quot;, &quot;EXECUTE&quot;, &quot;PRECEDING&quot;, &quot;PACK_KEYS&quot;, &quot;NOORDER&quot;, &quot;CHECKPOINT&quot;,</span><br><span class="line">            &quot; LONG&quot;, &quot;DAY&quot;, &quot;AUTHORIZATION&quot;, &quot;CCSID&quot;, &quot;COLLECTION&quot;, &quot;BLOB&quot;, &quot;PRIQTY&quot;, &quot;RECURSIVE&quot;, &quot;ONLY&quot;, &quot;FROM&quot;,</span><br><span class="line">            &quot;SQL_BIG_TABLES&quot;, &quot;LATERAL&quot;, &quot;TRANSFORM&quot;, &quot;HOUR_MICROSECOND&quot;, &quot;SENSITIVE&quot;, &quot;SUBCLASS_ORIGIN&quot;, &quot;CONVERSION&quot;,</span><br><span class="line">            &quot;DAY_MICROSECOND&quot;, &quot;SEPARATOR&quot;, &quot;OPTIMIZER_COSTS&quot;, &quot;NOSUPERUSER&quot;, &quot;DATE&quot;, &quot;ROLLUP&quot;, &quot;TOP_LEVEL_COUNT&quot;, &quot;CORR&quot;,</span><br><span class="line">            &quot;UNENCRYPTED&quot;, &quot;UTC_TIMESTAMP&quot;, &quot;LIKE&quot;, &quot;ZEROFILL&quot;, &quot;DATA&quot;, &quot;SUCCESSFUL&quot;, &quot;INSERT&quot;, &quot;YEAR_MONTH&quot;, &quot;OFFLINE&quot;,</span><br><span class="line">            &quot;INOUT&quot;, &quot;VAR_SAMP&quot;, &quot;BROWSE&quot;, &quot;SCHEMAS&quot;, &quot;CONSTRAINT_NAME&quot;, &quot;PARAMETER_MODE&quot;, &quot;LIMIT&quot;, &quot;LINKTYPE&quot;, &quot;NULLS&quot;,</span><br><span class="line">            &quot;DEC&quot;, &quot;CASCADED&quot;, &quot;ENCRYPTED&quot;, &quot;CONTAINSTABLE&quot;, &quot;DYNAMIC_FUNCTION&quot;, &quot;CONDITION_NUMBER&quot;, &quot;BEFORE&quot;, &quot;DB2GENERAL&quot;,</span><br><span class="line">            &quot;DECLARE&quot;, &quot;SUPERUSER&quot;, &quot;WHILE&quot;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="6">
+<li>sample code</li>
+</ol>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line">1. Add column</span><br><span class="line">oracle：alter table tra_report_header add address varchar(100) null;</span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;<span class="name">addColumn</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">&quot;address&quot;</span> <span class="attr">type</span>=<span class="string">&quot;varchar(100)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">addColumn</span>&gt;</span></span><br><span class="line"></span><br><span class="line">2. set default value for column</span><br><span class="line">oracle：alter table tra_report_header modify address default &quot;上海&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">addDefaultValue</span> <span class="attr">columnDataType</span>=<span class="string">&quot;varchar&quot;</span> <span class="attr">columnName</span>=<span class="string">&quot;address&quot;</span> <span class="attr">defaultValue</span>=<span class="string">&quot;上海&quot;</span> <span class="attr">tableName</span>=<span class="string">“tra_report_header”/</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3.add nonnull constraint</span><br><span class="line">oracle：alter table tra_report_header modify address not null;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">addNotNullConstraint</span> <span class="attr">columnDataType</span>=<span class="string">&quot;varchar&quot;</span> <span class="attr">columnName</span>=<span class="string">&quot;address&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">4. add primary key</span><br><span class="line">oracle：alter table tra_report_header add primary key id;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">addPrimaryKey</span> <span class="attr">columnNames</span>=<span class="string">&quot;id&quot;</span> <span class="attr">constraintName</span>=<span class="string">&quot;pk_tra_report_header&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">5. delete primary key</span><br><span class="line">oracle：alter table tra_report_header drop constraint pk_tra_report_header cascade;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropPrimaryKey</span> <span class="attr">constraintName</span>=<span class="string">&quot;pk_tra_report_header&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">6. create index</span><br><span class="line">oracle：create unique index tra_report_header_u1 on tra_report_header(name);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">createIndex</span>  <span class="attr">indexName</span>=<span class="string">&quot;tra_report_header_u1&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">unique</span>=<span class="string">“true”</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;varchar(100)&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">createIndex</span>&gt;</span></span><br><span class="line"></span><br><span class="line">7. create sequence</span><br><span class="line">oracle：create sequence tra_report_header_s start with 1 increment by 1;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">createSequence</span> <span class="attr">startValue</span>=<span class="string">&quot;1&quot;</span>  </span></span><br><span class="line"><span class="tag">                <span class="attr">sequenceName</span>=<span class="string">&quot;tra_report_header_s&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">incrementBy</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">8. modify sequence</span><br><span class="line">oracle：alter sequence tra_report_header_s increment by 1111;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">alterSequence</span> <span class="attr">incrementBy</span>=<span class="string">&quot;1&quot;</span> <span class="attr">equenceName</span>=<span class="string">&quot;tra_report_header_s&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">9. create table</span><br><span class="line">oracle: create table tra_report_header(name varchar2(100));</span><br><span class="line"></span><br><span class="line">comment on table tra_report_header is &quot;报销单头标&quot;;</span><br><span class="line">comment on column tra_report_header.name  is &quot;姓名&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">createTable</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;varchar2(100)&quot;</span> <span class="attr">remark</span>=<span class="string">&quot;姓名&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">createTable</span>&gt;</span></span><br><span class="line"></span><br><span class="line">10. create view</span><br><span class="line">oracle：create or replace view tra_report_header_v  as</span><br><span class="line">select * from tra_report_header t where id &gt; 10;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">createView</span> <span class="attr">replaceIfExists</span>=<span class="string">&quot;true&quot;</span> <span class="attr">viewName</span>=<span class="string">&quot;tra_report_header_v&quot;</span>&gt;</span></span><br><span class="line">    select * from tra_report_header t where t.id &gt; 10</span><br><span class="line"><span class="tag">&lt;/<span class="name">createView</span>&gt;</span></span><br><span class="line"></span><br><span class="line">11. delete column</span><br><span class="line">oracle：alter table tra_report_header drop column attribute;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropColumn</span> <span class="attr">column</span>=<span class="string">&quot;attribute&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">12. delete index </span><br><span class="line">oracle：drop index tra_report_header_n1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropIndex</span> <span class="attr">indexName</span>=<span class="string">&quot;tra_report_header_n1&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">13. delete non null constraint</span><br><span class="line">oracle:alter table tra_report_header modify name null;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropNotNullConstraint</span> <span class="attr">columnDataType</span>=<span class="string">&quot;varchar(100)&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">columnName</span>=<span class="string">&quot;name&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">14. delete sequence</span><br><span class="line">oracle:drop sequence tra_report_header_s;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropSequence</span> <span class="attr">sequenceName</span>=<span class="string">&quot;tra_report_header_s&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">15. delete table</span><br><span class="line">oracle:drop table tra_report_header;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropTable</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span> <span class="attr">cascadeConstraints</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">16. delete unique index</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropUniqueContraint</span> <span class="attr">constraintsName</span>=<span class="string">&quot;tra_report_header_u1&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">uniqueColumns</span>=<span class="string">&quot;id&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">17. delete view</span><br><span class="line">oracle:drop view tra_report_header_v;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dropView</span> <span class="attr">viewName</span>=<span class="string">&quot;tra_report_header&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">18. insert data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">19. modify data type</span><br><span class="line">oracle:alter table tra_report_header modify id int;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">modifyDataType</span> <span class="attr">columnName</span>=<span class="string">&quot;id&quot;</span> <span class="attr">newDataType</span>=<span class="string">&quot;int&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">20. modify column name</span><br><span class="line">alter table tra_report_header rename id to id1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">renameColumn</span> <span class="attr">columnDataType</span>=<span class="string">&quot;number&quot;</span> <span class="attr">newColumnName</span>=<span class="string">&quot;id1&quot;</span> <span class="attr">oldColumnName</span>=<span class="string">&quot;id&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">21. rename table</span><br><span class="line">oracle:alter table tra_report_header rename tra_report_header1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">renameTable</span> <span class="attr">newTableName</span>=<span class="string">&quot;tra_report_header1&quot;</span> <span class="attr">oldTableName</span>=<span class="string">&quot;tra_report_header&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">22. rename view</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">renameView</span> <span class="attr">newViewName</span>=<span class="string">&quot;tra_report_header_v1&quot;</span> <span class="attr">oldViewName</span>=<span class="string">“tra_report_header_v”/</span>&gt;</span></span><br><span class="line"></span><br><span class="line">23. update data</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">tableName</span>=<span class="string">&quot;tra_report_header&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span>  <span class="attr">type</span>=<span class="string">&quot;varchar(100)&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ryan&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">where</span>&gt;</span>id=1<span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">            </span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：liquibase</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2019-08-21 21:31:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2019/08/21/liquibase/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Database/">#Database</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/03/07/init-chrome-plugin/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">如何写一个简易的chrome插件</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2019/01/01/hexo-blog%5B0%5D/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Hexo &amp; (GithubActions | Travis CI)</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

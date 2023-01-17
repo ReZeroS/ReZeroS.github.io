@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            AQS |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">AQS</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-09-12 10:35:00</span>
+        <span class="mobile">2020-09-12 10:35</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/AQS/">AQS</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Concurrency/">Concurrency</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><h3 id="CLH"><a href="#CLH" class="headerlink" title="CLH"></a>CLH</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hand.hcf.app.base.bigdata;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicReference;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span>: 1.0</span></span><br><span class="line"><span class="comment"> * https://github.com/yuanmabiji/Java-SourceCode-Blogs</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// CLHLock.java</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CLHLock</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * CLH锁节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">CLHNode</span> &#123;</span><br><span class="line">        <span class="comment">// 锁状态：默认为false，表示线程没有获取到锁；true表示线程获取到锁或正在等待</span></span><br><span class="line">        <span class="comment">// 为了保证locked状态是线程间可见的，因此用volatile关键字修饰</span></span><br><span class="line">        <span class="keyword">volatile</span> <span class="type">boolean</span> <span class="variable">locked</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 尾结点，总是指向最后一个CLHNode节点</span></span><br><span class="line">    <span class="comment">// 【注意】这里用了java的原子系列之AtomicReference，能保证原子更新</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicReference&lt;CLHNode&gt; tailNode;</span><br><span class="line">    <span class="comment">// 当前节点的前继节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadLocal&lt;CLHNode&gt; predNode;</span><br><span class="line">    <span class="comment">// 当前节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadLocal&lt;CLHNode&gt; curNode;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// CLHLock构造函数，用于新建CLH锁节点时做一些初始化逻辑</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CLHLock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 初始化前继节点，注意此时前继节点没有存储CLHNode对象，存储的是null</span></span><br><span class="line">        predNode = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">// 初始化当前的CLH节点</span></span><br><span class="line">        curNode = ThreadLocal.withInitial(CLHNode::<span class="keyword">new</span>);</span><br><span class="line">        <span class="comment">// 初始化时尾结点指向一个空的CLH节点</span></span><br><span class="line">        <span class="comment">// 为啥？ 第一个获取锁的不就一定会把 tailNode 指向有node的cur节点，但是同时返回了null 给 preNode，导致锁判定空指针</span></span><br><span class="line">        tailNode = <span class="keyword">new</span> <span class="title class_">AtomicReference</span>&lt;&gt;(<span class="keyword">new</span> <span class="title class_">CLHNode</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取锁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">lock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 取出当前线程ThreadLocal存储的当前节点，初始化值总是一个新建的CLHNode，locked状态为false。</span></span><br><span class="line">        <span class="type">CLHNode</span> <span class="variable">currNode</span> <span class="operator">=</span> curNode.get();</span><br><span class="line">        <span class="comment">// 此时把lock状态置为true，表示一个有效状态，</span></span><br><span class="line">        <span class="comment">// 即获取到了锁或正在等待锁的状态</span></span><br><span class="line">        currNode.locked = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 当一个线程到来时，总是将尾结点取出来赋值给当前线程的前继节点；</span></span><br><span class="line">        <span class="comment">// 然后再把当前线程的当前节点赋值给尾节点</span></span><br><span class="line">        <span class="comment">// 【注意】在多线程并发情况下，这里通过AtomicReference类能防止并发问题</span></span><br><span class="line">        <span class="comment">// 【注意】哪个线程先执行到这里就会先执行predNode.set(preNode);语句，因此构建了一条逻辑线程等待链</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// ----**这条链避免了线程饥饿现象发生**----</span></span><br><span class="line"></span><br><span class="line">        <span class="type">CLHNode</span> <span class="variable">preNode</span> <span class="operator">=</span> tailNode.getAndSet(currNode);</span><br><span class="line">        <span class="comment">// 将刚获取的尾结点（前一线程的当前节点）付给当前线程的前继节点ThreadLocal</span></span><br><span class="line">        <span class="comment">// 【思考】这句代码也可以去掉吗，如果去掉有影响吗？</span></span><br><span class="line">        <span class="comment">// 可以，因为临时变量持有着前节点的引用，其实就相当于一个 TL 即可，predNode的意义不大</span></span><br><span class="line">        predNode.set(preNode);</span><br><span class="line">        <span class="comment">// 【1】若前继节点的locked状态为false，则表示获取到了锁，不用自旋等待；</span></span><br><span class="line">        <span class="comment">// 【2】若前继节点的locked状态为true，则表示前一线程获取到了锁或者正在等待，自旋等待</span></span><br><span class="line">        <span class="keyword">while</span> (preNode.locked) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;没能获取到锁，进行自旋等待。。。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 能执行到这里，说明当前线程获取到了锁</span></span><br><span class="line">        System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;获取到了锁！！！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 释放锁</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unLock</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 获取当前线程的当前节点</span></span><br><span class="line">        <span class="type">CLHNode</span> <span class="variable">node</span> <span class="operator">=</span> curNode.get();</span><br><span class="line">        <span class="comment">// 进行解锁操作</span></span><br><span class="line">        <span class="comment">// 这里将locked至为false，此时执行了lock方法正在自旋等待的后继节点将会获取到锁</span></span><br><span class="line">        <span class="comment">// 【注意】而不是所有正在自旋等待的线程去并发竞争锁，</span></span><br><span class="line">        <span class="comment">// 因为此时除了第一个拿到锁的线程，其他线程都还没获取锁，或者获取了锁但是却在疯狂自旋</span></span><br><span class="line">        node.locked = <span class="literal">false</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;线程&quot;</span> + Thread.currentThread().getName() + <span class="string">&quot;释放了锁！！！&quot;</span>);</span><br><span class="line">        <span class="comment">// 小伙伴们可以思考下，下面两句代码的作用是什么？？</span></span><br><span class="line">        <span class="comment">// 防只有 a线程工作时， 释放了锁以后，再次获取锁异常</span></span><br><span class="line">        <span class="comment">// A 获取锁后释放，此时tailNode 和 curNode 指向同一个，而predNode 指向了之前的 tailNode</span></span><br><span class="line">        <span class="comment">// 此时 若A仍和tailNode 持有同一个对象</span></span><br><span class="line">        <span class="comment">// lock 时，curNode 设置为 true，tailNode 对应也就是 true了，这样 predNode 就会自己等自己</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 但是如果说指向新节点，那么获取锁后释放，再次lock 时， curNode 设置为 true， 但 tailNode 没变，仍然是之前的false，</span></span><br><span class="line">        <span class="comment">// 这样 predNode 就可以了</span></span><br><span class="line">        <span class="type">CLHNode</span> <span class="variable">newCurNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CLHNode</span>();</span><br><span class="line">        curNode.set(newCurNode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 【优化】能提高GC效率和节省内存空间，请思考：这是为什么？</span></span><br><span class="line">        <span class="comment">// curNode.set(predNode.get());</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="AQS-0-独占"><a href="#AQS-0-独占" class="headerlink" title="AQS[0] 独占"></a>AQS[0] 独占</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 头结点: 当前持有锁的线程 队列不包含该节点</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node head;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻塞的尾节点，每个新的节点进来，都插入到最后，也就形成了一个链表</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node tail;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个是最重要的，代表当前锁的状态，0代表没有被占用，大于 0 代表有线程持有当前锁</span></span><br><span class="line"><span class="comment">// 这个值可以大于 1，是因为锁可以重入，每次重入都加上 1</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="type">int</span> state;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代表当前持有独占锁的线程，举个最重要的使用例子，因为锁可以重入</span></span><br><span class="line"><span class="comment">// reentrantLock.lock()可以嵌套调用多次，所以每次用这个来判断当前线程是否已经拥有了锁</span></span><br><span class="line"><span class="comment">// if (currentThread == getExclusiveOwnerThread()) &#123;state++&#125;</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Thread exclusiveOwnerThread; <span class="comment">//继承自AbstractOwnableSynchronizer</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Inserts node into queue, initializing if necessary. See picture above.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node the node to insert</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> node&#x27;s predecessor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// 采用自旋的方式入队</span></span><br><span class="line">    <span class="comment">// 之前说过，到这个方法只有两种可能：等待队列为空，或者有线程竞争入队，</span></span><br><span class="line">    <span class="comment">// 自旋在这边的语义是：CAS设置tail过程中，竞争一次竞争不到，我就多次竞争，总会排到的</span></span><br><span class="line">    <span class="keyword">private</span> Node <span class="title function_">enq</span><span class="params">(<span class="keyword">final</span> Node node)</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">t</span> <span class="operator">=</span> tail;</span><br><span class="line">            <span class="comment">// 之前说过，队列为空也会进来这里</span></span><br><span class="line">            <span class="keyword">if</span> (t == <span class="literal">null</span>) &#123; <span class="comment">// Must initialize</span></span><br><span class="line">                <span class="comment">// 初始化head节点</span></span><br><span class="line">                <span class="comment">// 细心的读者会知道原来 head 和 tail 初始化的时候都是 null 的</span></span><br><span class="line">                <span class="comment">// 还是一步CAS，你懂的，现在可能是很多线程同时进来呢</span></span><br><span class="line">                <span class="keyword">if</span> (compareAndSetHead(<span class="keyword">new</span> <span class="title class_">Node</span>()))</span><br><span class="line">                    <span class="comment">// 给后面用：这个时候head节点的waitStatus==0, 看new Node()构造方法就知道了</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 这个时候有了head，但是tail还是null，设置一下，</span></span><br><span class="line">                    <span class="comment">// 把tail指向head，放心，马上就有线程要来了，到时候tail就要被抢了</span></span><br><span class="line">                    <span class="comment">// 注意：这里只是设置了tail=head，这里可没return哦，没有return，没有return</span></span><br><span class="line">                    <span class="comment">// 所以，设置完了以后，继续for循环，下次就到下面的else分支了</span></span><br><span class="line">                    tail = head;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 下面几行，和上一个方法 addWaiter 是一样的，</span></span><br><span class="line">                <span class="comment">// 只是这个套在无限循环里，反正就是将当前线程排到队尾，有线程竞争的话排不上重复排</span></span><br><span class="line">                node.prev = t;</span><br><span class="line">        <span class="comment">// 如果第一次set tail了后发生了线程切换，因而采用 CAS</span></span><br><span class="line">                <span class="keyword">if</span> (compareAndSetTail(t, node)) &#123;</span><br><span class="line">                    t.next = node;</span><br><span class="line">                    <span class="keyword">return</span> t;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>acquireQueued</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 现在，又回到这段代码了</span></span><br><span class="line">   <span class="comment">// if (!tryAcquire(arg) </span></span><br><span class="line">   <span class="comment">//        &amp;&amp; acquireQueued(addWaiter(Node.EXCLUSIVE), arg)) </span></span><br><span class="line">   <span class="comment">//     selfInterrupt();</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 这里假设addWaiter 返回 tail节点后，tail节点就被其他线程cas替换掉了，其实这对下面的分析是没有影响的，上面的设置tail的最终目的是为了 使链表构成 并tail标志末尾，tail标志末尾的语义没有改变即可，</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 下面这个方法，参数node，经过addWaiter(Node.EXCLUSIVE)，此时已经进入阻塞队列</span></span><br><span class="line">   <span class="comment">// 注意一下：如果acquireQueued(addWaiter(Node.EXCLUSIVE), arg))返回true的话，</span></span><br><span class="line">   <span class="comment">// 意味着上面这段代码将进入selfInterrupt()，所以正常情况下，下面应该返回false</span></span><br><span class="line">   <span class="comment">// 这个方法非常重要，应该说真正的线程挂起，然后被唤醒后去获取锁，都在这个方法里了</span></span><br><span class="line">   <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">acquireQueued</span><span class="params">(<span class="keyword">final</span> Node node, <span class="type">int</span> arg)</span> &#123;</span><br><span class="line">       <span class="type">boolean</span> <span class="variable">failed</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           <span class="type">boolean</span> <span class="variable">interrupted</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">           <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">               <span class="keyword">final</span> <span class="type">Node</span> <span class="variable">p</span> <span class="operator">=</span> node.predecessor();</span><br><span class="line">               <span class="comment">// p == head 说明当前节点虽然进到了阻塞队列，但是是阻塞队列的第一个，因为它的前驱是head</span></span><br><span class="line">               <span class="comment">// 注意，阻塞队列不包含head节点，head一般指的是占有锁的线程，head后面的才称为阻塞队列</span></span><br><span class="line">               <span class="comment">// 所以当前节点可以去试抢一下锁</span></span><br><span class="line">               <span class="comment">// 这里我们说一下，为什么可以去试试：</span></span><br><span class="line">               <span class="comment">// 首先，它是队头，这个是第一个条件，其次，当前的head有可能是刚刚初始化的node，</span></span><br><span class="line">               <span class="comment">// enq(node) 方法里面有提到，head是延时初始化的，而且new Node()的时候没有设置任何线程</span></span><br><span class="line">               <span class="comment">// 也就是说，当前的head不属于任何一个线程，所以作为队头，可以去试一试，</span></span><br><span class="line">               <span class="comment">// tryAcquire已经分析过了, 忘记了请往前看一下，就是简单用CAS试操作一下state</span></span><br><span class="line">               <span class="keyword">if</span> (p == head &amp;&amp; tryAcquire(arg)) &#123;</span><br><span class="line">                   setHead(node);</span><br><span class="line">                   p.next = <span class="literal">null</span>; <span class="comment">// help GC</span></span><br><span class="line">                   failed = <span class="literal">false</span>;</span><br><span class="line">                   <span class="keyword">return</span> interrupted;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="comment">// 到这里，说明上面的if分支没有成功，要么当前node本来就不是队头，</span></span><br><span class="line">               <span class="comment">// 要么就是tryAcquire(arg)没有抢赢别人，继续往下看</span></span><br><span class="line">               <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                   parkAndCheckInterrupt())</span><br><span class="line">                   interrupted = <span class="literal">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">           <span class="comment">// 什么时候 failed 会为 true???</span></span><br><span class="line">           <span class="comment">// tryAcquire() 方法抛异常的情况</span></span><br><span class="line">           <span class="keyword">if</span> (failed)</span><br><span class="line">               cancelAcquire(node);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：AQS</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2020-09-12 10:35:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2020/09/12/AQS/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Java/">#Java</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/AQS/">#AQS</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Concurrency/">#Concurrency</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/09/18/go-exception-handle/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Go exception handle</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2020/08/14/leetcode/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">2020.08.14</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS"><span class="nav-text">AQS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CLH"><span class="nav-text">CLH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AQS-0-%E7%8B%AC%E5%8D%A0"><span class="nav-text">AQS[0] 独占</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

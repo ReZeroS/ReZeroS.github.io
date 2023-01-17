@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            JVM notes |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">JVM notes</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-09-18 12:33:00</span>
+        <span class="mobile">2020-09-18 12:33</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JVM/">JVM</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Deployment/">Deployment</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="How-java-code-run"><a href="#How-java-code-run" class="headerlink" title="How java code run?"></a>How java code run?</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://files.trickmaster.cn/ab5c3523af08e0bf2f689c1d6033ef77.png"
+                      alt="ab5c3523af08e0bf2f689c1d6033ef77"
+                ></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;</span></span><br><span class="line"><span class="string">public class Foo &#123;</span></span><br><span class="line"><span class="string"> public static void main(String[] args) &#123;</span></span><br><span class="line"><span class="string">  boolean flag = true;</span></span><br><span class="line"><span class="string">  if (flag) System.out.println(&quot;Hello, Java!&quot;);</span></span><br><span class="line"><span class="string">  if (flag == true) System.out.println(&quot;Hello, JVM!&quot;);</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span> &gt; Foo.java</span><br><span class="line">$ javac Foo.java</span><br><span class="line">$ java Foo</span><br><span class="line">$ java -<span class="built_in">cp</span> ./asmtools-6.0/lib/asmtools.jar org.openjdk.asmtools.jdis.Main Foo.class &gt; Foo.jasm.1</span><br><span class="line">$ awk <span class="string">&#x27;NR==1,/iconst_1/&#123;sub(/iconst_1/, &quot;iconst_2&quot;)&#125; 1&#x27;</span> Foo.jasm.1 &gt; Foo.jasm</span><br><span class="line">$ java -<span class="built_in">cp</span> ./asmtools-6.0/lib/asmtools.jar org.openjdk.asmtools.jasm.Main Foo.jasm <span class="comment"># recompile</span></span><br><span class="line">$ java Foo</span><br></pre></td></tr></table></figure></div>
+
+<p>Check the change:</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ diff Foo.jasm Foo.jasm.1 </span><br><span class="line">18c18</span><br><span class="line">&lt; 		iconst_2;</span><br><span class="line">---</span><br><span class="line">&gt; 		iconst_1;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Java-basic-types"><a href="#Java-basic-types" class="headerlink" title="Java basic types"></a>Java basic types</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://files.trickmaster.cn/77dfb788a8ad5877e77fc28ed2d51745.png"
+                      alt="basic types"
+                ></p>
+<h2 id="Class-Loader"><a href="#Class-Loader" class="headerlink" title="Class Loader"></a>Class Loader</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://files.trickmaster.cn/java_classloader_hierarchy.png"
+                      alt="java_classloader_hierarchy"
+                ></p>
+<h3 id="load"><a href="#load" class="headerlink" title="load"></a>load</h3><blockquote>
+<p>tips: In this time,JVM has generated the class structure and write in the method area</p>
+</blockquote>
+<ol>
+<li><p>Every class loader inherit java.lang.ClassLoader except boot class loader.</p>
+<ul>
+<li>Boot: jre&#x2F;lib, Xbootclasspath</li>
+<li>Extension: ext, dirs</li>
+<li>Application:</li>
+</ul>
+</li>
+<li><p>JAVA9: change extension to platform which would load almost all modules except important moudles such as java.base.</p>
+</li>
+<li><p>Class unique ID: result of class loader object and class full path name.</p>
+</li>
+</ol>
+<h3 id="link"><a href="#link" class="headerlink" title="link"></a>link</h3><blockquote>
+<p>tips: get the address of method instead of class.</p>
+</blockquote>
+<ol>
+<li><p>Valid byte for jvm criterion.</p>
+</li>
+<li><p>Prepare</p>
+<ul>
+<li>Allocate memory</li>
+<li>Construct layer about class such as method table which realize dynamic binding of virtual method.</li>
+</ul>
+</li>
+<li><p>analyze</p>
+<ul>
+<li>resolve these symbols to actual refference</li>
+</ul>
+</li>
+</ol>
+<p>Besides: Java machine specification not require finish the analyze in the link process, it just has provisions that the necessity of resolving symbol refference before execute the corresponding byte code.</p>
+<h3 id="init-process"><a href="#init-process" class="headerlink" title="init process"></a>init process</h3><ol>
+<li><p><code>final static [basic type or String]</code> will be signed ConstantValue and init directly by jvm. Besides, all of directly assignment and static block code will be put in the same method and rename as <code>&lt;clinit&gt;</code>.</p>
+</li>
+<li><p>JVM will use block method to ensure teh clinit method only be executed once.(And the feature always be used to realized singleton lazy init process)</p>
+</li>
+<li><p>When will the init process be triggered:</p>
+<ul>
+<li>JVM start, init user settle Main class</li>
+<li><code>new</code> the aim class</li>
+<li>instructions: call static method, init over class</li>
+<li>instructions: visit static field init over class</li>
+<li>child class init trigger parent class init</li>
+<li>default method defined in interface will result in interface init process.</li>
+<li>reflection init class</li>
+<li>the first call MethodHandle object, init the class where methodHandle locate.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line">  private Singleton() &#123;&#125;</span><br><span class="line">  private static class LazyHolder &#123;</span><br><span class="line">    static final Singleton INSTANCE = new Singleton();</span><br><span class="line">  &#125;</span><br><span class="line">  public static Singleton getInstance() &#123;</span><br><span class="line">    return LazyHolder.INSTANCE;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>The above code:<br>    Only class Singleton.getInstance, program will visit LazyHolder.INSTANCE, then trigger the process of LazyHolder init and create a Singleton object.</p>
+<p>Practice:</p>
+<p><code>JVM: -verbose:class</code> will print the order of class loading and special symbol before LazyHolder method.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ echo &#x27;</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">  private Singleton() &#123;&#125;</span><br><span class="line">  private static class LazyHolder &#123;</span><br><span class="line">    static final Singleton INSTANCE = new Singleton();</span><br><span class="line">    static &#123;</span><br><span class="line">      System.out.println(&quot;LazyHolder.&lt;clinit&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  public static Object getInstance(boolean flag) &#123;</span><br><span class="line">    if (flag) return new LazyHolder[2];</span><br><span class="line">    return LazyHolder.INSTANCE;</span><br><span class="line">  &#125;</span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    getInstance(true);</span><br><span class="line">    System.out.println(&quot;----&quot;);</span><br><span class="line">    getInstance(false);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;&#x27; &gt; Singleton.java</span><br><span class="line">$ javac Singleton.java</span><br><span class="line">$ java -verbose:class Singleton</span><br></pre></td></tr></table></figure></div>
+
+<p>Problem:<br>new array whether result in LazyHolder load or init?</p>
+<p>A: load not init.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java -cp /path/to/asmtools.jar org.openjdk.asmtools.jdis.Main Singleton\$LazyHolder.class &gt; Singleton\$LazyHolder.jasm.1</span><br><span class="line">$ awk &#x27;NR==1,/stack 1/&#123;sub(/stack 1/, &quot;stack 0&quot;)&#125; 1&#x27; Singleton\$LazyHolder.jasm.1 &gt; Singleton\$LazyHolder.jasm</span><br><span class="line">$ java -cp /path/to/asmtools.jar org.openjdk.asmtools.jasm.Main Singleton\$LazyHolder.jasm</span><br><span class="line">$ java -verbose:class Singleton</span><br></pre></td></tr></table></figure></div>
+
+<p>Problem2:<br>new array will result in link of LazyHolder?</p>
+<p>A: No.(while getInstance(false) will link and init)</p>
+<h2 id="How-do-JVM-call-method"><a href="#How-do-JVM-call-method" class="headerlink" title="How do JVM call method?"></a>How do JVM call method?</h2><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void invoke(Object obj, Object... args) &#123; ... &#125;</span><br><span class="line">void invoke(String s, Object obj, Object... args) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">invoke(null, 1);    // call second</span><br><span class="line">invoke(null, 1, 2); // call second</span><br><span class="line">invoke(null, new Object[]&#123;1&#125;); // call first invoke</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="jvm-实战"><a href="#jvm-实战" class="headerlink" title="jvm 实战"></a>jvm 实战</h3><p>本文内容笔记主要来自</p>
+<ol>
+<li>mashibing: <a class="link"   target="_blank" rel="noopener" href="http://www.mashibing.com/" >http://www.mashibing.com/<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li>以及深入理解JVM虚拟机</li>
+<li>以及深入拆解Java虚拟机（郑雨迪）极客时间 <a class="link"   target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/41245" >https://time.geekbang.org/column/article/41245<i class="fa-solid fa-up-right-from-square"></i></a></li>
+</ol>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>在 HotSpot 里面，上述翻译过程有两种形式：</p>
+<p>第一种是解释执行，即逐条将字节码翻译成机器码并执行；</p>
+<p>第二种是即时编译（Just-In-Time compilation，JIT），即将一个方法中包含的所有字节码编译成机器码后再执行。</p>
+<h2 id="Java-字节码"><a href="#Java-字节码" class="headerlink" title="Java 字节码"></a>Java 字节码</h2><h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><p>在 Java 中，正无穷和负无穷是有确切的值，在内存中分别等同于十六进制整数 0x7F800000 和 0xFF800000。<br> [0x7F800001, 0x7FFFFFFF]和[0xFF800001, 0xFFFFFFFF] 对应的浮点数是 NaN（Not-a-Number）</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="type">boolean</span> boolValue;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    boolValue = <span class="literal">true</span>; <span class="comment">// 将这个true替换为2或者3，再看看打印结果</span></span><br><span class="line">    <span class="keyword">if</span> (boolValue) System.out.println(<span class="string">&quot;Hello, Java!&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (boolValue == <span class="literal">true</span>) System.out.println(<span class="string">&quot;Hello, JVM!&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//当替换为2的时候无输出</span></span><br><span class="line"><span class="comment">//当替换为3的时候打印HelloJava及HelloJVM</span></span><br><span class="line"><span class="comment">//猜测是因为将boolean 保存在静态域中,指定了其类型为&#x27;Z&#x27;</span></span><br><span class="line"><span class="comment">//当修改为2时取低位最后一位为0,当修改为3时取低位最后一位为1则说明boolean的掩码处理是取低位的最后一位</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="类加载-查找字节流的过程"><a href="#类加载-查找字节流的过程" class="headerlink" title="类加载 查找字节流的过程"></a>类加载 查找字节流的过程</h2><p>双亲委派模型</p>
+<h3 id="三个GC算法"><a href="#三个GC算法" class="headerlink" title="三个GC算法"></a>三个GC算法</h3><ol>
+<li><p>mark sweep: 标记清除，标记后进行清除，所以碎片化</p>
+</li>
+<li><p>copy: 标记后统一整理放到一侧，然后对另一侧大扫除。由于 Eden 的特点是大量产生，大量销毁，因此很适用copy。使用时只需将Eden 少量存活的copy到 survivor1 中，然后对 Eden<br> 区进行清理即可。 等到二次回收时会将 eden 区的以及 survivor1 的一起复制到 survivor2 当中去。</p>
+</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/09/18/jvm/copy.png"
+                      class="" title="copy algorithm"
+                >
+
+
+<ol start="3">
+<li>mark compact: 一边清一边压缩，时刻保持内存紧致。对于老年代这种对象一般都存活很久的就很适用。</li>
+</ol>
+<h3 id="10-个-Garbage-collector"><a href="#10-个-Garbage-collector" class="headerlink" title="10 个 Garbage collector"></a>10 个 Garbage collector</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/09/18/jvm/gc.png"
+                      class="" title="Garbage collector"
+                >
+
+<ul>
+<li>Epsilon: 跟进追踪，不做任何回收，常用来 debug 或者不需要回收的场景</li>
+</ul>
+<h4 id="分代模型"><a href="#分代模型" class="headerlink" title="分代模型"></a>分代模型</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2020/09/18/jvm/process-object-gc.png"
+                      class="" title="Garbage collector"
+                >
+
+
+<h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><ol>
+<li>top 查内存占用</li>
+</ol>
+<hr>
+<ol start="2">
+<li><p>jps 列出系统中java 的进程</p>
+</li>
+<li><p>jinfo pid 拿到基本信息</p>
+</li>
+<li><p>jstack pid | more 罗列出所有线程的调用栈状态</p>
+</li>
+</ol>
+<p>上面仨命令常用来定位 死锁</p>
+<hr>
+<ol start="5">
+<li><p>jstat -gc 不好用，效果不直观</p>
+</li>
+<li><p>arthas 基本命令：</p>
+<ul>
+<li>dashboard 类似 top，能给出基本占用信息：如果是JVM没有报OOM便退出了，建议排查堆外内存</li>
+<li>jvm 类似 jinfo 输出使用 JVM的相关信息比如使用的GC，memory 等</li>
+<li>thread 类似 jstack，加 -b 参数可用于排查死锁</li>
+<li>redefine 重定义 class 类似字节码插桩</li>
+</ul>
+</li>
+<li><p>jmap -histo pid 定位哪些对象在吃内存</p>
+<ul>
+<li>jmap -dump:format&#x3D;b.file&#x3D;xxx.hprof 2366</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>实际实例 <a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=Mzg3MTEyMjUyMQ==&mid=2247483765&idx=1&sn=1c20adaae37a9c11bed1c3d2964909d0&chksm=ce821243f9f59b55eec0ebf5beb3d660668151bd46c03ded25c0fd731c3ff188faea3c0b3c53&mpshare=1&scene=23&srcid=0827zNKbMDdpJCoIv9omeEZs&sharer_sharetime=1598580051461&sharer_shareid=162a8816dfe520fecd477f663aaf4f98#rd" >https://mp.weixin.qq.com/s?__biz=Mzg3MTEyMjUyMQ==&amp;mid=2247483765&amp;idx=1&amp;sn=1c20adaae37a9c11bed1c3d2964909d0&amp;chksm=ce821243f9f59b55eec0ebf5beb3d660668151bd46c03ded25c0fd731c3ff188faea3c0b3c53&amp;mpshare=1&amp;scene=23&amp;srcid=0827zNKbMDdpJCoIv9omeEZs&amp;sharer_sharetime=1598580051461&amp;sharer_shareid=162a8816dfe520fecd477f663aaf4f98#rd<i class="fa-solid fa-up-right-from-square"></i></a></p>
+</blockquote>
+<h4 id="OQL-学习"><a href="#OQL-学习" class="headerlink" title="OQL 学习"></a>OQL 学习</h4>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：JVM notes</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2020-09-18 12:33:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2020/09/18/jvm/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/JVM/">#JVM</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Deployment/">#Deployment</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2020/09/19/thread/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Thread</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2020/09/18/go-exception-handle/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Go exception handle</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#How-java-code-run"><span class="nav-text">How java code run?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-basic-types"><span class="nav-text">Java basic types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Class-Loader"><span class="nav-text">Class Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load"><span class="nav-text">load</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#link"><span class="nav-text">link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init-process"><span class="nav-text">init process</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-do-JVM-call-method"><span class="nav-text">How do JVM call method?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm-%E5%AE%9E%E6%88%98"><span class="nav-text">jvm 实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-text">编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E5%AD%97%E8%8A%82%E7%A0%81"><span class="nav-text">Java 字节码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD-%E6%9F%A5%E6%89%BE%E5%AD%97%E8%8A%82%E6%B5%81%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">类加载 查找字节流的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E4%B8%AAGC%E7%AE%97%E6%B3%95"><span class="nav-text">三个GC算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%B8%AA-Garbage-collector"><span class="nav-text">10 个 Garbage collector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E6%A8%A1%E5%9E%8B"><span class="nav-text">分代模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OQL-%E5%AD%A6%E4%B9%A0"><span class="nav-text">OQL 学习</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

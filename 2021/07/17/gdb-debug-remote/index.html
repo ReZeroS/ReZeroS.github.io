@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="窥万物穷其理，尽人欲之所在">
+    <meta name="author" content="ReZero">
+    
+    <title>
+        
+            Clion remote debug docker redis |
+        
+        ReZero&#39;s blog
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/redefine-logo.svg">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/regular.min.css">
+    
+    
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/css2.css">
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"rezeros.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"在那之前要多想"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                ReZero&#39;s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="/archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="/archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Clion remote debug docker redis</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">ReZero</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-07-17 10:35:00</span>
+        <span class="mobile">2021-07-17 10:35</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Redis/">Redis</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/docker/">docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Clion/">Clion</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/debug/">debug</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="Clion-remote-debug-docker-redis"><a href="#Clion-remote-debug-docker-redis" class="headerlink" title="Clion remote debug docker redis"></a>Clion remote debug docker redis</h1><h2 id="垃圾MAC-m1"><a href="#垃圾MAC-m1" class="headerlink" title="垃圾MAC m1"></a>垃圾MAC m1</h2><p>redis 版本用的是官方的 5.0, 鲁迅说的用 5.0，<code>中国人的性情总是喜欢调和、折中的，譬如你说，这屋子太暗，说在这里开一个天窗，大家一定是不允许的。但如果你主张拆掉屋顶，他们就会来调和，愿意开天窗了</code></p>
+<p>关于 docker, 嘿嘿我不会，所以网上找了找试了试大致凭直觉猜了猜貌似还可以</p>
+<p>因为 m1 现在看起来好像什么都不太支持，所以本教程倾向于一切都靠docker里的，只保留和docker的通信</p>
+<h2 id="首先-docker-下官方-m1-适配的"><a href="#首先-docker-下官方-m1-适配的" class="headerlink" title="首先 docker 下官方 m1 适配的"></a>首先 docker 下官方 m1 适配的</h2><p>容器相关的文件如下</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line"></span><br><span class="line">RUN apt-get update</span><br><span class="line"></span><br><span class="line">RUN apt-get install -y build-essential</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">因为cmake安装的时候会出现交互选项，就是让你按y，选语言啥的，所以加了这个选项</span></span><br><span class="line">RUN DEBIAN_FRONTEND=&#x27;noninteractive&#x27;  apt-get install -y cmake</span><br><span class="line"></span><br><span class="line">RUN apt-get install -y gdb</span><br><span class="line"></span><br><span class="line">RUN apt-get install -y openssh-server</span><br><span class="line">RUN mkdir /var/run/sshd</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">这里注意下和实际的ubuntu配置对比下</span></span><br><span class="line">RUN sed -ri &#x27;s/^#PermitRootLogin\s+.*/PermitRootLogin yes/&#x27; /etc/ssh/sshd_config</span><br><span class="line">RUN sed -ri &#x27;s/UsePAM yes/#UsePAM yes/g&#x27; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">RUN apt-get install -y rsync</span><br><span class="line">RUN sed -ri &#x27;s/RSYNC_ENABLE=false/RSYNC_ENABLE=true/g&#x27; /etc/default/rsync</span><br><span class="line">COPY rsync.conf /etc</span><br><span class="line"></span><br><span class="line">RUN echo &#x27;root:000000&#x27; |chpasswd</span><br><span class="line"></span><br><span class="line">RUN mkdir /root/sync</span><br><span class="line"></span><br><span class="line">COPY entrypoint.sh /sbin</span><br><span class="line">RUN chmod +x /sbin/entrypoint.sh</span><br><span class="line">ENTRYPOINT [ &quot;/sbin/entrypoint.sh&quot; ]</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>常见的软件就不用说了, rsync就是个传文件的，上面配置中涉及的额外两个文件</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">rsync.conf</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编辑配置信息</span></span><br><span class="line">max connections = 8</span><br><span class="line">log file = /var/log/rsync.log</span><br><span class="line">timeout = 300</span><br><span class="line"></span><br><span class="line">[sync] # 模块名</span><br><span class="line">comment = sync</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">path为需要同步的文件夹路径</span></span><br><span class="line">path = /root/sync</span><br><span class="line">read only = no</span><br><span class="line">list = yes</span><br><span class="line">uid = root</span><br><span class="line">gid = root</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">entrypoint.sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">/usr/bin/rsync --daemon --config=/etc/rsync.conf</span><br><span class="line">/usr/sbin/sshd -D</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>最后准备一个 compose, 看起来应该是 Dockerfile 的最后五十米</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  env:</span><br><span class="line">    build: .</span><br><span class="line">    container_name: clion-gdb</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;45678:22&quot;</span><br><span class="line">      - &quot;8730:873&quot;</span><br><span class="line">    cap_add:</span><br><span class="line">      - ALL</span><br></pre></td></tr></table></figure></div>
+
+<p>如果以上觉得太麻烦的话，直接下这个文件夹也行</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/ReZeroS/zerobox/tree/master/docker-clion" >clion with docker<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p>准备好这个文件夹后， <code>docker-compose up -d</code><br>容器的安装操作其实就是下载这个文件夹然后执行这一条命令</p>
+<h3 id="后面的-Clion-就是参考这个链接了"><a href="#后面的-Clion-就是参考这个链接了" class="headerlink" title="后面的 Clion 就是参考这个链接了"></a>后面的 <code>Clion</code> 就是参考这个链接了</h3><p><a class="link"   target="_blank" rel="noopener" href="https://www.jetbrains.com/help/clion/remote-projects-support.html" >full remote debug<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<ol>
+<li><p>先 toolchain里配置下, 大致就是填个 ssh 连接, 确保能测通就行</p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2021/07/17/gdb-debug-remote/img.png"
+                      class="" title="!-[img.png](gdb-debug-remote&#x2F;img.png)"
+                ></li>
+</ul>
+</li>
+<li><p>下载好 <code>redis</code> 源码的时候 会识别成 <code>make</code> 项目, 这里我不会 <code>cmake</code>，所以就按 <code>make</code> 来吧</p>
+<ul>
+<li>Preferences | Build, Execution, Deployment | Makefile 配置项里只选你刚才配置的那个 <code>toolchain</code> 即可</li>
+</ul>
+</li>
+<li><p>然后就是文件的上传下载配置了，·Preferences | Build, Execution, Deployment | Deployment</p>
+<ul>
+<li>配置下 SFTP，用户密码，其实配了个刚才的ssh后直接选就行了, 其次就是第二个选项卡，配置下本地的项目路径和远程的目标路径<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2021/07/17/gdb-debug-remote/clion-sftp.png"
+                      class="" title="!-[img.png](gdb-debug-remote&#x2F;clion-sftp.png)"
+                >
+</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2021/07/17/gdb-debug-remote/clion-sftp2.png"
+                      class="" title="!-[img.png](gdb-debug-remote&#x2F;clion-sftp2.png)"
+                ></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>这一步配好之后右键项目目录，选 Deployment, 把本地的目录上传到远程的 <code>/root/sync</code> 目录即可</p>
+</li>
+</ol>
+<h3 id="然后就是我尝试出来但最不理解的一步了"><a href="#然后就是我尝试出来但最不理解的一步了" class="headerlink" title="然后就是我尝试出来但最不理解的一步了"></a>然后就是我尝试出来但最不理解的一步了</h3><p>官方说让选远程的可执行文件，没明白为啥不是直接调远程的编译然后再选择</p>
+<ol>
+<li>所以进入容器 <code>docker exec -it container-hash /bin/bash</code></li>
+<li>然后进入目标目录 <code>cd /root/sync/src</code> , 先 <code>chmod +x src/mkreleasehdr.sh &amp;&amp; ./mkreleasehdr.sh</code></li>
+<li>再然后 <code>make</code> 一下, 就会在 <code>src</code> 目录下生成 <code>redis-server</code> 的可执行文件，打印下这个路径拷贝出来</li>
+<li><code>Clion</code> clone redis 项目后会自动识别出来可运行的 <code>configurations</code>, 我们选中其中的 <code>redis-server</code>, 只更改 <code>executable</code> 把执行文件的路径填进去</li>
+<li>然后去 <code>redis-server.c</code> 中的 main 打个断点即可</li>
+</ol>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2021/07/17/gdb-debug-remote/success.png"
+                      class="" title="!-[img.png](gdb-debug-remote&#x2F;clion-sftp2.png)"
+                ></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Clion remote debug docker redis</li>
+        <li>Post author：ReZero</li>
+        <li>Create time：2021-07-17 10:35:00</li>
+        <li>
+            Post link：https://rezeros.github.io/2021/07/17/gdb-debug-remote/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/docker/">#docker</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Clion/">#Clion</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/debug/">#debug</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2021/10/19/arthas/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Arthas</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2021/04/06/go-tutorial/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Go Tutorial</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '1a431f8724008b2fe548',
+                    clientSecret: '190b78eca86ef1ed150f8f6c7f8bc9616d7c3982',
+                    repo: 'ReZeroS.github.io',
+                    owner: 'ReZeroS',
+                    admin: ['ReZeroS'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Clion-remote-debug-docker-redis"><span class="nav-text">Clion remote debug docker redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BEMAC-m1"><span class="nav-text">垃圾MAC m1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%85%88-docker-%E4%B8%8B%E5%AE%98%E6%96%B9-m1-%E9%80%82%E9%85%8D%E7%9A%84"><span class="nav-text">首先 docker 下官方 m1 适配的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E9%9D%A2%E7%9A%84-Clion-%E5%B0%B1%E6%98%AF%E5%8F%82%E8%80%83%E8%BF%99%E4%B8%AA%E9%93%BE%E6%8E%A5%E4%BA%86"><span class="nav-text">后面的 Clion 就是参考这个链接了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%B0%B1%E6%98%AF%E6%88%91%E5%B0%9D%E8%AF%95%E5%87%BA%E6%9D%A5%E4%BD%86%E6%9C%80%E4%B8%8D%E7%90%86%E8%A7%A3%E7%9A%84%E4%B8%80%E6%AD%A5%E4%BA%86"><span class="nav-text">然后就是我尝试出来但最不理解的一步了</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">ReZero. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2020/8/17 11:45:14
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/header-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/back2top.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/code-copy.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/css/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v0.4.6/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
