@@ -1,0 +1,609 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="keywords" content="Hexo Theme Redefine"><meta name="author" content="ReZero"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="canonical" href="https://rezeros.github.io/2017/12/02/parser-build-pl-byjs/"><meta name="robots" content="index,follow"><meta name="googlebot" content="index,follow"><meta name="revisit-after" content="1 days"><meta name="description" content="Before that, think more."><meta property="og:type" content="article"><meta property="og:title" content="[Parser] Build: PL By:JS"><meta property="og:url" content="https://rezeros.github.io/2017/12/02/parser-build-pl-byjs/index.html"><meta property="og:site_name" content="ReZero"><meta property="og:description" content="Before that, think more."><meta property="og:locale" content="en_US"><meta property="og:image" content="https://rezeros.github.io/images/redefine-og.webp"><meta property="article:published_time" content="2017-12-02T18:42:56.000Z"><meta property="article:modified_time" content="2025-04-15T23:03:26.503Z"><meta property="article:author" content="ReZero"><meta property="article:tag" content="parser"><meta property="article:tag" content="atom"><meta property="article:tag" content="expression"><meta property="article:tag" content="lanauage"><meta property="article:tag" content="operator"><meta property="article:tag" content="parse"><meta property="article:tag" content="precedence"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://rezeros.github.io/images/redefine-og.webp"><link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192"><link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg"><meta name="theme-color" content="#A31F34"><link rel="shortcut icon" href="/images/redefine-favicon.svg"><title>[Parser] Build: PL By:JS | ReZero&#39;s blog</title><link rel="stylesheet" href="/fonts/Chillax/chillax.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/build/tailwind.css"><link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css"><link rel="stylesheet" href="/fonts/Geist/geist.css"><script src="/js/build/libs/anime.min.js"></script><script id="hexo-configurations">window.config={hostname:"rezeros.github.io",root:"/",language:"en",path:"search.xml"},window.theme={articles:{style:{font_size:"16px",line_height:1.5,image_border_radius:"14px",image_alignment:"center",image_caption:!1,link_icon:!0,delete_mask:!1,title_alignment:"left",headings_top_spacing:{h1:"3.2rem",h2:"2.4rem",h3:"1.9rem",h4:"1.6rem",h5:"1.4rem",h6:"1.3rem"}},word_count:{enable:!0,count:!0,min2read:!0},author_label:{enable:!0,auto:!1,list:[]},code_block:{copy:!0,style:"mac",highlight_theme:{light:"github",dark:"vs2015"},font:{enable:!1,family:null,url:null}},toc:{enable:!0,max_depth:3,number:!1,expand:!0,init_open:!0},copyright:{enable:!0,default:"cc_by_nc_sa"},lazyload:!0,pangu_js:!1,recommendation:{enable:!1,title:"推荐阅读",limit:3,mobile_limit:2,placeholder:"/images/wallhaven-wqery6-light.webp",skip_dirs:[]}},colors:{primary:"#A31F34",secondary:null,default_mode:"light"},global:{fonts:{chinese:{enable:!1,family:null,url:null},english:{enable:!1,family:null,url:null},title:{enable:!1,family:null,url:null}},content_max_width:"1000px",sidebar_width:"210px",hover:{shadow:!0,scale:!1},scroll_progress:{bar:!1,percentage:!0},website_counter:{url:"https://cn.vercount.one/js",enable:!0,site_pv:!0,site_uv:!0,post_pv:!0},single_page:!0,preloader:{enable:!0,custom_message:"Advance ruthlessly—whatever the cost!"},open_graph:{enable:!0,image:"/images/redefine-og.webp",description:"Before that, think more."},google_analytics:{enable:!1,id:null}},home_banner:{enable:!0,style:"fixed",image:{light:"/images/wallhaven-wqery6-light.webp",dark:"/images/wallhaven-wqery6-dark.webp"},title:"Before that, think more.",subtitle:{text:[],hitokoto:{enable:!1,show_author:!1,api:"https://v1.hitokoto.cn"},typing_speed:100,backing_speed:80,starting_delay:500,backing_delay:1500,loop:!0,smart_backspace:!0},text_color:{light:"#fff",dark:"#d1d1b6"},text_style:{title_size:"2.8rem",subtitle_size:"1.5rem",line_height:1.2},custom_font:{enable:!1,family:null,url:null},social_links:{enable:!1,style:"default",links:{github:null,instagram:null,zhihu:null,twitter:null,email:null},qrs:{weixin:null}}},plugins:{feed:{enable:!1},aplayer:{enable:!1,type:"fixed",audios:[{name:null,artist:null,url:null,cover:null,lrc:null}]},mermaid:{enable:!1,version:"11.4.1"}},version:"2.8.2",navbar:{auto_hide:!1,color:{left:"#f78736",right:"#367df7",transparency:35},width:{home:"1200px",pages:"1000px"},links:{Home:{path:"/",icon:"fa-regular fa-house"},Categories:{path:"/categories/",icon:"fa-solid fa-folder"},Tags:{path:"/tags/",icon:"fa-solid fa-tags"}},search:{enable:!1,preload:!0}},page_templates:{friends_column:2,tags_style:"blur"},home:{sidebar:{enable:!0,position:"left",first_item:"menu",announcement:null,show_on_mobile:!0,links:null},article_date_format:"auto",excerpt_length:200,categories:{enable:!0,limit:3},tags:{enable:!0,limit:3}},footerStart:"2022/8/17 11:45:14"},window.lang_ago={second:"%s seconds ago",minute:"%s minutes ago",hour:"%s hours ago",day:"%s days ago",week:"%s weeks ago",month:"%s months ago",year:"%s years ago"},window.data={masonry:!1}</script><link rel="stylesheet" href="/fontawesome/fontawesome.min.css"><link rel="stylesheet" href="/fontawesome/brands.min.css"><link rel="stylesheet" href="/fontawesome/solid.min.css"><link rel="stylesheet" href="/fontawesome/regular.min.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="progress-bar-container"><span class="pjax-progress-bar"></span></div><style>:root{--preloader-background-color:#fff;--preloader-text-color:#000}@media (prefers-color-scheme:dark){:root{--preloader-background-color:#202124;--preloader-text-color:#fff}}@media (prefers-color-scheme:light){:root{--preloader-background-color:#fff;--preloader-text-color:#000}}@media (max-width:600px){.ml13{font-size:2.6rem!important}}.preloader{display:flex;flex-direction:column;gap:1rem;align-items:center;justify-content:center;position:fixed;padding:12px;top:0;right:0;bottom:0;left:0;width:100vw;height:100vh;background-color:var(--preloader-background-color);z-index:1100;transition:opacity .2s ease-in-out}.ml13{font-size:3.2rem;color:var(--preloader-text-color);letter-spacing:-1px;font-weight:500;font-family:Chillax-Variable,sans-serif;text-align:center}.ml13 .word{display:inline-flex;flex-wrap:wrap;white-space:nowrap}.ml13 .letter{display:inline-block;line-height:1em}</style><div class="preloader"><h2 class="ml13">Advance ruthlessly—whatever the cost!</h2><script>var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }</script></div><main class="page-container" id="swup"><div class="main-content-container flex flex-col justify-between min-h-dvh"><div class="main-content-header"><header class="navbar-container px-6 md:px-12"><div class="navbar-content transition-navbar"><div class="left"><a class="logo-title" href="/">ReZero&#39;s blog</a></div><div class="right"><div class="desktop"><ul class="navbar-list"><li class="navbar-item"><a href="/"><i class="fa-regular fa-house fa-fw"></i> HOME</a></li><li class="navbar-item"><a href="/categories/"><i class="fa-solid fa-folder fa-fw"></i> CATEGORIES</a></li><li class="navbar-item"><a href="/tags/"><i class="fa-solid fa-tags fa-fw"></i> TAGS</a></li></ul></div><div class="mobile"><div class="icon-item navbar-bar"><div class="navbar-bar-middle"></div></div></div></div></div><div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between"><ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start"><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/"><span>HOME </span><i class="fa-regular fa-house fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/categories/"><span>CATEGORIES </span><i class="fa-solid fa-folder fa-sm fa-fw"></i></a></li><li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full"><a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full" href="/tags/"><span>TAGS </span><i class="fa-solid fa-tags fa-sm fa-fw"></i></a></li></ul><div class="statistics flex justify-around my-2.5"><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">138</div><div class="label text-third-text-color text-sm">Tags</div></a><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div><div class="label text-third-text-color text-sm">Categories</div></a><a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives"><div class="number text-2xl sm:text-xl text-second-text-color font-semibold">60</div><div class="label text-third-text-color text-sm">Posts</div></a></div></div><div class="window-mask"></div></header></div><div class="main-content-body transition-fade-up"><div class="main-content"><div class="post-page-container flex relative justify-between box-border w-full h-full"><div class="article-content-container"><div class="article-title relative w-full"><div class="w-full flex items-center pt-6 justify-start"><h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">[Parser] Build: PL By:JS</h1></div></div><div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8"><div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]"><img src="/images/redefine-avatar.svg"></div><div class="info flex flex-col justify-between"><div class="author flex items-center"><span class="name text-default-text-color text-lg font-semibold">ReZero</span> <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span></div><div class="meta-info"><div class="article-meta-info"><span class="article-date article-meta-item"><i class="fa-regular fa-pen-fancy"></i>&nbsp; <span class="desktop">2017-12-02 18:42:56</span> <span class="mobile">2017-12-02 18:42:56</span> <span class="hover-info">Created</span> </span><span class="article-date article-meta-item"><i class="fa-regular fa-wrench"></i>&nbsp; <span class="desktop">2025-04-15 23:03:26</span> <span class="mobile">2025-04-15 23:03:26</span> <span class="hover-info">Updated</span> </span><span class="article-categories article-meta-item"><i class="fa-regular fa-folders"></i>&nbsp;<ul><li><a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>&nbsp;</li></ul></span><span class="article-tags article-meta-item"><i class="fa-regular fa-tags"></i>&nbsp;<ul><li><a href="/tags/parser/">parser</a>&nbsp;</li><li>| <a href="/tags/atom/">atom</a>&nbsp;</li><li>| <a href="/tags/expression/">expression</a>&nbsp;</li><li>| <a href="/tags/lanauage/">lanauage</a>&nbsp;</li><li>| <a href="/tags/operator/">operator</a>&nbsp;</li><li>| <a href="/tags/parse/">parse</a>&nbsp;</li><li>| <a href="/tags/precedence/">precedence</a>&nbsp;</li></ul></span><span class="article-pv article-meta-item"><i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span></span></div></div></div></div><div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8"><h2 id="initial"><a href="#initial" class="headerlink" title="initial"></a>initial</h2><p>Origin: <a class="link" target="_blank" rel="noopener" href="http://lisperator.net/pltut/">http://lisperator.net/pltut/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> This is a tutorial on how to implement a programming language. If you ever wrote an interpreter or a compiler, then there is probably nothing new for you here. But, if you’re using regexps to “parse” anything that looks like a programming language, then please read at least the section on parsing. Let’s write less buggy code! The ToC on the right is in “simple-to-advanced” order. I’d recommend you not to skip forward, unless you know the subject well. You can always refer back if you don’t understand something. Also, questions and feedback are very much appreciated! The target audience is the average JavaScript &#x2F; NodeJS programmer.</p><h3 id="What-are-we-going-to-learn"><a href="#What-are-we-going-to-learn" class="headerlink" title="What are we going to learn"></a>What are we going to learn</h3><ul><li>What is a parser, and how to write one.</li><li>How to write an interpreter.</li><li>Continuations, and why are they important.</li><li>Writing a compiler.</li><li>How to transform code to continuation-passing style.</li><li>A few basic optimization techniques.</li><li>Examples of what our λanguage brings new over plain JavaScript.</li></ul><h3 id="Description-of-the-language"><a href="#Description-of-the-language" class="headerlink" title="Description of the language"></a>Description of the language</h3><pre><code># this is a comment
+
+println(&quot;Hello World!&quot;);
+
+println(2 + 3 * 4);
+
+# functions are introduced with `lambda` or `λ`
+fib = lambda (n) if n &lt; 2 then n else fib(n - 1) + fib(n - 2);
+
+println(fib(15));
+
+print-range = λ(a, b)             # `λ` is synonym to `lambda`
+                if a &lt;= b then &#123;  # `then` here is optional as you can see below
+                  print(a);
+                  if a + 1 &lt;= b &#123;
+                    print(&quot;, &quot;);
+                    print-range(a + 1, b);
+                  &#125; else println(&quot;&quot;);        # newline
+                &#125;;
+print-range(1, 5);
+</code></pre><p>Output</p><pre><code>Hello World!
+14
+610
+1, 2, 3, 4, 5
+</code></pre><p>The λanguage looks a bit like JavaScript, but it’s different. First, there are no statements, only expressions. An expression returns a value and can be used in place of any other expression. Semicolons are required to separate expressions in a “sequence”. The curly brackets, { and }, create such a sequence, and it’s itself an expression. Its value is what the last expression evaluates to. The following is a valid program:</p><pre><code>a = &#123;
+  fib(10);  # has no side-effects, but it&#39;s computed anyway
+  fib(15)   # the last semicolon can be missing
+&#125;;
+print(a); # prints 610
+</code></pre><p>Functions are introduced with one of the keywords lambda or λ (they are synonyms). After the keyword there must be a (possibly empty) parenthesized list of variable names separated with commas, like in JavaScript — these are the argument names. The function body is a single expression, but it can be a sequence wrapped in {…}. There is no return statement (there are no statements) — the last expression evaluated in a function gives the value to return to its caller. There is no var. To introduce new variables, you can use what JavaScripters call “IIFE”. Use a lambda, declare variables as arguments. Variables have function scope, and functions are closures — like in JavaScript. Even if is itself an expression. In JavaScript you’d get that effect with the ternary operator:</p><pre><code>a = foo() ? bar() : baz();           // JavaScript
+a = if foo() then bar() else baz();  # λanguage
+</code></pre><p>The then keyword is optional when the branch starts with an open bracket ({), as you can see in print-range above. Otherwise it is required. The else keyword is required if the alternative branch is present. Again, then and else take as body a single expression, but you can {group} multiple expressions by using brackets and semicolons. When the else branch is missing and the condition is false, the result of the if expression is false. Speaking of which, false is a keyword which denotes the only falsy value in our λanguage:</p><pre><code>if foo() then print(&quot;OK&quot;);
+</code></pre><p>will print “OK” if and only if the result of foo() is NOT false. There’s also a true keyword for completion, but really everything which is not false (in terms of JavaScript’s &#x3D;&#x3D;&#x3D; operator) will be interpreted as true in conditionals (including the number 0 and the empty string “”). Also note above that there is no point to demand parentheses around an if’s condition. It’s no error if you add them, though, as an open paren starts an expression — but they’re just superfluous. A whole program is parsed as if it were embedded in curly brackets, therefore you need to place a semicolon after each expression. The last expression can be an exception.</p><hr><p>Well, that’s our tiny λanguage. It’s not necessarily a good one. The syntax looks cute, but it has its traps. There are a lot of missing features, like objects or arrays; we don’t concentrate on them because they’re not essential for our journey. If you understand all this material, you’ll be able to implement those easily. In the next section we’ll write a parser for this λanguage.</p><p>origin: <a class="link" target="_blank" rel="noopener" href="http://lisperator.net/pltut/">http://lisperator.net/pltut/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p><ul><li><p><a class="link" target="_blank" rel="noopener" href="https://github.com/ReZeroS/Parser/blob/master/Real_js/Input.js">InputStream<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p></li><li><p><a class="link" target="_blank" rel="noopener" href="https://github.com/ReZeroS/Parser/blob/master/Real_js/Token.js">TokenStream<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p></li><li><p><a class="link" target="_blank" rel="noopener" href="https://github.com/ReZeroS/Parser/blob/master/Real_js/Parse.js">Parse<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p></li></ul><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><code>var ast = parse(TokenStream(InputStream(code)));</code> Writing a parser is, depending on the language, a moderately complex task. <strong>In essence, it must transform a piece of code (which we inspect by looking at the characters) into an “abstract syntax tree” (AST).</strong> The AST is a structured in-memory representation of the program, and it’s “abstract” in the sense that it does not care exactly what characters is the source code made of, but it faithfully represents the semantics of it. For example, for the following program text:</p><pre><code>sum = lambda(a, b) &#123;
+  a + b;
+&#125;;
+print(sum(1, 2));
+</code></pre><p>our parser will generate the following AST, as a JavaScript object:</p><pre><code>&#123;
+  type: &quot;prog&quot;,
+  prog: [
+    // first line:
+    &#123;
+      type: &quot;assign&quot;,
+      operator: &quot;=&quot;,
+      left: &#123; type: &quot;var&quot;, value: &quot;sum&quot; &#125;,
+      right: &#123;
+        type: &quot;lambda&quot;,
+        vars: [ &quot;a&quot;, &quot;b&quot; ],
+        body: &#123;
+          // the body should be a &quot;prog&quot;, but because
+          // it contains a single expression, our parser
+          // reduces it to the expression itself.
+          type: &quot;binary&quot;,
+          operator: &quot;+&quot;,
+          left: &#123; type: &quot;var&quot;, value: &quot;a&quot; &#125;,
+          right: &#123; type: &quot;var&quot;, value: &quot;b&quot; &#125;
+        &#125;
+      &#125;
+    &#125;,
+    // second line:
+    &#123;
+      type: &quot;call&quot;,
+      func: &#123; type: &quot;var&quot;, value: &quot;print&quot; &#125;,
+      args: [&#123;
+        type: &quot;call&quot;,
+        func: &#123; type: &quot;var&quot;, value: &quot;sum&quot; &#125;,
+        args: [ &#123; type: &quot;num&quot;, value: 1 &#125;,
+                &#123; type: &quot;num&quot;, value: 2 &#125; ]
+      &#125;]
+    &#125;
+  ]
+&#125;
+</code></pre><p>The main difficulty in writing a parser consists in a failure to properly <strong>organize the code</strong>. The parser should <strong>operate at <em>a higher level</em> than reading characters from a string</strong>. A few advices on how to keep complexity manageable:</p><ul><li><p>Write many functions and keep them small. In every function, do one thing and do it well.</p></li><li><p>Do not try to use regexps for parsing. They don’t work. Regexps can be helpful in the lexer though, but I suggest to limit them to very simple things.</p></li><li><p>Don’t attempt to guess. When unsure how to parse something, throw an error and make sure the message contains the error location (line&#x2F;column).</p></li></ul><p>To keep it simple I’ve split my code in three parts, which are further divided into many small functions:</p><ul><li>The character input stream</li><li>The token input stream (lexer)</li><li>The parser</li></ul><h2 id="Input-stream"><a href="#Input-stream" class="headerlink" title="Input stream"></a>Input stream</h2><p>We’re going to create a “stream object” which provides operations to read characters from a string. A stream object has 4 methods:</p><ul><li><p>peek() — returns the next value but without removing it from the stream.</p></li><li><p>next() — returns the next value and also discards it from the stream.</p></li><li><p>eof() — returns true if and only if there are no more values in the stream.</p></li><li><p>croak(msg) — does throw new Error(msg).</p></li></ul><p>The reason why I’m including the last one is that the stream can easily keep track of the current location (i.e. line&#x2F;column), which is important to display in the case of an error message. Feel free to add more methods here, depending on your needs. The character input stream deals with <strong>characters</strong>, so the values that next() &#x2F; peek() return are chars (well, since JS doesn’t have a char type, they’re strings containing one character). Here is the full code of this object, which I will call “InputStream”. It’s small enough and you should have no problem to understand it:</p><pre><code>function InputStream(input) &#123;
+    var pos = 0, line = 1, col = 0;
+    return &#123;
+        next  : next,
+        peek  : peek,
+        eof   : eof,
+        croak : croak,
+    &#125;;
+    function next() &#123;
+        var ch = input.charAt(pos++);
+        if (ch == &quot;\n&quot;) line++, col = 0; else col++;
+        return ch;
+    &#125;
+    function peek() &#123;
+        return input.charAt(pos);
+    &#125;
+    function eof() &#123;
+        return peek() == &quot;&quot;;
+    &#125;
+    function croak(msg) &#123;
+        throw new Error(msg + &quot; (&quot; + line + &quot;:&quot; + col + &quot;)&quot;);
+    &#125;
+&#125;
+</code></pre><p>Note that it’s not a standard object (the kind you create with new). You just do var stream &#x3D; InputStream(string) to get a stream object. Next we’re going to write another abstraction on top of this object: the tokenizer.</p><h2 id="Token-Stream"><a href="#Token-Stream" class="headerlink" title="Token Stream"></a>Token Stream</h2><p>The tokenizer (also called “lexer”) operates on a character input stream and returns a stream object with the same interface, but the values returned by peek() &#x2F; next() will be tokens. A token is an object with two properties: type and value. Here are some examples with supported tokens:</p><pre><code>&#123; type: &quot;punc&quot;, value: &quot;(&quot; &#125;           // punctuation: parens, comma, semicolon etc.
+&#123; type: &quot;num&quot;, value: 5 &#125;              // numbers
+&#123; type: &quot;str&quot;, value: &quot;Hello World!&quot; &#125; // strings
+&#123; type: &quot;kw&quot;, value: &quot;lambda&quot; &#125;        // keywords
+&#123; type: &quot;var&quot;, value: &quot;a&quot; &#125;            // identifiers
+&#123; type: &quot;op&quot;, value: &quot;!=&quot; &#125;            // operators
+</code></pre><p><strong>Whitespace and comments are skipped over</strong>, no tokens are returned. In order to write the tokenizer we need to look more closely into the syntax of our language. The idea is to notice that depending on the current character (as returned by input.peek()) we can decide what kind of token to read:</p><ul><li>First off, skip over whitespace.</li><li>If input.eof() then return null.</li><li>If it’s a sharp sign (#), skip comment (retry after - the end of line).</li><li>If it’s a quote then read a string.</li><li>If it’s a digit, then we proceed to read a number.</li><li>If it’s a “letter”, then read an identifier or a keyword token.</li><li>If it’s one of the punctuation characters, return a punctuation token.</li><li>If it’s one of the operator characters, return an operator token.</li><li>If none of the above, error out with input.croak().</li></ul><hr><p>So here’s the “read_next” function — the “core” of the tokenizer — which implements the above:</p><pre><code>function read_next() &#123;
+    read_while(is_whitespace);
+    if (input.eof()) return null;
+    var ch = input.peek();
+    if (ch == &quot;#&quot;) &#123;
+        skip_comment();
+        return read_next();
+    &#125;
+    if (ch == &#39;&quot;&#39;) return read_string();
+    if (is_digit(ch)) return read_number();
+    if (is_id_start(ch)) return read_ident();
+    if (is_punc(ch)) return &#123;
+        type  : &quot;punc&quot;,
+        value : input.next()
+    &#125;;
+    if (is_op_char(ch)) return &#123;
+        type  : &quot;op&quot;,
+        value : read_while(is_op_char)
+    &#125;;
+    input.croak(&quot;Can&#39;t handle character: &quot; + ch);
+&#125;
+</code></pre><p>This is a “dispatcher” function and it’s what next() will call in order to <strong>fetch the next token</strong>. Note it uses many utilities that are focused on particular token types, like <code>read_string()</code>, <code>read_number()</code> etc. There’s no point to complicate the dispatcher with code from those functions, even if we never call them elsewhere. Another thing to notice is that we don’t consume all the input stream in one step. Each time the parser will call for next token, we read one token. In case of a parse error we don’t even reach the end of the stream.</p><hr><p><code>read_ident()</code> will read characters as long as they are allowed as part of an identifier <code>(is_id)</code>. <strong>Identifiers must start with a letter, or λ or _</strong>, and can contain further such characters, or digits, or one of the following: <code>?!-&lt;&gt;=</code>. Therefore, foo-bar will not be read as three tokens but as a single identifier (a “var” token). The reason for this rule is that I’d like to be able to define functions named is-pair? or string&gt;&#x3D; (sorry, it’s the Lisper in me).</p><hr><p>Also, the read_ident() function will check the identifier against the list of known keywords, and if it’s there it will return a “kw” token, instead of a “var” one. I think the code pretty much speaks for itself now, so here is the complete tokenizer for our language. Couple of small other notes below.</p><pre><code>function TokenStream(input) &#123;
+    var current = null;
+    var keywords = &quot; if then else lambda λ true false &quot;;
+    return &#123;
+        next  : next,
+        peek  : peek,
+        eof   : eof,
+        croak : input.croak
+    &#125;;
+    function is_keyword(x) &#123;
+        return keywords.indexOf(&quot; &quot; + x + &quot; &quot;) &gt;= 0;
+    &#125;
+    function is_digit(ch) &#123;
+        return /[0-9]/i.test(ch);
+    &#125;
+    function is_id_start(ch) &#123;
+        return /[a-zλ_]/i.test(ch);
+    &#125;
+    function is_id(ch) &#123;
+        return is_id_start(ch) || &quot;?!-&lt;&gt;=0123456789&quot;.indexOf(ch) &gt;= 0;
+    &#125;
+    function is_op_char(ch) &#123;
+        return &quot;+-*/%=&amp;|&lt;&gt;!&quot;.indexOf(ch) &gt;= 0;
+    &#125;
+    function is_punc(ch) &#123;
+        return &quot;,;()&#123;&#125;[]&quot;.indexOf(ch) &gt;= 0;
+    &#125;
+    function is_whitespace(ch) &#123;
+        return &quot; \t\n&quot;.indexOf(ch) &gt;= 0;
+    &#125;
+    function read_while(predicate) &#123;
+        var str = &quot;&quot;;
+        while (!input.eof() &amp;&amp; predicate(input.peek()))
+            str += input.next();
+        return str;
+    &#125;
+    function read_number() &#123;
+        var has_dot = false;
+        var number = read_while(function(ch)&#123;
+            if (ch == &quot;.&quot;) &#123;
+                if (has_dot) return false;
+                has_dot = true;
+                return true;
+            &#125;
+            return is_digit(ch);
+        &#125;);
+        return &#123; type: &quot;num&quot;, value: parseFloat(number) &#125;;
+    &#125;
+    function read_ident() &#123;
+        var id = read_while(is_id);
+        return &#123;
+            type  : is_keyword(id) ? &quot;kw&quot; : &quot;var&quot;,
+            value : id
+        &#125;;
+    &#125;
+    function read_escaped(end) &#123;
+        var escaped = false, str = &quot;&quot;;
+        input.next();
+        while (!input.eof()) &#123;
+            var ch = input.next();
+            if (escaped) &#123;
+                str += ch;
+                escaped = false;
+            &#125; else if (ch == &quot;\\&quot;) &#123;
+                escaped = true;
+            &#125; else if (ch == end) &#123;
+                break;
+            &#125; else &#123;
+                str += ch;
+            &#125;
+        &#125;
+        return str;
+    &#125;
+    function read_string() &#123;
+        return &#123; type: &quot;str&quot;, value: read_escaped(&#39;&quot;&#39;) &#125;;
+    &#125;
+    function skip_comment() &#123;
+        read_while(function(ch)&#123; return ch != &quot;\n&quot; &#125;);
+        input.next();
+    &#125;
+    function read_next() &#123;
+        read_while(is_whitespace);
+        if (input.eof()) return null;
+        var ch = input.peek();
+        if (ch == &quot;#&quot;) &#123;
+            skip_comment();
+            return read_next();
+        &#125;
+        if (ch == &#39;&quot;&#39;) return read_string();
+        if (is_digit(ch)) return read_number();
+        if (is_id_start(ch)) return read_ident();
+        if (is_punc(ch)) return &#123;
+            type  : &quot;punc&quot;,
+            value : input.next()
+        &#125;;
+        if (is_op_char(ch)) return &#123;
+            type  : &quot;op&quot;,
+            value : read_while(is_op_char)
+        &#125;;
+        input.croak(&quot;Can&#39;t handle character: &quot; + ch);
+    &#125;
+    function peek() &#123;
+        return current || (current = read_next());
+    &#125;
+    function next() &#123;
+        var tok = current;
+        current = null;
+        return tok || read_next();
+    &#125;
+    function eof() &#123;
+        return peek() == null;
+    &#125;
+&#125;
+</code></pre><ul><li><p>The next() function doesn’t always call <code>read_next()</code>, because it might have been peeked before (in which case <code>read_next()</code> was already called and the stream advanced). Therefore we need a current variable which keeps track of the current token.</p></li><li><p>We only support decimal numbers with the usual notation (no 1E5 stuff, no hex, no octal). But if we ever need more, the changes go only in <code>read_number()</code> and are pretty easy to do.</p></li><li><p>Unlike JavaScript, the only characters that cannot appear unquoted in a string are the quote character itself and the backslash. You need to backslash them. Otherwise strings can contain hard newlines, tabs, and whatnot. We don’t interpret the usual escapes like \n, \t etc. though again, the changes would be pretty trivial (in “read_string”).</p></li></ul><p>We now have sufficiently powerful tools to easily write the parser, but first I’d recommend you to look at the description of the AST.</p><h2 id="AST"><a href="#AST" class="headerlink" title="AST"></a>AST</h2><pre><code>num &#123; type: &quot;num&quot;, value: NUMBER &#125;
+str &#123; type: &quot;str&quot;, value: STRING &#125;
+bool &#123; type: &quot;bool&quot;, value: true or false &#125;
+var &#123; type: &quot;var&quot;, value: NAME &#125;
+lambda &#123; type: &quot;lambda&quot;, vars: [ NAME... ], body: AST &#125;
+call &#123; type: &quot;call&quot;, func: AST, args: [ AST... ] &#125;
+if &#123; type: &quot;if&quot;, cond: AST, then: AST, else: AST &#125;
+assign &#123; type: &quot;assign&quot;, operator: &quot;=&quot;, left: AST, right: AST &#125;
+binary &#123; type: &quot;binary&quot;, operator: OPERATOR, left: AST, right: AST &#125;
+prog &#123; type: &quot;prog&quot;, prog: [ AST... ] &#125;
+let &#123; type: &quot;let&quot;, vars: [ VARS... ], body: AST &#125;
+</code></pre><p>Example:</p><pre><code>let (a = 10, b = a * 10) &#123;
+  a + b;
+&#125;
+</code></pre><p>To:</p><pre><code>&#123;
+  &quot;type&quot;: &quot;let&quot;,
+  &quot;vars&quot;: [
+    &#123;
+      &quot;name&quot;: &quot;a&quot;,
+      &quot;def&quot;: &#123; &quot;type&quot;: &quot;num&quot;, &quot;value&quot;: 10 &#125;
+    &#125;,
+    &#123;
+      &quot;name&quot;: &quot;b&quot;,
+      &quot;def&quot;: &#123;
+        &quot;type&quot;: &quot;binary&quot;,
+        &quot;operator&quot;: &quot;*&quot;,
+        &quot;left&quot;: &#123; &quot;type&quot;: &quot;var&quot;, &quot;value&quot;: &quot;a&quot; &#125;,
+        &quot;right&quot;: &#123; &quot;type&quot;: &quot;num&quot;, &quot;value&quot;: 10 &#125;
+      &#125;
+    &#125;
+  ],
+  &quot;body&quot;: &#123;
+    &quot;type&quot;: &quot;binary&quot;,
+    &quot;operator&quot;: &quot;+&quot;,
+    &quot;left&quot;: &#123; &quot;type&quot;: &quot;var&quot;, &quot;value&quot;: &quot;a&quot; &#125;,
+    &quot;right&quot;: &#123; &quot;type&quot;: &quot;var&quot;, &quot;value&quot;: &quot;b&quot; &#125;
+  &#125;
+&#125;
+</code></pre><h2 id="The-parser"><a href="#The-parser" class="headerlink" title="The parser"></a>The parser</h2><p>The parser creates AST nodes that are described in the AST section. Thanks to the work we did in the tokenizer, the parser operates on a stream of tokens instead of dealing with individual characters. It still defines many helpers to keep complexity down. I’ll discuss here the main functions that comprise the parser. Let’s start with a high level one, the lambda parser:</p><pre><code>function parse_lambda() &#123;
+    return &#123;
+        type: &quot;lambda&quot;,
+        vars: delimited(&quot;(&quot;, &quot;)&quot;, &quot;,&quot;, parse_varname),
+        body: parse_expression()
+    &#125;;
+&#125;
+</code></pre><p>This function will be invoked when the lambda keyword has already been seen and “eaten” from the input, so all it cares for is to parse the <strong>argument names</strong>; but they’re in parentheses and delimited by commas. Rather than placing that code in <code>parse_lambda</code>, I preferred to write a delimited function that takes these arguments: the start token, the end token, the separator, and a function which parses whatever must be between those start&#x2F;end tokens. In this case, it’s <code>parse_varname</code>, which takes care to throw an error if it encounters anything which doesn’t look like a variable. The body of the function is an expression, so we get it with parse_expression. delimited is a bit lower-level:</p><pre><code>function delimited(start, stop, separator, parser) &#123;
+    var a = [], first = true;
+    skip_punc(start);
+    while (!input.eof()) &#123;
+        if (is_punc(stop)) break;
+        if (first) first = false; else skip_punc(separator);
+        if (is_punc(stop)) break; // the last separator can be missing
+        a.push(parser());
+    &#125;
+    skip_punc(stop);
+    return a;
+&#125;
+</code></pre><p>As you can see, it uses more utilities: <code>is_punc</code> and <code>skip_punc</code>. The former will return true if the current token is the given punctuation sign (without “eating” it), while <code>skip_punc</code> will ensure that the current token is that punctuation (throws an error otherwise) and will discard it from the input. The function that parses the whole program is probably the simplest:</p><pre><code>function parse_toplevel() &#123;
+    var prog = [];
+    while (!input.eof()) &#123;
+        prog.push(parse_expression());
+        if (!input.eof()) skip_punc(&quot;;&quot;);
+    &#125;
+    return &#123; type: &quot;prog&quot;, prog: prog &#125;;
+&#125;
+</code></pre><p>Since we have no statements, we simply call <code>parse_expression()</code> and read expressions until we get to the end of the input. Using <code>skip_punc(&quot;;&quot;)</code> we demand semicolons between these expressions. Another simple example: <code>parse_if()</code>:</p><pre><code>function parse_if() &#123;
+    skip_kw(&quot;if&quot;);
+    var cond = parse_expression();
+    if (!is_punc(&quot;&#123;&quot;)) skip_kw(&quot;then&quot;);
+    var then = parse_expression();
+    var ret = &#123; type: &quot;if&quot;, cond: cond, then: then &#125;;
+    if (is_kw(&quot;else&quot;)) &#123;
+        input.next();
+        ret.else = parse_expression();
+    &#125;
+    return ret;
+&#125;
+</code></pre><p>It skips over the if keyword with <code>skip_kw</code> (and this throws an error if the current token is not the given keyword), reads the condition using <code>parse_expression()</code>. Next, if the consequent branch doesn’t start with a { we require the keyword then to be present (I feel like the syntax is too scarce without it). The branches are just expressions, so again we use parse_expression() for them. The else branch is optional so we need to check if the keyword is present before parsing it. Having many small utilities helps a lot in keeping the code simple. We almost write the parser like we had a high level language dedicated for parsing. All these functions are “mutually recursive”, e.g.: there’s a <code>parse_atom()</code> function which is the main dispatcher — based on the current token it calls other functions. One of them is <code>parse_if()</code> (called when the current token is if) and that in turn calls <code>parse_expression()</code>. But <code>parse_expression()</code> calls <code>parse_atom()</code>. The reason why there’s no infinite loop is that at each step, one function or another will advance at least one token. This kind of parser is called a “recursive descent parser” and it’s probably the easiest kind to write manually. **Lower level: <code>parse_atom()</code> and <code>parse_expression()</code> ** parse_atom() does the main dispatching job, depending on the current token:</p><pre><code>function parse_atom() &#123;
+    return maybe_call(function()&#123;
+        if (is_punc(&quot;(&quot;)) &#123;
+            input.next();
+            var exp = parse_expression();
+            skip_punc(&quot;)&quot;);
+            return exp;
+        &#125;
+        if (is_punc(&quot;&#123;&quot;)) return parse_prog();
+        if (is_kw(&quot;if&quot;)) return parse_if();
+        if (is_kw(&quot;true&quot;) || is_kw(&quot;false&quot;)) return parse_bool();
+        if (is_kw(&quot;lambda&quot;) || is_kw(&quot;λ&quot;)) &#123;
+            input.next();
+            return parse_lambda();
+        &#125;
+        var tok = input.next();
+        if (tok.type == &quot;var&quot; || tok.type == &quot;num&quot; || tok.type == &quot;str&quot;)
+            return tok;
+        unexpected();
+    &#125;);
+&#125;
+</code></pre><p>If it sees an open paren, then it must be a parenthesized expression — thus, skip over paren, call parse_expression() and expect a closing paren. If it sees some keyword, it calls the appropriate parser function. If it sees a constant or an identifier, it’s just returned as is. And if nothing works, unexpected() will throw an error. When an atomic expression is expected and it sees {, it calls parse_prog to parse a sequence of expressions. That’s defined below. It will do some minor optimization at this point — if the prog is empty, then it just returns FALSE. If it has a single expression, it is returned instead of a “prog” node. Otherwise it returns a “prog” node containing the expressions.</p><pre><code>// we&#39;re going to use the FALSE node in various places,
+// so I&#39;m making it a global.
+var FALSE = &#123; type: &quot;bool&quot;, value: false &#125;;
+
+function parse_prog() &#123;
+    var prog = delimited(&quot;&#123;&quot;, &quot;&#125;&quot;, &quot;;&quot;, parse_expression);
+    if (prog.length == 0) return FALSE;
+    if (prog.length == 1) return prog[0];
+    return &#123; type: &quot;prog&quot;, prog: prog &#125;;
+&#125;
+</code></pre><p>Here’s the <code>parse_expression()</code> function. Contrary to <code>parse_atom()</code>, this one will extend an expression as much as possible to the right using <code>maybe_binary()</code>, which is explained below.</p><pre><code>function parse_expression() &#123;
+    return maybe_call(function()&#123;
+        return maybe_binary(parse_atom(), 0);
+    &#125;);
+&#125;
+</code></pre><h3 id="The-maybe-functions"><a href="#The-maybe-functions" class="headerlink" title="The maybe_ functions*"></a><em><em>The maybe_</em> functions</em>*</h3><p>These functions check what follows after an expression in order to decide whether to wrap that expression in another node, or just return it as is. <code>maybe_call()</code> is very simple. It receives a function that is expected to parse the current expression. If after that expression it sees a ( punctuation token, then it must be a “call” node, which is what parse_call() makes (included below). Notice again how delimited() comes in handy for reading the argument list.</p><pre><code>function maybe_call(expr) &#123;
+    expr = expr();
+    return is_punc(&quot;(&quot;) ? parse_call(expr) : expr;
+&#125;
+
+function parse_call(func) &#123;
+    return &#123;
+        type: &quot;call&quot;,
+        func: func,
+        args: delimited(&quot;(&quot;, &quot;)&quot;, &quot;,&quot;, parse_expression)
+    &#125;;
+&#125;
+</code></pre><h4 id="Operator-precedence"><a href="#Operator-precedence" class="headerlink" title="Operator precedence"></a>Operator precedence</h4><p><code>maybe_binary(left, my_prec)</code> is used to compose binary expressions like 1 + 2 * 3. The trick to parse them properly is to correctly define the operator precedence, so we’ll start with that:</p><pre><code>var PRECEDENCE = &#123;
+    &quot;=&quot;: 1,
+    &quot;||&quot;: 2,
+    &quot;&amp;&amp;&quot;: 3,
+    &quot;&lt;&quot;: 7, &quot;&gt;&quot;: 7, &quot;&lt;=&quot;: 7, &quot;&gt;=&quot;: 7, &quot;==&quot;: 7, &quot;!=&quot;: 7,
+    &quot;+&quot;: 10, &quot;-&quot;: 10,
+    &quot;*&quot;: 20, &quot;/&quot;: 20, &quot;%&quot;: 20,
+&#125;;
+</code></pre><p>This says that * binds tighter than +, so an expression like 1 + 2 * 3 must be read as (1 + (2 * 3)) instead of ((1 + 2) * 3), which would be the normal left-to-right order in which the parser operates. The trick is to read an atomic expression (only the 1) and pass it to <code>maybe_binary()</code> (the left argument), along with the current precedence <code>(the my_prec)</code>. maybe_binary will look at what follows. If it doesn’t see an operator, or if it has a smaller priority, then left is returned as is. If it’s an operator that has a higher precedence than ours, then it wraps left in a new “binary” node, and for the right side it repeats the trick at the new precedence level (*):</p><pre><code>function maybe_binary(left, my_prec) &#123;
+    var tok = is_op();
+    if (tok) &#123;
+        var his_prec = PRECEDENCE[tok.value];
+        if (his_prec &gt; my_prec) &#123;
+            input.next();
+            var right = maybe_binary(parse_atom(), his_prec) // (*);
+            var binary = &#123;
+                type     : tok.value == &quot;=&quot; ? &quot;assign&quot; : &quot;binary&quot;,
+                operator : tok.value,
+                left     : left,
+                right    : right
+            &#125;;
+            return maybe_binary(binary, my_prec);
+        &#125;
+    &#125;
+    return left;
+&#125;
+</code></pre><p>Note that before returning the binary expression we must also call <code>maybe_binary</code> at the old precedence level (my_prec), in order to wrap the expression in another one, should an operator with a higher precedence follow. If all this is confusing, read the code again and again (perhaps try to execute it mentally on some input expressions) until you get it. Finally, since my_prec is initially zero, any operator will trigger the building of a “binary” node (or “assign” when the operator is &#x3D;). There are a few more functions in the parser, so I’m including the whole parse function below. Click “Show code” to display it (about 150 lines).</p><pre><code>var FALSE = &#123; type: &quot;bool&quot;, value: false &#125;;
+function parse(input) &#123;
+    var PRECEDENCE = &#123;
+        &quot;=&quot;: 1,
+        &quot;||&quot;: 2,
+        &quot;&amp;&amp;&quot;: 3,
+        &quot;&lt;&quot;: 7, &quot;&gt;&quot;: 7, &quot;&lt;=&quot;: 7, &quot;&gt;=&quot;: 7, &quot;==&quot;: 7, &quot;!=&quot;: 7,
+        &quot;+&quot;: 10, &quot;-&quot;: 10,
+        &quot;*&quot;: 20, &quot;/&quot;: 20, &quot;%&quot;: 20,
+    &#125;;
+    return parse_toplevel();
+    function is_punc(ch) &#123;
+        var tok = input.peek();
+        return tok &amp;&amp; tok.type == &quot;punc&quot; &amp;&amp; (!ch || tok.value == ch) &amp;&amp; tok;
+    &#125;
+    function is_kw(kw) &#123;
+        var tok = input.peek();
+        return tok &amp;&amp; tok.type == &quot;kw&quot; &amp;&amp; (!kw || tok.value == kw) &amp;&amp; tok;
+    &#125;
+    function is_op(op) &#123;
+        var tok = input.peek();
+        return tok &amp;&amp; tok.type == &quot;op&quot; &amp;&amp; (!op || tok.value == op) &amp;&amp; tok;
+    &#125;
+    function skip_punc(ch) &#123;
+        if (is_punc(ch)) input.next();
+        else input.croak(&quot;Expecting punctuation: \&quot;&quot; + ch + &quot;\&quot;&quot;);
+    &#125;
+    function skip_kw(kw) &#123;
+        if (is_kw(kw)) input.next();
+        else input.croak(&quot;Expecting keyword: \&quot;&quot; + kw + &quot;\&quot;&quot;);
+    &#125;
+    function skip_op(op) &#123;
+        if (is_op(op)) input.next();
+        else input.croak(&quot;Expecting operator: \&quot;&quot; + op + &quot;\&quot;&quot;);
+    &#125;
+    function unexpected() &#123;
+        input.croak(&quot;Unexpected token: &quot; + JSON.stringify(input.peek()));
+    &#125;
+    function maybe_binary(left, my_prec) &#123;
+        var tok = is_op();
+        if (tok) &#123;
+            var his_prec = PRECEDENCE[tok.value];
+            if (his_prec &gt; my_prec) &#123;
+                input.next();
+                return maybe_binary(&#123;
+                    type     : tok.value == &quot;=&quot; ? &quot;assign&quot; : &quot;binary&quot;,
+                    operator : tok.value,
+                    left     : left,
+                    right    : maybe_binary(parse_atom(), his_prec)
+                &#125;, my_prec);
+            &#125;
+        &#125;
+        return left;
+    &#125;
+    function delimited(start, stop, separator, parser) &#123;
+        var a = [], first = true;
+        skip_punc(start);
+        while (!input.eof()) &#123;
+            if (is_punc(stop)) break;
+            if (first) first = false; else skip_punc(separator);
+            if (is_punc(stop)) break;
+            a.push(parser());
+        &#125;
+        skip_punc(stop);
+        return a;
+    &#125;
+    function parse_call(func) &#123;
+        return &#123;
+            type: &quot;call&quot;,
+            func: func,
+            args: delimited(&quot;(&quot;, &quot;)&quot;, &quot;,&quot;, parse_expression),
+        &#125;;
+    &#125;
+    function parse_varname() &#123;
+        var name = input.next();
+        if (name.type != &quot;var&quot;) input.croak(&quot;Expecting variable name&quot;);
+        return name.value;
+    &#125;
+    function parse_if() &#123;
+        skip_kw(&quot;if&quot;);
+        var cond = parse_expression();
+        if (!is_punc(&quot;&#123;&quot;)) skip_kw(&quot;then&quot;);
+        var then = parse_expression();
+        var ret = &#123;
+            type: &quot;if&quot;,
+            cond: cond,
+            then: then,
+        &#125;;
+        if (is_kw(&quot;else&quot;)) &#123;
+            input.next();
+            ret.else = parse_expression();
+        &#125;
+        return ret;
+    &#125;
+    function parse_lambda() &#123;
+        return &#123;
+            type: &quot;lambda&quot;,
+            vars: delimited(&quot;(&quot;, &quot;)&quot;, &quot;,&quot;, parse_varname),
+            body: parse_expression()
+        &#125;;
+    &#125;
+    function parse_bool() &#123;
+        return &#123;
+            type  : &quot;bool&quot;,
+            value : input.next().value == &quot;true&quot;
+        &#125;;
+    &#125;
+    function maybe_call(expr) &#123;
+        expr = expr();
+        return is_punc(&quot;(&quot;) ? parse_call(expr) : expr;
+    &#125;
+    function parse_atom() &#123;
+        return maybe_call(function()&#123;
+            if (is_punc(&quot;(&quot;)) &#123;
+                input.next();
+                var exp = parse_expression();
+                skip_punc(&quot;)&quot;);
+                return exp;
+            &#125;
+            if (is_punc(&quot;&#123;&quot;)) return parse_prog();
+            if (is_kw(&quot;if&quot;)) return parse_if();
+            if (is_kw(&quot;true&quot;) || is_kw(&quot;false&quot;)) return parse_bool();
+            if (is_kw(&quot;lambda&quot;) || is_kw(&quot;λ&quot;)) &#123;
+                input.next();
+                return parse_lambda();
+            &#125;
+            var tok = input.next();
+            if (tok.type == &quot;var&quot; || tok.type == &quot;num&quot; || tok.type == &quot;str&quot;)
+                return tok;
+            unexpected();
+        &#125;);
+    &#125;
+    function parse_toplevel() &#123;
+        var prog = [];
+        while (!input.eof()) &#123;
+            prog.push(parse_expression());
+            if (!input.eof()) skip_punc(&quot;;&quot;);
+        &#125;
+        return &#123; type: &quot;prog&quot;, prog: prog &#125;;
+    &#125;
+    function parse_prog() &#123;
+        var prog = delimited(&quot;&#123;&quot;, &quot;&#125;&quot;, &quot;;&quot;, parse_expression);
+        if (prog.length == 0) return FALSE;
+        if (prog.length == 1) return prog[0];
+        return &#123; type: &quot;prog&quot;, prog: prog &#125;;
+    &#125;
+    function parse_expression() &#123;
+        return maybe_call(function()&#123;
+            return maybe_binary(parse_atom(), 0);
+        &#125;);
+    &#125;
+&#125;
+</code></pre><h3 id="Credit"><a href="#Credit" class="headerlink" title="Credit"></a>Credit</h3><p>The moment I understood how to write a non-trivial parser occurred while studying Marijn Haverbeke’s parse-js library (Common Lisp). The parser above, although for a much simpler language, is modeled after his code.</p><hr><h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><p>To recap: so far we wrote 3 functions: InputStream, TokenStream and parse. To get an AST from a piece of code now we can do the following:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var ast = parse(TokenStream(InputStream(code)));</span><br></pre></td></tr></table></figure></div><p>Writing an interpreter is easier than the parser. We just have to walk the AST, executing expressions in their normal order.</p><h2 id="The-environment"><a href="#The-environment" class="headerlink" title="The environment"></a>The environment</h2><p>The key to correct execution is to properly maintain the environment — a structure holding variable bindings. It will be passed as an argument to our evaluate function. Each time we enter a “lambda” node we must extend the environment with new variables (function’s arguments) and initialize them with values passed at run time. If an argument shadows a variable from the outer scope (I’ll use words scope and environment interchangeably here) we must be careful to restore the previous value when we leave the function.</p><p>The simplest way to implement this is using JavaScript’s prototype inheritance. When we enter a function we’ll create a new environment, set its prototype to the outer (parent) environment and evaluate the function body in the new one. This way when we exit we need not do anything — the outer env will already contain any shadowed bindings.</p><p>Here’s the definition of the Environment object:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">function Environment(parent) &#123;</span><br><span class="line">    this.vars = Object.create(parent ? parent.vars : null);</span><br><span class="line">    this.parent = parent;</span><br><span class="line">&#125;</span><br><span class="line">Environment.prototype = &#123;</span><br><span class="line">    extend: function() &#123;</span><br><span class="line">        return new Environment(this);</span><br><span class="line">    &#125;,</span><br><span class="line">    lookup: function(name) &#123;</span><br><span class="line">        var scope = this;</span><br><span class="line">        while (scope) &#123;</span><br><span class="line">            if (Object.prototype.hasOwnProperty.call(scope.vars, name))</span><br><span class="line">                return scope;</span><br><span class="line">            scope = scope.parent;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    get: function(name) &#123;</span><br><span class="line">        if (name in this.vars)</span><br><span class="line">            return this.vars[name];</span><br><span class="line">        throw new Error(&quot;Undefined variable &quot; + name);</span><br><span class="line">    &#125;,</span><br><span class="line">    set: function(name, value) &#123;</span><br><span class="line">        var scope = this.lookup(name);</span><br><span class="line">        // let&#x27;s not allow defining globals from a nested environment</span><br><span class="line">        if (!scope &amp;&amp; this.parent)</span><br><span class="line">            throw new Error(&quot;Undefined variable &quot; + name);</span><br><span class="line">        return (scope || this).vars[name] = value;</span><br><span class="line">    &#125;,</span><br><span class="line">    def: function(name, value) &#123;</span><br><span class="line">        return this.vars[name] = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><p>An Environment object has a parent, which points to the parent scope. The parent will be null for the global scope. And it has a vars property which holds the variable bindings. This is initialized as Object.create(null) for the toplevel (global) scope, or Object.create(parent.vars) for subscopes, in order to “see” the current bindings via prototypal inheritance.</p><p>There are the following methods:</p><ul><li><p>extend() — to create a subscope.</p></li><li><p>lookup(name) — to find the scope where the variable with the given name is defined.</p></li><li><p>get(name) — to get the current value of a variable. Throws an error if the variable is not defined.</p></li><li><p>set(name, value) — to set the value of a variable. This needs to lookup the actual scope where the variable is defined. If it’s not found and we’re not in the global scope, throws an error.</p></li><li><p>def(name, value) — this creates (or shadows, or overwrites) a variable in the current scope.</p></li></ul><h2 id="The-evaluate-function"><a href="#The-evaluate-function" class="headerlink" title="The evaluate function"></a>The evaluate function</h2><p>Now that we have the Environment we can jump to the main problem. This function will be a big switch statement, dispatching by node type, containing logic for evaluating each kind of node. I’ll comment on each case:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function evaluate(exp, env) &#123;</span><br><span class="line">    switch (exp.type) &#123;</span><br></pre></td></tr></table></figure></div><p>For constant nodes, we just return their value:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case &quot;num&quot;:</span><br><span class="line">case &quot;str&quot;:</span><br><span class="line">case &quot;bool&quot;:</span><br><span class="line">  return exp.value;</span><br></pre></td></tr></table></figure></div><p>Variables are fetched from the environment. Remember that “var” tokens contain the name in the value property:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">case &quot;var&quot;:</span><br><span class="line">  return env.get(exp.value);</span><br></pre></td></tr></table></figure></div><p>For assignment, we need to check if the left side is a “var” token (if not, throw an error; we don’t support assignment to anything else for now). Then we use env.set to set the value. Note that the value needs to be computed first by calling evaluate recursively.</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case &quot;assign&quot;:</span><br><span class="line">  if (exp.left.type != &quot;var&quot;)</span><br><span class="line">      throw new Error(&quot;Cannot assign to &quot; + JSON.stringify(exp.left));</span><br><span class="line">  return env.set(exp.left.value, evaluate(exp.right, env));</span><br></pre></td></tr></table></figure></div><p>A “binary” node needs to apply an operator to two operands. We’ll write the apply_op function later, it’s quite trivial. Again, we need to call the evaluator recursively to compute the left and right operands:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case &quot;binary&quot;:</span><br><span class="line">  return apply_op(exp.operator,</span><br><span class="line">                  evaluate(exp.left, env),</span><br><span class="line">                  evaluate(exp.right, env));</span><br></pre></td></tr></table></figure></div><p>A “lambda” node will actually result in a JavaScript closure, so it will be callable from JavaScript just like an ordinary function. I wrote a make_lambda function, which I’ll define later:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">case &quot;lambda&quot;:</span><br><span class="line">  return make_lambda(env, exp);</span><br></pre></td></tr></table></figure></div><p>Evaluating an “if” node is simple: first evaluate the condition. If it’s not false then evaluate the “then” branch and return its value. Otherwise, evaluate the “else” branch, if present, or return false.</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case &quot;if&quot;:</span><br><span class="line">  var cond = evaluate(exp.cond, env);</span><br><span class="line">  if (cond !== false) return evaluate(exp.then, env);</span><br><span class="line">  return exp.else ? evaluate(exp.else, env) : false;</span><br></pre></td></tr></table></figure></div><p>A “prog” is a sequence of expressions. We just evaluate them in order and return the value of the last one. For an empty sequence, the return value is initialized to false.</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">case &quot;prog&quot;:</span><br><span class="line">  var val = false;</span><br><span class="line">  exp.prog.forEach(function(exp)&#123; val = evaluate(exp, env) &#125;);</span><br><span class="line">  return val;</span><br></pre></td></tr></table></figure></div><p>For a “call” node we need to call a function. First we evaluate the func, which should return a normal JS function, then we evaluate the args and apply that function.</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">case &quot;call&quot;:</span><br><span class="line">  var func = evaluate(exp.func, env);</span><br><span class="line">  return func.apply(null, exp.args.map(function(arg)&#123;</span><br><span class="line">      return evaluate(arg, env);</span><br><span class="line">  &#125;));</span><br></pre></td></tr></table></figure></div><p>We should never get here, but just in case we add new node types in the parser and we forget to update the evaluator, let’s throw a clear error.</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">      default:</span><br><span class="line">        throw new Error(&quot;I don&#x27;t know how to evaluate &quot; + exp.type);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>This was the core of the evaluator and as you can see it’s really simple. We still need to write two more functions, let’s start with apply_op as it’s the easiest one:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function apply_op(op, a, b) &#123;</span><br><span class="line">    function num(x) &#123;</span><br><span class="line">        if (typeof x != &quot;number&quot;)</span><br><span class="line">            throw new Error(&quot;Expected number but got &quot; + x);</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    function div(x) &#123;</span><br><span class="line">        if (num(x) == 0)</span><br><span class="line">            throw new Error(&quot;Divide by zero&quot;);</span><br><span class="line">        return x;</span><br><span class="line">    &#125;</span><br><span class="line">    switch (op) &#123;</span><br><span class="line">      case &quot;+&quot;  : return num(a) + num(b);</span><br><span class="line">      case &quot;-&quot;  : return num(a) - num(b);</span><br><span class="line">      case &quot;*&quot;  : return num(a) * num(b);</span><br><span class="line">      case &quot;/&quot;  : return num(a) / div(b);</span><br><span class="line">      case &quot;%&quot;  : return num(a) % div(b);</span><br><span class="line">      case &quot;&amp;&amp;&quot; : return a !== false &amp;&amp; b;</span><br><span class="line">      case &quot;||&quot; : return a !== false ? a : b;</span><br><span class="line">      case &quot;&lt;&quot;  : return num(a) &lt; num(b);</span><br><span class="line">      case &quot;&gt;&quot;  : return num(a) &gt; num(b);</span><br><span class="line">      case &quot;&lt;=&quot; : return num(a) &lt;= num(b);</span><br><span class="line">      case &quot;&gt;=&quot; : return num(a) &gt;= num(b);</span><br><span class="line">      case &quot;==&quot; : return a === b;</span><br><span class="line">      case &quot;!=&quot; : return a !== b;</span><br><span class="line">    &#125;</span><br><span class="line">    throw new Error(&quot;Can&#x27;t apply operator &quot; + op);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>It receives the operator and the arguments. Just a boring switch to apply it. Unlike JavaScript, which applies any operator to any arguments and moves on whether that makes any sense or not, we require that the operands for numeric operators be numbers, and that a divizor is not zero, using the small helpers num and div. For strings we’ll define something else.</p><h2 id="make-lambda"><a href="#make-lambda" class="headerlink" title="make_lambda"></a>make_lambda</h2><p>The make_lambda is a bit subtle:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function make_lambda(env, exp) &#123;</span><br><span class="line">    function lambda() &#123;</span><br><span class="line">        var names = exp.vars;</span><br><span class="line">        var scope = env.extend();</span><br><span class="line">        for (var i = 0; i &lt; names.length; ++i)</span><br><span class="line">            scope.def(names[i], i &lt; arguments.length ? arguments[i] : false);</span><br><span class="line">        return evaluate(exp.body, scope);</span><br><span class="line">    &#125;</span><br><span class="line">    return lambda;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>As you can see, it returns a plain JavaScript function that encloses over the environment and the expression to evaluate. It’s important to understand that nothing happens when this closure is created — but when it’s called, it will extend the environment that it saved at creation time with the new bindings of arguments&#x2F;values (if less values are passed than the function’s argument list, the missing ones will get the value false). And then it just evaluates the body in the new scope.</p><h2 id="primitive-functions"><a href="#primitive-functions" class="headerlink" title="primitive functions"></a>primitive functions</h2><p>You can observe that our language does not provide any means to interact with the outside world. In some code examples I’ve used some print and println functions, but they are not defined anywhere. These have to be defined as primitive functions (that is, we’ll write them in JavaScript and will insert them into the global environment).</p><p>To put it all together now, here’s a test program:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// some test code here</span><br><span class="line">var code = &quot;sum = lambda(x, y) x + y; print(sum(2, 3));&quot;;</span><br><span class="line"></span><br><span class="line">// remember, parse takes a TokenStream which takes an InputStream</span><br><span class="line">var ast = parse(TokenStream(InputStream(code)));</span><br><span class="line"></span><br><span class="line">// create the global environment</span><br><span class="line">var globalEnv = new Environment();</span><br><span class="line"></span><br><span class="line">// define the &quot;print&quot; primitive function</span><br><span class="line">globalEnv.def(&quot;print&quot;, function(txt)&#123;</span><br><span class="line">  console.log(txt);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// run the evaluator</span><br><span class="line">evaluate(ast, globalEnv); // will print 5</span><br></pre></td></tr></table></figure></div><p>Test:</p><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;sum = lambda(x, y) x + y; println(sum(2, 3));&#x27; | node lambda-eval1.js</span><br></pre></td></tr></table></figure></div></div><div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8"><div class="article-copyright-info-container"><ul><li><strong>Title:</strong> [Parser] Build: PL By:JS</li><li><strong>Author:</strong> ReZero</li><li><strong>Created at :</strong> 2017-12-02 18:42:56</li><li><strong>Updated at :</strong> 2025-04-15 23:03:26</li><li><strong>Link:</strong> https://rezeros.github.io/2017/12/02/parser-build-pl-byjs/</li><li><strong>License: </strong>This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.</li></ul></div></div><ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden"><li class="tag-item mx-0.5"><a href="/tags/parser/">#parser</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/atom/">#atom</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/expression/">#expression</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/lanauage/">#lanauage</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/operator/">#operator</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/parse/">#parse</a>&nbsp;</li><li class="tag-item mx-0.5"><a href="/tags/precedence/">#precedence</a>&nbsp;</li></ul><div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8"><div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2"><a class="prev" rel="prev" href="/2017/12/03/sicp/"><span class="left arrow-icon flex justify-center items-center"><i class="fa-solid fa-chevron-left"></i> </span><span class="title flex justify-center items-center"><span class="post-nav-title-item">SICP lec1a: # Lisp overview</span> <span class="post-nav-item">Prev posts</span></span></a></div><div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2"><a class="next" rel="next" href="/2017/10/14/web-security%5B1%5D/"><span class="title flex justify-center items-center"><span class="post-nav-title-item">如何实现一个安全的Web登录</span> <span class="post-nav-item">Next posts</span> </span><span class="right arrow-icon flex justify-center items-center"><i class="fa-solid fa-chevron-right"></i></span></a></div></div><div class="comment-container px-2 sm:px-6 md:px-8 pb-8"><div class="comments-container mt-10 w-full"><div id="comment-anchor" class="w-full h-2.5"></div><div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">Comments</div><div id="giscus-container"></div><script data-swup-reload-script defer>async function loadGiscus(){const t={src:"https://giscus.app/client.js","data-repo":"rezeros/rezeros.github.io","data-repo-id":"MDEwOlJlcG9zaXRvcnkxNjk3MzU3NzA=","data-category":"Announcements","data-category-id":"DIC_kwDOCh32Ws4Co2GO","data-mapping":"pathname","data-strict":"0","data-reactions-enabled":"1","data-emit-metadata":"1","data-theme":"preferred_color_scheme","data-lang":"en","data-input-position":"bottom","data-loading":"not-lazy",crossorigin:"anonymous",async:!0},a=document.createElement("script");for(const e in t)a.setAttribute(e,t[e]);document.getElementById("giscus-container").appendChild(a)}{let t=setTimeout(()=>{loadGiscus(),clearTimeout(t)},1e3)}</script></div></div></div><div class="toc-content-container"><div class="post-toc-wrap"><div class="post-toc"><div class="toc-title">On this page</div><div class="page-title">[Parser] Build: PL By:JS</div><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#initial"><span class="nav-text">initial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#What-are-we-going-to-learn"><span class="nav-text">What are we going to learn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Description-of-the-language"><span class="nav-text">Description of the language</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input-stream"><span class="nav-text">Input stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token-Stream"><span class="nav-text">Token Stream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AST"><span class="nav-text">AST</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-parser"><span class="nav-text">The parser</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-maybe-functions"><span class="nav-text">The maybe_ functions*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Credit"><span class="nav-text">Credit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary-1"><span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-environment"><span class="nav-text">The environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-evaluate-function"><span class="nav-text">The evaluate function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make-lambda"><span class="nav-text">make_lambda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#primitive-functions"><span class="nav-text">primitive functions</span></a></li></ol></div></div></div></div></div></div><div class="main-content-footer"><footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color"><div class="info-container py-3 text-center"><div class="text-center">&copy; <span>2022</span> - 2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration:0.5s;color:#f54545"></i>&nbsp;&nbsp;<a href="/">ReZero</a><p class="post-count space-x-0.5"><span>60 posts in total</span></p></div><script data-swup-reload-script src="https://cn.vercount.one/js"></script><div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right"><span id="busuanzi_container_site_uv" class="lg:!block"><span class="text-sm">VISITOR COUNT</span> <span id="busuanzi_value_site_uv"></span> </span><span id="busuanzi_container_site_pv" class="lg:!block"><span class="text-sm">TOTAL PAGE VIEWS</span> <span id="busuanzi_value_site_pv"></span></span></div><div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left"><span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span> <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span></div><div>Blog up for <span class="odometer" id="runtime_days"></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec</div><script data-swup-reload-script>try{function odometer_init(){document.querySelectorAll(".odometer").forEach(e=>{new Odometer({el:e,format:"( ddd).dd",duration:200})})}odometer_init()}catch(e){}</script></div></footer></div></div><div class="post-tools"><div class="post-tools-container"><ul class="article-tools-list"><li class="right-bottom-tools page-aside-toggle"><i class="fa-regular fa-outdent"></i></li><li class="go-comment"><i class="fa-regular fa-comments"></i></li></ul></div></div><div class="right-side-tools-container"><div class="side-tools-container"><ul class="hidden-tools-list"><li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center"><i class="fa-regular fa-magnifying-glass-plus"></i></li><li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center"><i class="fa-regular fa-magnifying-glass-minus"></i></li><li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center"><i class="fa-regular fa-moon"></i></li><li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center"><i class="fa-regular fa-arrow-down"></i></li></ul><ul class="visible-tools-list"><li class="right-bottom-tools toggle-tools-list flex justify-center items-center"><i class="fa-regular fa-cog fa-spin"></i></li><li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center"><i class="arrow-up fas fa-arrow-up"></i> <span class="percent"></span></li></ul></div></div><div class="image-viewer-container"><img src=""></div></main><script src="/js/build/libs/Swup.min.js"></script><script src="/js/build/libs/SwupSlideTheme.min.js"></script><script src="/js/build/libs/SwupScriptsPlugin.min.js"></script><script src="/js/build/libs/SwupProgressPlugin.min.js"></script><script src="/js/build/libs/SwupScrollPlugin.min.js"></script><script src="/js/build/libs/SwupPreloadPlugin.min.js"></script><script>const swup=new Swup({plugins:[new SwupScriptsPlugin({optin:!0}),new SwupProgressPlugin,new SwupScrollPlugin({offset:80}),new SwupSlideTheme({mainElement:".main-content-body"}),new SwupPreloadPlugin],containers:["#swup"]})</script><script src="/js/build/tools/imageViewer.js" type="module"></script><script src="/js/build/utils.js" type="module"></script><script src="/js/build/main.js" type="module"></script><script src="/js/build/layouts/navbarShrink.js" type="module"></script><script src="/js/build/tools/scrollTopBottom.js" type="module"></script><script src="/js/build/tools/lightDarkSwitch.js" type="module"></script><script src="/js/build/layouts/categoryList.js" type="module"></script><script src="/js/build/tools/codeBlock.js" type="module"></script><script src="/js/build/layouts/lazyload.js" type="module"></script><script src="/js/build/tools/runtime.js"></script><script src="/js/build/libs/odometer.min.js"></script><link rel="stylesheet" href="/assets/odometer-theme-minimal.css"><script src="/js/build/libs/Typed.min.js"></script><script src="/js/build/plugins/typed.js" type="module"></script><script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script><script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script><script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script><script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script><script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script></body></html>
